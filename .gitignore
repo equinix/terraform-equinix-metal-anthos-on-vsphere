@@ -1,0 +1,7 @@
+/.terraform*
+/override.tf
+/terraform.tfvars
+/anthos_ssh_priv_key
+/anthos/gcp_keys/*
+terraform.tfstate*
+/ksa_token.txt

@@ -1,0 +1,11 @@
+hostconfig:
+  dns: "__DNS_SERVER__"
+  tod: "129.6.15.28"
+blocks:
+- netmask: __NETMASK__
+  gateway: __GATEWAY__
+  ips:
+  - ip: __ADMIN_LB_1_IP__
+    hostname: admin-lb-1
+  - ip: __ADMIN_LB_2_IP__
+    hostname: admin-lb-2
