@@ -1,0 +1,68 @@
+{
+  "__version": "2.13.0",
+  "new_vcsa": {
+    "esxi": {
+      "hostname": "__ESXI_IP__",
+      "username": "root",
+      "password": "${first_esx_pass}",
+      "deployment_network": "${vcenter_network} Net",
+      "datastore": "datastore1"
+    },
+    "appliance": {
+      "thin_disk_mode": true,
+      "deployment_option": "small",
+      "name": "vcva"
+    },
+    "network": {
+      "ip_family": "ipv4",
+      "mode": "static",
+      "ip": "__VCENTER_IP__",
+      "dns_servers": [
+        "__MGMT_GATEWAY__"
+      ],
+      "prefix": "__MGMT_PREFIX_LENGTH__",
+      "gateway": "__MGMT_GATEWAY__",
+      "system_name": "vcva.${domain_name}"
+    },
+    "os": {
+      "password": "${vcenter_password}",
+      "ntp_servers": "time.nist.gov",
+      "ssh_enable": true
+    },
+    "sso": {
+      "password": "${sso_password}",
+      "domain_name": "vsphere.local"
+    }
+  },
+  "ceip": {
+    "description": {
+      "__comments": [
+        "++++VMware Customer Experience Improvement Program (CEIP)++++",
+        "VMware's Customer Experience Improvement Program (CEIP) ",
+        "provides VMware with information that enables VMware to ",
+        "improve its products and services, to fix problems, ",
+        "and to advise you on how best to deploy and use our ",
+        "products. As part of CEIP, VMware collects technical ",
+        "information about your organization's use of VMware ",
+        "products and services on a regular basis in association ",
+        "with your organization's VMware license key(s). This ",
+        "information does not personally identify any individual. ",
+        "",
+        "Additional information regarding the data collected ",
+        "through CEIP and the purposes for which it is used by ",
+        "VMware is set forth in the Trust & Assurance Center at ",
+        "http://www.vmware.com/trustvmware/ceip.html . If you ",
+        "prefer not to participate in VMware's CEIP for this ",
+        "product, you should disable CEIP by setting ",
+        "'ceip_enabled': false. You may join or leave VMware's ",
+        "CEIP for this product at any time. Please confirm your ",
+        "acknowledgement by passing in the parameter ",
+        "--acknowledge-ceip in the command line.",
+        "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+      ]
+    },
+    "settings": {
+      "ceip_enabled": false
+    }
+  }
+}
