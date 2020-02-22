@@ -1,12 +1,26 @@
-# Automated anthos Installation via Terraform 
-These files will allow you to use [Terraform](http://terraform.io) to deploy a Google Anthos Stack on VMware vSphere. 
+# Automated Anthos Installation via Terraform for Packet
+These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Packet's Bare Metal Cloud offering](https://www.packet.com/cloud/). 
+
+Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud.
+
+Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
 
 ## Prerequisites
 To use these Terraform files, you need to have the following Prerequisites:
-* A white listed GCP project and service account.
-* A Packet  org-id and API key
+* An [Anthos subscription](https://cloud.google.com/anthos/docs/getting-started)
+* A [white listed GCP project and service account](https://cloud.google.com/anthos/gke/docs/on-prem/how-to/gcp-project).
+* A Packet org-id and [API key](https://www.packet.com/developers/api/)
 * A public SSH key within your Packet account and the associated private saved at `~/.ssh/id_rsa` on the device with Terraform Files. (See [Packet Documentation](https://support.packet.com/kb/articles/generate-ssh-keys) for more information on creating keys. Permissions should be set to `0400` for `~/.ssh/id_rsa`
+* [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) obtained from VMware
+* [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734)
  
+##Tested GKE on-prem verions
+The Terrafrom has been succesfully tested with following versions of GKE on-prem:
+* 1.1.2-gke.0
+* 1.2.0-gke.6
+
+To simplify setup, this is designed to used the EAP bundled Seesaw load balancer scheduled to go GA later this year. No other load balancer support is planned at this time.
+
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
 
@@ -71,9 +85,13 @@ sudo mv terraform /usr/local/bin/
 Terraform uses modules to deploy infrastructure. In order to initialize the modules your simply run: `terraform init`. This should download five modules into a hidden directory `.terraform` 
  
 ## Modify your variables 
-This is set to run pretty well out of the box. You need to set are `auth_token` & `organization_id` to connect to Packet and the `project_name` which will be created in Packet. You will need to set `anthos_gcp_project_id` for your GCP Project ID. We will need an S3 compatible object store to download "Closed Source" packages such as vCenter. Those variables are: `s3_url`, `s3_bucket_name`, `s3_access_key`, `s3_secret_key`, & `vcenter_iso_name`. The Anthos variables include `anthos_version` (currently supported is 1.1.2-gke.0 and 1.2.0-gke.6) and the `anthos_user_cluster_name`.
+There are many variables which can be set to customize your install within `00-vars.tf` and `30-anthos-vars.tf`. The default variables to bring up a 3 node vSphere cluster and linux router using Packet's [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/). Change each default variable at your own risk. 
+
+There are some variables you must set with a terraform.tfvars files. You need to set `auth_token` & `organization_id` to connect to Packet and the `project_name` which will be created in Packet. You will need to set `anthos_gcp_project_id` for your GCP Project ID. We will need a GCS bucket to download "Closed Source" packages such as vCenter. The GCS related variables is `gcs_bucket_name`. You need to provide the vCenter ISO file name as `vcenter_iso_name`. 
+
+The Anthos variables include `anthos_version`  and the `anthos_user_cluster_name`.
  
-Here is a quick command that will start this file for you: 
+Here is a quick command plus sample values to start file for you: 
 ```bash 
 cat <<EOF >terraform.tfvars 
 auth_token = "cefa5c94-e8ee-4577-bff8-1d1edca93ed8" 
