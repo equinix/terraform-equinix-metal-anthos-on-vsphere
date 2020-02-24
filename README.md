@@ -9,6 +9,8 @@ Terraform will create a Packet project complete with a linux machine for routing
 
 Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
 
+The build (with default settings) typically takes 70-75 minutes.
+
 ## Prerequisites
 To use these Terraform files, you need to have the following Prerequisites:
 * An [Anthos subscription](https://cloud.google.com/anthos/docs/getting-started)
