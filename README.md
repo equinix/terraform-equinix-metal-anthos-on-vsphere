@@ -14,12 +14,16 @@ To use these Terraform files, you need to have the following Prerequisites:
 * [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) obtained from VMware
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734)
  
-##Tested GKE on-prem verions
+## Tested GKE on-prem verions
 The Terrafrom has been succesfully tested with following versions of GKE on-prem:
-* 1.1.2-gke.0
-* 1.2.0-gke.6
+* 1.1.2-gke.0*
+* 1.2.0-gke.6*
+* 1.2.1-gke.4*
+* 1.2.2-gke.2*
 
 To simplify setup, this is designed to used the EAP bundled Seesaw load balancer scheduled to go GA later this year. No other load balancer support is planned at this time.
+
+/*Due to a known bug in the EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
 
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
