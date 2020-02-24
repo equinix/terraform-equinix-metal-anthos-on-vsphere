@@ -21,10 +21,10 @@ gkectl create loadbalancer --config /home/ubuntu/cluster/bundled-lb-admin-uc1-co
 
 if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
 	echo "EAP version of bundled LB detected, deleting redundant LBs"
-	#VM1=$(tail -1 seesaw-for-gke-admin.yaml | sed 's/^.\{2\}//' )
-	#VM2=$(tail -1 seesaw-for-user-cluster1.yaml | sed 's/^.\{2\}//')
-	#govc vm.destroy $VM1
-	#govc vm.destroy $VM2
+	VM1=$(tail -1 seesaw-for-gke-admin.yaml | sed 's/^.\{2\}//' )
+	VM2=$(tail -1 seesaw-for-user-cluster1.yaml | sed 's/^.\{2\}//')
+	govc vm.destroy $VM1
+	govc vm.destroy $VM2
 fi
 
 

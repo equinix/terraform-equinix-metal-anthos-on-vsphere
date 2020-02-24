@@ -27,7 +27,7 @@ The Terrafrom has been succesfully tested with following versions of GKE on-prem
 
 To simplify setup, this is designed to used the EAP bundled Seesaw load balancer scheduled to go GA later this year. No other load balancer support is planned at this time.
 
-/*Due to a known bug in the EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
+\*Due to a known bug in the EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
 
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
@@ -214,6 +214,18 @@ Check the `30-anthos-vars.tf` file for additional values (including number of us
 
 ## Troubleshooting
 Some common issues and fixes.
+
+### Error: POST https://api.packet.net/ports/e2385919-fd4c-410d-b71c-568d7a517896/disbond:
+
+At times the Packet API fails to recognize the ESXi host can be enabled for Layer 2 networking (more accurately Mixed/hybrid mode). The terraform will exit and you'll see
+```bash
+Error: POST https://api.packet.net/ports/e2385919-fd4c-410d-b71c-568d7a517896/disbond: 422 This device is not enabled for Layer 2. Please contact support for more details. 
+
+  on 04-esx-hosts.tf line 1, in resource "packet_device" "esxi_hosts":
+   1: resource "packet_device" "esxi_hosts" {
+```
+
+If this happens, you can issue `terraform apply --auto-approve` again and the problematic ESXi host(s) should be deleted and recreated again properly. Or you can perform `terraform destroy --auto-approve` and start over again.
 
 ### null_resource.download_vcenter_iso (remote-exec): E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)
 
