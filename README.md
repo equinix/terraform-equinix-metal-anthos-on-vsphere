@@ -3,6 +3,10 @@ These files will allow you to use [Terraform](http://terraform.io) to deploy [Go
 
 Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud.
 
+
+![Environment Diagram](google-anthos-vsphere-network-diagram.png)
+
+
 Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
 
 ## Prerequisites
@@ -85,6 +89,13 @@ chmod +x terraform
 sudo mv terraform /usr/local/bin/ 
 ``` 
  
+## Download this project
+To download this project, run the following command:
+
+```bash
+git clone https://github.com/packet-labs/google-anthos.git
+```
+
 ## Initialize Terraform 
 Terraform uses modules to deploy infrastructure. In order to initialize the modules your simply run: `terraform init`. This should download five modules into a hidden directory `.terraform` 
  
@@ -104,7 +115,7 @@ project_name = "anthos-packet-project-1"
 anthos_gcp_project_id = "my-anthos-project" 
 gcs_bucket_name = "bucket_name/folder/" 
 vcenter_iso_name = "VMware-VCSA-all-6.7.0-14367737.iso" 
-anthos_version = "1.2.0-gke.6"
+anthos_version = "1.2.2-gke.2"
 anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ``` 
@@ -153,7 +164,7 @@ anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ```  
  
-## Deploy the cluster 
+## Deploy the Packet vSphere cluster and Anthos GKE on-prem cluster 
  
 All there is left to do now is to deploy the cluster: 
 ```bash 
@@ -188,6 +199,14 @@ If this does not work for some reason, you can manually delete each of the resou
 
 ## Skipping the Anthos GKE on-prem cluster creation
 If you wish to create the environment but skip the cluster creation (so that you can practice creating a cluster on your own) add `anthos_deploy_clusters = "False"` to your terraform.tfvars file.
+
+This will still run the pre-requisits for the GKE on-prem install including setting up the admin workstation.
+
+## Skipping all Anthos components and only installing the vSphere environment
+
+If you wish to only setup the vSphere environment and do the all the GKE on-prem install on your own, then delete or move all the `.tf` files starting with `3` from the directory. This will provide a three node vSphere cluster with vSAN but no Anthos components.
+
+See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml) to see what the Anthos parameters are when the default settings are used to create the environment.
 
 ## Changing default Anthos GKE on-prem cluster defaults
 Check the `30-anthos-vars.tf` file for additional values (including number of user worker nodes and vCPU/RAM settings for the worker nodes) which can be set via the terraform.tfvars file.
