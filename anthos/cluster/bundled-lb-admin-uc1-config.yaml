@@ -1,7 +1,7 @@
 #The version of GKE to deploy or upgrade to. This is expected to match the version
 # of gkectl you are using to control your deployment
 # Absolute path to a GKE bundle on disk
-bundlepath: "/var/lib/gke/bundles/gke-onprem-vsphere-${anthos_version}.tgz"
+bundlepath: "/var/lib/gke/bundles/gke-onprem-vsphere-${anthos_version}-full.tgz"
 # Specify which vCenter resources to use for deployment
 vcenter:
   # The credentials and address GKE should use to connect to vCenter
