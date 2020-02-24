@@ -1,4 +1,5 @@
 resource "null_resource" "anthos_copy_token"{
+     count = var.anthos_deploy_worksation_prereqs ? 1 : 0
      depends_on = [null_resource.anthos_deploy_cluster]
      
      provisioner "local-exec" {
