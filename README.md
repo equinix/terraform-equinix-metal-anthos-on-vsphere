@@ -188,7 +188,9 @@ vCenter_Username = Administrator@vsphere.local
  
 ## Connect to the Environment 
 There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every platform. You'll need to reference your operating system's documentation on how to connect to an L2TP IPsec VPN. 
+
 [MAC how to configure L2TP IPsec VPN](https://support.apple.com/guide/mac-help/set-up-a-vpn-connection-on-mac-mchlp2963/mac)
+
 [Chromebook how to configure LT2P IPsec VPN](https://support.google.com/chromebook/answer/1282338?hl=en)
 
 
@@ -206,7 +208,7 @@ This will still run the pre-requisits for the GKE on-prem install including sett
 
 If you wish to only setup the vSphere environment and do the all the GKE on-prem install on your own, then delete or move all the `.tf` files starting with `3` from the directory. This will provide a three node vSphere cluster with vSAN but no Anthos components.
 
-See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml) to see what the Anthos parameters are when the default settings are used to create the environment.
+See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample to see what the Anthos parameters are when the default settings are used to create the environment.
 
 ## Changing default Anthos GKE on-prem cluster defaults
 Check the `30-anthos-vars.tf` file for additional values (including number of user worker nodes and vCPU/RAM settings for the worker nodes) which can be set via the terraform.tfvars file.
