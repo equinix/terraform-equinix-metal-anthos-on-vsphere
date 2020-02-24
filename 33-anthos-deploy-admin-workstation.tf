@@ -35,7 +35,7 @@ data "template_file" "anthos_replace_tf_vars" {
 }
 
 resource "null_resource" "anthos_deploy_workstation" {
-    count = var.anthos_deploy_worksation_prereqs ? 1 : 0
+    count = var.anthos_deploy_workstation_prereqs ? 1 : 0
     depends_on = [null_resource.deploy_vcva]
     connection {
         type = "ssh"

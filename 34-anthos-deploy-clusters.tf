@@ -65,7 +65,7 @@ data "template_file" "anthos_cluster_creation_script" {
 }
 
 resource "null_resource" "anthos_deploy_cluster" { 
-    count = var.anthos_deploy_worksation_prereqs ? 1 : 0
+    count = var.anthos_deploy_workstation_prereqs ? 1 : 0
     depends_on = [null_resource.anthos_deploy_workstation] 
     connection { 
         type = "ssh" 

@@ -7,7 +7,7 @@ data "template_file" "anthos_pre_reqs_script" {
 }
 
 resource "null_resource" "anthos_pre_reqs" {
-    count = var.anthos_deploy_worksation_prereqs ? 1 : 0
+    count = var.anthos_deploy_workstation_prereqs ? 1 : 0
     depends_on = [null_resource.install_vpn_server]
     connection {
         type = "ssh"

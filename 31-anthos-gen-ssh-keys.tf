@@ -1,5 +1,5 @@
 resource "tls_private_key" "anthos_ssh_key" {
-  count = var.anthos_deploy_worksation_prereqs ? 1 : 0
+  count = var.anthos_deploy_workstation_prereqs ? 1 : 0
   algorithm = "RSA"
   rsa_bits = 4096
 }
