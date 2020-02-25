@@ -211,7 +211,7 @@ To create just the vSphere environment and skip all Anthos related steps, add `a
 
 > Note that `anthos_deploy_clusters` uses a string of either `"True"` or `"False"` while  `anthos_deploy_workstation_prereqs` usses a boolean of `true` or `flase`. This is because the `anthos_deploy_clusters` variable is used within a bash script while `anthos_deploy_workstation_prereqs` is used by Terraform which supports booleans.
 
-See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample to see what the Anthos parameters are when the default settings are used to create the environment.
+See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample) to see what the Anthos parameters are when the default settings are used to create the environment.
 
 ## Changing default Anthos GKE on-prem cluster defaults
 Check the `30-anthos-vars.tf` file for additional values (including number of user worker nodes and vCPU/RAM settings for the worker nodes) which can be set via the terraform.tfvars file.
@@ -234,7 +234,7 @@ If this happens, you can issue `terraform apply --auto-approve` again and the pr
 
 ### null_resource.download_vcenter_iso (remote-exec): E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)
 
-Occasionally the Ubuntu automatic unattended upgrades will run at an unfortunte time and lock apt while the script is attempting to run. Work is underway to solve this issue ([see issue # 7](https://github.com/packethost/packet-anthos/issues/7)).
+Occasionally the Ubuntu automatic unattended upgrades will run at an unfortunte time and lock apt while the script is attempting to run. 
 
 Should this happen, best resolution is to clean up your deployment and try again. 
 
