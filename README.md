@@ -3,6 +3,10 @@ These files will allow you to use [Terraform](http://terraform.io) to deploy [Go
 
 Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud.
 
+
+![Environment Diagram](google-anthos-vsphere-network-diagram-1.png)
+
+
 Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
 
 ## Prerequisites
@@ -14,12 +18,16 @@ To use these Terraform files, you need to have the following Prerequisites:
 * [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) obtained from VMware
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734)
  
-##Tested GKE on-prem verions
+## Tested GKE on-prem verions
 The Terrafrom has been succesfully tested with following versions of GKE on-prem:
-* 1.1.2-gke.0
-* 1.2.0-gke.6
+* 1.1.2-gke.0*
+* 1.2.0-gke.6*
+* 1.2.1-gke.4*
+* 1.2.2-gke.2*
 
 To simplify setup, this is designed to used the EAP bundled Seesaw load balancer scheduled to go GA later this year. No other load balancer support is planned at this time.
+
+\*Due to a known bug in the EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
 
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
@@ -81,6 +89,13 @@ chmod +x terraform
 sudo mv terraform /usr/local/bin/ 
 ``` 
  
+## Download this project
+To download this project, run the following command:
+
+```bash
+git clone https://github.com/packet-labs/google-anthos.git
+```
+
 ## Initialize Terraform 
 Terraform uses modules to deploy infrastructure. In order to initialize the modules your simply run: `terraform init`. This should download five modules into a hidden directory `.terraform` 
  
@@ -100,7 +115,7 @@ project_name = "anthos-packet-project-1"
 anthos_gcp_project_id = "my-anthos-project" 
 gcs_bucket_name = "bucket_name/folder/" 
 vcenter_iso_name = "VMware-VCSA-all-6.7.0-14367737.iso" 
-anthos_version = "1.2.0-gke.6"
+anthos_version = "1.2.2-gke.2"
 anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ``` 
@@ -149,7 +164,7 @@ anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ```  
  
-## Deploy the cluster 
+## Deploy the Packet vSphere cluster and Anthos GKE on-prem cluster 
  
 All there is left to do now is to deploy the cluster: 
 ```bash 
@@ -173,7 +188,9 @@ vCenter_Username = Administrator@vsphere.local
  
 ## Connect to the Environment 
 There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every platform. You'll need to reference your operating system's documentation on how to connect to an L2TP IPsec VPN. 
+
 [MAC how to configure L2TP IPsec VPN](https://support.apple.com/guide/mac-help/set-up-a-vpn-connection-on-mac-mchlp2963/mac)
+
 [Chromebook how to configure LT2P IPsec VPN](https://support.google.com/chromebook/answer/1282338?hl=en)
 
 
@@ -185,12 +202,32 @@ If this does not work for some reason, you can manually delete each of the resou
 ## Skipping the Anthos GKE on-prem cluster creation
 If you wish to create the environment but skip the cluster creation (so that you can practice creating a cluster on your own) add `anthos_deploy_clusters = "False"` to your terraform.tfvars file.
 
+This will still run the pre-requisits for the GKE on-prem install including setting up the admin workstation.
+
+## Skipping all Anthos components and only installing the vSphere environment
+
+If you wish to only setup the vSphere environment and do the all the GKE on-prem install on your own, then delete or move all the `.tf` files starting with `3` from the directory. This will provide a three node vSphere cluster with vSAN but no Anthos components.
+
+See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample to see what the Anthos parameters are when the default settings are used to create the environment.
+
 ## Changing default Anthos GKE on-prem cluster defaults
 Check the `30-anthos-vars.tf` file for additional values (including number of user worker nodes and vCPU/RAM settings for the worker nodes) which can be set via the terraform.tfvars file.
 
 
 ## Troubleshooting
 Some common issues and fixes.
+
+### Error: POST https://api.packet.net/ports/e2385919-fd4c-410d-b71c-568d7a517896/disbond:
+
+At times the Packet API fails to recognize the ESXi host can be enabled for Layer 2 networking (more accurately Mixed/hybrid mode). The terraform will exit and you'll see
+```bash
+Error: POST https://api.packet.net/ports/e2385919-fd4c-410d-b71c-568d7a517896/disbond: 422 This device is not enabled for Layer 2. Please contact support for more details. 
+
+  on 04-esx-hosts.tf line 1, in resource "packet_device" "esxi_hosts":
+   1: resource "packet_device" "esxi_hosts" {
+```
+
+If this happens, you can issue `terraform apply --auto-approve` again and the problematic ESXi host(s) should be deleted and recreated again properly. Or you can perform `terraform destroy --auto-approve` and start over again.
 
 ### null_resource.download_vcenter_iso (remote-exec): E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)
 
