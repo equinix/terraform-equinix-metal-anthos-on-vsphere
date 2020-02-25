@@ -9,6 +9,8 @@ Terraform will create a Packet project complete with a linux machine for routing
 
 Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
 
+The build (with default settings) typically takes 70-75 minutes.
+
 ## Prerequisites
 To use these Terraform files, you need to have the following Prerequisites:
 * An [Anthos subscription](https://cloud.google.com/anthos/docs/getting-started)
@@ -18,6 +20,9 @@ To use these Terraform files, you need to have the following Prerequisites:
 * [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) obtained from VMware
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734)
  
+## Associated Packet Costs
+The default variables make use of 4 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers. These servers are $1 per hour list price (resulting in a total solution price of roughly $4 per hour).
+
 ## Tested GKE on-prem verions
 The Terrafrom has been succesfully tested with following versions of GKE on-prem:
 * 1.1.2-gke.0*
@@ -199,14 +204,12 @@ To clean up a created environment (or a failed one), run `terraform destroy --au
 
 If this does not work for some reason, you can manually delete each of the resources created in Packet (including the project) and then delete your terraform state file, `rm -f terraform.tfstate`.
 
-## Skipping the Anthos GKE on-prem cluster creation
-If you wish to create the environment but skip the cluster creation (so that you can practice creating a cluster on your own) add `anthos_deploy_clusters = "False"` to your terraform.tfvars file.
+## Skipping the Anthos GKE on-prem cluster creation steps
+If you wish to create the environment (including deploy the admin workstation and Anthos pre-res) but skip the cluster creation (so that you can practice creating a cluster on your own) add `anthos_deploy_clusters = "False"` to your terraform.tfvars file. This will still run the pre-requisits for the GKE on-prem install including setting up the admin workstation.
 
-This will still run the pre-requisits for the GKE on-prem install including setting up the admin workstation.
+To create just the vSphere environment and skip all Anthos related steps, add `anthos_deploy_workstation_prereqs = false`.
 
-## Skipping all Anthos components and only installing the vSphere environment
-
-If you wish to only setup the vSphere environment and do the all the GKE on-prem install on your own, then delete or move all the `.tf` files starting with `3` from the directory. This will provide a three node vSphere cluster with vSAN but no Anthos components.
+> Note that `anthos_deploy_clusters` uses a string of either `"True"` or `"False"` while  `anthos_deploy_workstation_prereqs` usses a boolean of `true` or `flase`. This is because the `anthos_deploy_clusters` variable is used within a bash script while `anthos_deploy_workstation_prereqs` is used by Terraform which supports booleans.
 
 See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample to see what the Anthos parameters are when the default settings are used to create the environment.
 

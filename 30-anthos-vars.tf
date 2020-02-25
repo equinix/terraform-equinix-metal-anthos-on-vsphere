@@ -13,6 +13,13 @@ variable "anthos_deploy_clusters" {
   default = "True"
 }
 
+
+variable "anthos_deploy_workstation_prereqs" {
+  description = "Deploy Google Anthos workstation and prereqs"
+  type = bool
+  default = true
+}
+
 variable "anthos_resource_pool_name" {
   description = "Resource Pool Name for Anthos"
   default = "Anthos"
