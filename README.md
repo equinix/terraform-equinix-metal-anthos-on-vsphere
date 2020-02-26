@@ -4,7 +4,7 @@ These files will allow you to use [Terraform](http://terraform.io) to deploy [Go
 Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud.
 
 
-![Environment Diagram](google-anthos-vsphere-network-diagram-1.png)
+![Environment Diagram](docs/images/google-anthos-vsphere-network-diagram-1.png)
 
 
 Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
