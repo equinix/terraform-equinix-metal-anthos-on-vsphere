@@ -56,6 +56,7 @@ https://storage.googleapis.com:
         |
         |__ vsanmgmtObjects.py
 ```
+Your VMware ISO name may vary depending on which build you download.
 These files can be downloaded from [My VMware](http://my.vmware.com).
 Once logged in to "My VMware" the download links are as follows:
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734)
@@ -115,7 +116,7 @@ There are some variables you must set with a terraform.tfvars files. You need to
 
 The Anthos variables include `anthos_version`  and the `anthos_user_cluster_name`.
  
-Here is a quick command plus sample values to start file for you: 
+Here is a quick command plus sample values to start file for you (make sure you adjust the variables to match your environment, pay specail attention that the `vcenter_iso_name` matches whats in your bucket): 
 ```bash 
 cat <<EOF >terraform.tfvars 
 auth_token = "cefa5c94-e8ee-4577-bff8-1d1edca93ed8" 
@@ -123,7 +124,7 @@ organization_id = "42259e34-d300-48b3-b3e1-d5165cd14169"
 project_name = "anthos-packet-project-1"
 anthos_gcp_project_id = "my-anthos-project" 
 gcs_bucket_name = "bucket_name/folder/" 
-vcenter_iso_name = "VMware-VCSA-all-6.7.0-14367737.iso" 
+vcenter_iso_name = "VMware-VCSA-all-6.7.0-XXXXXXX.iso" 
 anthos_version = "1.2.2-gke.2"
 anthos_user_cluster_name = "packet-cluster-1"
 EOF 
@@ -167,8 +168,8 @@ s3_url = "https://s3.example.com"
 s3_bucket_name = "vmware" 
 s3_access_key = "4fa85962-975f-4650-b603-17f1cb9dee10" 
 s3_secret_key = "becf3868-3f07-4dbb-a6d5-eacfd7512b09" 
-vcenter_iso_name = "VMware-VCSA-all-6.7.0-14367737.iso" 
-anthos_version = "1.2.0-gke.6"
+vcenter_iso_name = "VMware-VCSA-all-6.7.0-XXXXXXX.iso" 
+anthos_version = "1.2.2-gke.2"
 anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ```  
@@ -202,6 +203,7 @@ There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every pl
 
 [Chromebook how to configure LT2P IPsec VPN](https://support.google.com/chromebook/answer/1282338?hl=en)
 
+Some corporate networks block outbound L2TP traffic. If you are experiening issues connecting, you may try a guest network or personal hotspot.
 
 ## Cleaning the environement
 To clean up a created environment (or a failed one), run `terraform destroy --auto-approve`.
