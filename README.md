@@ -1,3 +1,4 @@
+[![Packet Website](https://img.shields.io/badge/Website%3A-Packet.com-blue)](http://packet.com) [![Slack Status](https://slack.packet.com/badge.svg)](https://slack.packet.com) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 # Automated Anthos Installation via Terraform for Packet
 These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Packet's Bare Metal Cloud offering](https://www.packet.com/cloud/). 
 
@@ -10,6 +11,9 @@ Terraform will create a Packet project complete with a linux machine for routing
 Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
 
 The build (with default settings) typically takes 70-75 minutes.
+
+## Join us on Slack
+We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Packet Community Slack group by going to [slack.packet.com](https://slack.packet.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
 
 ## Prerequisites
 To use these Terraform files, you need to have the following Prerequisites:
