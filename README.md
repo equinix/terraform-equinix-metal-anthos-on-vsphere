@@ -226,6 +226,10 @@ Check the `30-anthos-vars.tf` file for additional values (including number of us
 ## Troubleshooting
 Some common issues and fixes.
 
+### Error: The specified project contains insufficient public IPv4 space to complete the request. Please e-mail help@packet.com.
+
+Due to recent changes to the Packet API, new organizations may be unable to use the Terraform to build ESXi servers. Packet is aware of the issue and is planning some fixes. In the meantime, if you hit this issue, email help@packet.com and request that your organization be white listed to deploy ESXi servers with the API. You should reference this project (https://github.com/packet-labs/google-anthos) in your email.
+
 ### Error: POST https://api.packet.net/ports/e2385919-fd4c-410d-b71c-568d7a517896/disbond:
 
 At times the Packet API fails to recognize the ESXi host can be enabled for Layer 2 networking (more accurately Mixed/hybrid mode). The terraform will exit and you'll see
