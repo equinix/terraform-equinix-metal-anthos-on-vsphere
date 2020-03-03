@@ -149,8 +149,8 @@ https://s3.example.com:
 ``` 
 These files can be downloaded from [My VMware](http://my.vmware.com).
 Once logged in to "My VMware" the download links are as follows:
-* [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734)
-* [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665)
+* [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) - VVMware vCenter Server Appliance ISO
+* [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734) - Virtual SAN Management SDK for Python
  
 You will need to find the two individual Python files in the vSAN SDK zip file and place them in the S3 bucket as shown above.
 
