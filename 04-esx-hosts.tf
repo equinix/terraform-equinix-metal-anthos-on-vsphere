@@ -10,7 +10,6 @@ resource "packet_device" "esxi_hosts" {
   public_ipv4_subnet_size = 29
 }
 
-
 resource "packet_port_vlan_attachment" "esxi_priv_vlan_attach" {
     count = "${length(packet_device.esxi_hosts) * length(packet_vlan.private_vlans)}"
     device_id = "${element(packet_device.esxi_hosts.*.id, ceil(count.index / length(packet_vlan.private_vlans)))}"
@@ -25,3 +24,4 @@ resource "packet_port_vlan_attachment" "esxi_pub_vlan_attach" {
     port_name = "eth1"
     vlan_vnid = "${element(packet_vlan.public_vlans.*.vxlan, count.index)}"
 }
+

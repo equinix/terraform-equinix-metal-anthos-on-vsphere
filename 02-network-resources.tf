@@ -18,3 +18,4 @@ resource "packet_vlan" "public_vlans" {
     project_id = "${packet_project.new_project.id}"
     description = "${jsonencode(element(var.public_subnets.*.name, count.index))}"
 }
+
