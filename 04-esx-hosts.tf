@@ -7,7 +7,17 @@ resource "packet_device" "esxi_hosts" {
   billing_cycle    = "${var.billing_cycle}"
   project_id       = "${packet_project.new_project.id}"
   network_type     = "hybrid"
-  public_ipv4_subnet_size = 29
+  ip_address {
+    type            = "public_ipv4"
+    cidr            = 29
+    reservation_ids = [element(packet_reserved_ip_block.esx_ip_blocks.*.id, count.index)]
+  }
+  ip_address {
+    type  = "private_ipv4"
+  }
+  ip_address  {
+    type  = "public_ipv6"
+  }
 }
 
 
