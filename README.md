@@ -203,6 +203,8 @@ There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every pl
 
 [Chromebook how to configure LT2P IPsec VPN](https://support.google.com/chromebook/answer/1282338?hl=en)
 
+Make sure to enable all traffic to use the VPN (aka do not enable split tunneling) on your L2TP client.
+
 Some corporate networks block outbound L2TP traffic. If you are experiening issues connecting, you may try a guest network or personal hotspot.
 
 ## Cleaning the environement
@@ -227,6 +229,8 @@ Check the `30-anthos-vars.tf` file for additional values (including number of us
 Some common issues and fixes.
 
 ### Error: The specified project contains insufficient public IPv4 space to complete the request. Please e-mail help@packet.com.
+
+Should be resolved in https://github.com/packet-labs/google-anthos/commit/f6668b1359683eb5124d6ab66457f3680072651a
 
 Due to recent changes to the Packet API, new organizations may be unable to use the Terraform to build ESXi servers. Packet is aware of the issue and is planning some fixes. In the meantime, if you hit this issue, email help@packet.com and request that your organization be white listed to deploy ESXi servers with the API. You should reference this project (https://github.com/packet-labs/google-anthos) in your email.
 
