@@ -207,6 +207,20 @@ Make sure to enable all traffic to use the VPN (aka do not enable split tunnelin
 
 Some corporate networks block outbound L2TP traffic. If you are experiening issues connecting, you may try a guest network or personal hotspot.
 
+## Connect to the clusters
+You will need to ssh into the router/gateway and from there ssh into the admin workstation where the kubeconfig files of your clusters are located.
+
+```
+ssh root@VPN_Endpoint
+ssh -i /root/anthos/ssh-key ubuntu@172.16.0.3
+```
+
+The kubeconfig files for the admin and user clusters are located under ~/cluster, you can for example check the nodes of the admin cluster with the following command
+
+```
+kubectl --kubeconfig ~/cluster/kubeconfig get nodes
+```
+
 ## Cleaning the environement
 To clean up a created environment (or a failed one), run `terraform destroy --auto-approve`.
 
