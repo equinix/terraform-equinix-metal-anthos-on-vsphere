@@ -13,25 +13,25 @@ resource "packet_device" "esxi_hosts" {
     reservation_ids = [element(packet_reserved_ip_block.esx_ip_blocks.*.id, count.index)]
   }
   ip_address {
-    type  = "private_ipv4"
+    type = "private_ipv4"
   }
-  ip_address  {
-    type  = "public_ipv6"
+  ip_address {
+    type = "public_ipv6"
   }
 }
 
 
 resource "packet_port_vlan_attachment" "esxi_priv_vlan_attach" {
-    count = "${length(packet_device.esxi_hosts) * length(packet_vlan.private_vlans)}"
-    device_id = "${element(packet_device.esxi_hosts.*.id, ceil(count.index / length(packet_vlan.private_vlans)))}"
-    port_name = "eth1"
-    vlan_vnid = "${jsonencode(element(packet_vlan.private_vlans.*.vxlan, count.index))}"
+  count     = "${length(packet_device.esxi_hosts) * length(packet_vlan.private_vlans)}"
+  device_id = "${element(packet_device.esxi_hosts.*.id, ceil(count.index / length(packet_vlan.private_vlans)))}"
+  port_name = "eth1"
+  vlan_vnid = "${jsonencode(element(packet_vlan.private_vlans.*.vxlan, count.index))}"
 }
 
 
 resource "packet_port_vlan_attachment" "esxi_pub_vlan_attach" {
-    count = "${length(packet_device.esxi_hosts) * length(packet_vlan.public_vlans)}"
-    device_id = "${element(packet_device.esxi_hosts.*.id, ceil(count.index / length(packet_vlan.public_vlans)))}"
-    port_name = "eth1"
-    vlan_vnid = "${element(packet_vlan.public_vlans.*.vxlan, count.index)}"
+  count     = "${length(packet_device.esxi_hosts) * length(packet_vlan.public_vlans)}"
+  device_id = "${element(packet_device.esxi_hosts.*.id, ceil(count.index / length(packet_vlan.public_vlans)))}"
+  port_name = "eth1"
+  vlan_vnid = "${element(packet_vlan.public_vlans.*.vxlan, count.index)}"
 }

@@ -3,7 +3,7 @@ output "VPN_Endpoint" {
 }
 
 output "VPN_PSK" {
- value = "${random_string.ipsec_psk.result}"
+  value = "${random_string.ipsec_psk.result}"
 }
 
 output "VPN_User" {

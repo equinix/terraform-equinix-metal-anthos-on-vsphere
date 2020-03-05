@@ -20,48 +20,48 @@ Valid vsphere_service_types are:
 */
 
 variable "private_subnets" {
-    default = [
-        {
-            "name": "Management",
-            "nat": true,
-            "vsphere_service_type": "management",
-            "routable": true,
-            "cidr": "172.16.0.0/24"
-        },
-        {
-            "name": "vMotion",
-            "nat": false,
-            "vsphere_service_type": "vmotion",
-            "routable": false,
-            "cidr": "172.16.1.0/24"
-        },
-        {
-            "name": "vSAN",
-            "nat": false,
-            "vsphere_service_type": "vsan",
-            "routable": false,
-            "cidr": "172.16.2.0/24"
-        },
-        {
-            "name": "VM Private Net",
-            "nat": true,
-            "vsphere_service_type": null,
-            "routable": true,
-            "cidr": "172.16.3.0/24"
-        }
-    ]
+  default = [
+    {
+      "name" : "Management",
+      "nat" : true,
+      "vsphere_service_type" : "management",
+      "routable" : true,
+      "cidr" : "172.16.0.0/24"
+    },
+    {
+      "name" : "vMotion",
+      "nat" : false,
+      "vsphere_service_type" : "vmotion",
+      "routable" : false,
+      "cidr" : "172.16.1.0/24"
+    },
+    {
+      "name" : "vSAN",
+      "nat" : false,
+      "vsphere_service_type" : "vsan",
+      "routable" : false,
+      "cidr" : "172.16.2.0/24"
+    },
+    {
+      "name" : "VM Private Net",
+      "nat" : true,
+      "vsphere_service_type" : null,
+      "routable" : true,
+      "cidr" : "172.16.3.0/24"
+    }
+  ]
 }
 
 variable "public_subnets" {
-    default = [
-        {
-            "name": "VM Public Net",
-            "nat": false,
-            "vsphere_service_type": null,
-            "routable": true,
-            "ip_count": 4
-        }
-    ]
+  default = [
+    {
+      "name" : "VM Public Net",
+      "nat" : false,
+      "vsphere_service_type" : null,
+      "routable" : true,
+      "ip_count" : 4
+    }
+  ]
 }
 
 variable "router_hostname" {
@@ -152,11 +152,11 @@ variable "storage_reader_key_name" {
 }
 
 variable "whitelisted_key_name" {
-  default = "whitelisted-key.json" 
+  default = "whitelisted-key.json"
 }
 
 variable "connect_key_name" {
-  default = "connect-key.json" 
+  default = "connect-key.json"
 }
 
 variable "register_key_name" {
@@ -164,6 +164,6 @@ variable "register_key_name" {
 }
 
 variable "stackdriver_key_name" {
-  default = "stackdriver-key.json" 
+  default = "stackdriver-key.json"
 }
 
