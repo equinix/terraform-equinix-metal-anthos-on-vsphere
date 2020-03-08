@@ -1,8 +1,8 @@
 data "template_file" "anthos_pre_reqs_script" {
-  template = "${file("anthos/pre_reqs.sh")}"
+  template = file("anthos/pre_reqs.sh")
   vars = {
-    anthos_version       = "${var.anthos_version}"
-    whitelisted_key_name = "${var.whitelisted_key_name}"
+    anthos_version       = var.anthos_version
+    whitelisted_key_name = var.whitelisted_key_name
   }
 }
 
@@ -12,8 +12,8 @@ resource "null_resource" "anthos_pre_reqs" {
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = "${file("~/.ssh/id_rsa")}"
-    host        = "${packet_device.router.access_public_ipv4}"
+    private_key = file("~/.ssh/id_rsa")
+    host        = packet_device.router.access_public_ipv4
   }
 
 
@@ -28,7 +28,7 @@ resource "null_resource" "anthos_pre_reqs" {
   }
 
   provisioner "file" {
-    content     = "${data.template_file.anthos_pre_reqs_script.rendered}"
+    content     = data.template_file.anthos_pre_reqs_script.rendered
     destination = "/root/anthos/pre_reqs.sh"
   }
 
