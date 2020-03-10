@@ -18,10 +18,13 @@ Host *
 EOF
 chmod 0400 /root/.ssh/config
 
-while [ ! -f /usr/lib/google-cloud-sdk/README ] ;
+while [ ! -f /usr/lib/google-cloud-sdk/platform/gsutil/gsutil ] ;
 do
+  echo "Waiting for gsutil to become available"
   sleep 10
 done
+
+sleep 60
 
 cd /root/
 if [ $s3_boolean = "false" ]; then
