@@ -44,6 +44,14 @@ for subnet in subnets:
             esx[i]['private_ip'] = list(ipaddress.ip_network(subnet['cidr']).hosts())[i + 3].compressed
         break
 
+# If there's only one host, extend the datastore with all available disks
+if len(esx) == 1:
+   print (esx[0]['private_ip'])
+   ip = str(esx[0]['private_ip'])
+   os.system("chmod +x /root/extend_datastore.sh") 
+   command="./extend_datastore.sh "+ip+" "+"/root/.ssh/esxi_key"
+   os.system(command)
+
 os.system("sed -i 's/__ESXI_IP__/{}/g' /root/vcva_template.json".format(esx_ip))
 os.system("sed -i 's/__VCENTER_IP__/{}/g' /root/vcva_template.json".format(vcenter_ip))
 os.system("sed -i 's/__MGMT_GATEWAY__/{}/g' /root/vcva_template.json".format(gateway_ip))
@@ -86,15 +94,17 @@ vsan_config.defaultConfig = vim.vsan.cluster.ConfigInfo.HostDefaultInfo(
 cluster_config.vsanConfig = vsan_config
 
 # Create HA config
-ha_config = vim.cluster.DasConfigInfo()
-ha_config.enabled = True
-ha_config.hostMonitoring = vim.cluster.DasConfigInfo.ServiceState.enabled
-ha_config.failoverLevel = 1
-cluster_config.dasConfig = ha_config
+if len(esx) > 1:
+    ha_config = vim.cluster.DasConfigInfo()
+    ha_config.enabled = True
+    ha_config.hostMonitoring = vim.cluster.DasConfigInfo.ServiceState.enabled
+    ha_config.failoverLevel = 1
+    cluster_config.dasConfig = ha_config
 
 # Create the cluster
 host_folder = dc.hostFolder
 cluster = host_folder.CreateClusterEx(name=cluster_name, spec=cluster_config)
+
 
 # Join hosts to the cluster
 for host in esx:

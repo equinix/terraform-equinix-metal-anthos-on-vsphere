@@ -1,22 +1,27 @@
 #!/bin/bash
+
+SSH_PRIVATE_KEY='${ssh_private_key}'
+
 s3_boolean=`echo "${s3_boolean}" | awk '{print tolower($0)}'`
 cd /root/anthos
 
-# Kill apt-daily-upgrade incase it is running
-#systemctl disable apt-daily.timer
-#systemctl disable apt-daily-upgrade.timer
 
-#systemctl stop unattended-upgrades.service
-#systemctl stop apt-daily.service
-#systemctl stop apt-daily-upgrade.service
+cat <<EOF >/root/.ssh/esxi_key
+$SSH_PRIVATE_KEY
+EOF
+chmod 0400 /root/.ssh/esxi_key
 
+echo "Set SSH config to not do StrictHostKeyChecking"
+cat <<EOF >/root/.ssh/config
+Host *
+    StrictHostKeyChecking no
+EOF
+chmod 0400 /root/.ssh/config
 
-
-# Install google cloud sdk
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-apt-get update -y
-apt-get install unzip google-cloud-sdk=272.0.0-0 -y
+while [ ! -f /usr/lib/google-cloud-sdk/README ] ;
+do
+  sleep 10
+done
 
 cd /root/
 if [ $s3_boolean = "false" ]; then
@@ -37,6 +42,3 @@ else
 fi
 mount /root/${vcenter_iso_name} /mnt/
 
-#restart services
-#systemctl enable apt-daily.timer
-#systemctl enable apt-daily-upgrade.timer

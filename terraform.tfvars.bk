@@ -1,0 +1,10 @@
+auth_token               = "1zahiSa68PVycSvfJQ6rerdqGQuP2ysg"
+organization_id          = "fd01c9a9-fa6b-41b8-8a9e-a08ada726631"
+anthos_gcp_project_id    = "gkeoplabs-test-np-15"
+gcs_bucket_name          = "gkeoplabs-packet-automation/vsphere"
+vcenter_iso_name         = "VMware-VCSA-all-6.7.0-14836122.iso"
+project_name             = "paulrmason-single-test-1"
+anthos_version           = "1.2.2-gke.2"
+anthos_user_cluster_name = "packet-cluster-1"
+esxi_host_count          = 1
+anthos_datastore          = "datastore1"
