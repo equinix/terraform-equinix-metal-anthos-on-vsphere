@@ -56,8 +56,7 @@ resource "null_resource" "apply_esx_network_config" {
   }
 
   provisioner "remote-exec" {
-    inline     = ["python3 /root/esx_host_networking.py --host '${element(packet_device.esxi_hosts.*.access_public_ipv4, count.index)}' --user root --pass '${element(packet_device.esxi_hosts.*.root_password, count.index)}' --id '${element(packet_device.esxi_hosts.*.id, count.index)}' --index ${count.index}"]
+    inline     = ["python3 /root/esx_host_networking.py --host '${element(packet_device.esxi_hosts.*.access_public_ipv4, count.index)}' --user root --pass '${element(packet_device.esxi_hosts.*.root_password, count.index)}' --id '${element(packet_device.esxi_hosts.*.id, count.index)}' --index ${count.index} --ipRes ${element(packet_reserved_ip_block.esx_ip_blocks.*.id, count.index)}"]
     on_failure = continue
-
   }
 }
