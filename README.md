@@ -196,6 +196,21 @@ vCenter_Password = bzN4UE7m3g$DOf@P
 vCenter_Username = Administrator@vsphere.local 
 ``` 
  
+## Size of the vSphere Cluster
+The code supports deploying a single ESXi server or a 3+ node vSAN cluster. Default settings are for 3 ESXi nodes with vSAN.
+
+When a single ESXi server is deployed, the datastore is extended to use all available disks on the server. The linux router is still deployed as a separate system.
+
+To do a single ESXi server deployment, set the following variables in your `terraform.tfvars` file:
+
+```bash
+esxi_host_count          = 1
+anthos_datastore         = "datastore1"
+```
+This has been tested with the c2.medium.x86. It may work with other systems as well, but it has not been fully tested.
+We have not tested the maximum vSAN cluster size. Cluster size of 2 is not supported.
+
+
 ## Connect to the Environment 
 There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every platform. You'll need to reference your operating system's documentation on how to connect to an L2TP IPsec VPN. 
 
