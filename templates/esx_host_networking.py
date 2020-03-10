@@ -139,15 +139,16 @@ def connect_to_host(esx_host, esx_user, esx_pass):
 
 def main():
     parser = optparse.OptionParser(usage="%prog --host <host_ip> --user <username> --pass <password> "
-                                   "--vswitch <vswitch_name> --uplinks <comma_list_uplink_names>")
+                                   "--id <device_id> --index <terraform_index> --ipRes <ip_reservation>")
     parser.add_option('--host', dest="host", action="store", help="IP or FQDN of the ESXi host")
     parser.add_option('--user', dest="user", action="store", help="Username to authenticate to ESXi host")
     parser.add_option('--pass', dest="pw", action="store", help="Password to authenticarte to ESXi host")
     parser.add_option('--id', dest="id", action="store", help="Packet Device ID for Server")
     parser.add_option('--index', dest="index", action="store", help="Terraform index count, used for IPing")
+    parser.add_option('--ipRes', dest="ipRes", action="store", help="IP reservation for /29 ip block")
 
     options, _ = parser.parse_args()
-    if not (options.host and options.user and options.pw and options.id and options.index):
+    if not (options.host and options.user and options.pw and options.id and options.index and options.ipRes):
         print("ERROR: Missing arguments")
         parser.print_usage()
         sys.exit(1)
@@ -313,6 +314,8 @@ def main():
                         sys.exit(1)
                     print("Failed to add vLan to bond, trying again...")
                     sleep(5)
+    # Clean up IP Reservations
+    manager.delete_ip(options.ipRes)
 
 
 # Start program

@@ -4,6 +4,7 @@ data "template_file" "anthos_workstation_tf_vars" {
     vcenter_username      = "Administrator@vsphere.local"
     vcenter_password      = random_string.sso_password.result
     vcenter_fqdn          = format("vcva.%s", var.domain_name)
+
     vsphere_datastore     = var.anthos_datastore
     vsphere_datacenter    = var.vcenter_datacenter_name
     vsphere_cluster       = var.vcenter_cluster_name
