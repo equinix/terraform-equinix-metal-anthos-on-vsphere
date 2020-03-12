@@ -85,13 +85,14 @@ drs_config=vim.cluster.DrsConfigInfo()
 drs_config.enabled = True
 cluster_config.drsConfig=drs_config
 
+if len(esx) > 2:
 # Create vSan config
-vsan_config=vim.vsan.cluster.ConfigInfo()
-vsan_config.enabled = True
-vsan_config.defaultConfig = vim.vsan.cluster.ConfigInfo.HostDefaultInfo(
-                                autoClaimStorage = True
-                            )
-cluster_config.vsanConfig = vsan_config
+    vsan_config=vim.vsan.cluster.ConfigInfo()
+    vsan_config.enabled = True
+    vsan_config.defaultConfig = vim.vsan.cluster.ConfigInfo.HostDefaultInfo(
+                                    autoClaimStorage = True
+                                )
+    cluster_config.vsanConfig = vsan_config
 
 # Create HA config
 if len(esx) > 1:

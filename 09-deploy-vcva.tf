@@ -20,7 +20,10 @@ data "template_file" "claim_vsan_disks" {
 }
 
 resource "null_resource" "deploy_vcva" {
-  depends_on = [null_resource.apply_esx_network_config]
+  depends_on = [
+    null_resource.apply_esx_network_config,
+    null_resource.download_vcenter_iso
+  ]
   connection {
     type        = "ssh"
     user        = "root"

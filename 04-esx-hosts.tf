@@ -8,6 +8,7 @@ resource "packet_device" "esxi_hosts" {
   billing_cycle    = var.billing_cycle
   project_id       = packet_project.new_project.id
   network_type     = "hybrid"
+  tags = ["vmware", "hypervisor", "anthos"]
   ip_address {
     type            = "public_ipv4"
     cidr            = 29
