@@ -4,7 +4,8 @@ data "template_file" "anthos_workstation_tf_vars" {
     vcenter_username      = "Administrator@vsphere.local"
     vcenter_password      = random_string.sso_password.result
     vcenter_fqdn          = format("vcva.%s", var.domain_name)
-    vsphere_datastore     = "vsanDatastore"
+
+    vsphere_datastore     = var.anthos_datastore
     vsphere_datacenter    = var.vcenter_datacenter_name
     vsphere_cluster       = var.vcenter_cluster_name
     vsphere_resource_pool = var.anthos_resource_pool_name
@@ -20,7 +21,7 @@ data "template_file" "anthos_upload_ova_template" {
     vmware_fqdn          = format("vcva.%s", var.domain_name)
     vmware_username      = "Administrator@vsphere.local"
     vmware_password      = random_string.sso_password.result
-    vmware_datastore     = "vsanDatastore"
+    vmware_datastore     = var.anthos_datastore
     vmware_resource_pool = var.anthos_resource_pool_name
   }
 }
@@ -36,7 +37,7 @@ data "template_file" "anthos_replace_tf_vars" {
 
 resource "null_resource" "anthos_deploy_workstation" {
   count      = var.anthos_deploy_workstation_prereqs ? 1 : 0
-  depends_on = [null_resource.deploy_vcva]
+  depends_on = [null_resource.deploy_vcva, null_resource.vsan_claim]
   connection {
     type        = "ssh"
     user        = "root"

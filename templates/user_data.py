@@ -33,7 +33,9 @@ words = words_list()
 os.system("echo 'iptables-persistent iptables-persistent/autosave_v4 boolean true' | sudo debconf-set-selections")
 os.system("echo 'iptables-persistent iptables-persistent/autosave_v6 boolean true' | sudo debconf-set-selections")
 # Install Apt Packages
-apt_packages = ['dnsmasq', 'vlan', 'iptables-persistent', 'conntrack', 'python3-pip']
+os.system("echo 'deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main' > /etc/apt/sources.list.d/google-cloud-sdk.list")
+os.system("curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -")
+apt_packages = ['dnsmasq', 'vlan', 'iptables-persistent', 'conntrack', 'python3-pip', 'expect', 'unzip', 'google-cloud-sdk']
 
 cache = apt.cache.Cache()
 cache.update()

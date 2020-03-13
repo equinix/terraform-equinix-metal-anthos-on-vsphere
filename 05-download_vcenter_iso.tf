@@ -9,6 +9,7 @@ data "template_file" "download_vcenter" {
     s3_secret_key           = var.s3_secret_key
     s3_bucket_name          = var.s3_bucket_name
     vcenter_iso_name        = var.vcenter_iso_name
+    ssh_private_key         = chomp(tls_private_key.ssh_key_pair.private_key_pem)
   }
 }
 
