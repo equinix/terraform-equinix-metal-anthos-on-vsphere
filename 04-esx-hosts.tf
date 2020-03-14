@@ -6,7 +6,7 @@ resource "packet_device" "esxi_hosts" {
   facilities       = [var.facility]
   operating_system = var.vmware_os
   billing_cycle    = var.billing_cycle
-  project_id       = packet_project.new_project.id
+  project_id       = var.create_project ? packet_project.new_project[0].id : var.project_id
   network_type     = "hybrid"
   tags = ["vmware", "hypervisor", "anthos"]
   ip_address {
