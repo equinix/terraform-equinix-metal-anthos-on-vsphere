@@ -13,10 +13,19 @@ cd /root/anthos
 
 
 # Install google cloud sdk
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-apt-get update -y
-apt-get install unzip google-cloud-sdk=272.0.0-0 -y
+#echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list
+#curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+#apt-get update -y
+#apt-get install unzip google-cloud-sdk=272.0.0-0 -y
+
+
+while [ ! -f /usr/lib/google-cloud-sdk/platform/gsutil/gsutil ] ;
+do
+  echo "Waiting for gsutil to become available"
+  sleep 10
+done
+
+sleep 60
 
 cd /root/
 if [ $s3_boolean = "false" ]; then

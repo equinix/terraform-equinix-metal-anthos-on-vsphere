@@ -73,7 +73,7 @@ variable "esxi_hostname" {
 }
 
 variable "router_size" {
-  default = "c2.medium.x86"
+  default = "c3.small.x86"
 }
 
 variable "esxi_size" {
@@ -85,7 +85,7 @@ variable "facility" {
 }
 
 variable "router_os" {
-  default = "ubuntu_16_04"
+  default = "ubuntu_18_04"
 }
 
 variable "vmware_os" {
