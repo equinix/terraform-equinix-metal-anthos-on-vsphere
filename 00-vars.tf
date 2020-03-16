@@ -73,7 +73,7 @@ variable "esxi_hostname" {
 }
 
 variable "router_size" {
-  default = "c3.small.x86"
+  default = "c2.medium.x86"
 }
 
 variable "esxi_size" {
