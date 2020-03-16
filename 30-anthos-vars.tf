@@ -80,3 +80,8 @@ variable "anthos_user_memory_mb" {
   description = "The amount of RAM (in MB) per user worker node (minimum 8192)"
   default     = "8192"
 }
+
+variable "anthos_datastore" {
+  description = "The vSphere datastore where GKE on-prem VMs are installed"
+  default     = "vsanDatastore"
+}

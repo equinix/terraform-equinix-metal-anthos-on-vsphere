@@ -11,6 +11,7 @@ data "template_file" "user_data" {
 }
 
 resource "packet_device" "router" {
+  depends_on       = [packet_project_ssh_key.ssh_pub_key]
   hostname         = var.router_hostname
   plan             = var.router_size
   facilities       = [var.facility]

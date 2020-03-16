@@ -28,7 +28,7 @@ data "template_file" "anthos_cluster_config" {
     vcenter_user                = "Administrator@vsphere.local"
     vcenter_pass                = random_string.sso_password.result
     vcenter_fqdn                = format("vcva.%s", var.domain_name)
-    vcenter_datastore           = "vsanDatastore"
+    vcenter_datastore           = var.anthos_datastore
     vcenter_datacenter          = var.vcenter_datacenter_name
     vcenter_cluster             = var.vcenter_cluster_name
     resource_pool               = var.anthos_resource_pool_name
@@ -58,7 +58,7 @@ data "template_file" "anthos_cluster_creation_script" {
     vcenter_user             = "Administrator@vsphere.local"
     vcenter_pass             = random_string.sso_password.result
     vcenter_fqdn             = format("vcva.%s", var.domain_name)
-    vcenter_datastore        = "vsanDatastore"
+    vcenter_datastore        = var.anthos_datastore
     vcenter_datacenter       = var.vcenter_datacenter_name
     whitelisted_key_name     = var.whitelisted_key_name
     anthos_user_cluster_name = var.anthos_user_cluster_name

@@ -62,7 +62,7 @@ variable "registry_private_key" { default = "" } // filepath
 ##########################
 
 provider "vsphere" {
-  version        = "~> 1.5"
+  version        = "< 1.16.0"
   user           = "${var.vsphere_user}"
   password       = "${var.vsphere_password}"
   vsphere_server = "${var.vsphere_server}"

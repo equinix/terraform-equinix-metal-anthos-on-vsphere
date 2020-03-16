@@ -20,7 +20,10 @@ data "template_file" "claim_vsan_disks" {
 }
 
 resource "null_resource" "deploy_vcva" {
-  depends_on = [null_resource.apply_esx_network_config]
+  depends_on = [
+    null_resource.apply_esx_network_config,
+    null_resource.download_vcenter_iso
+  ]
   connection {
     type        = "ssh"
     user        = "root"
@@ -38,13 +41,34 @@ resource "null_resource" "deploy_vcva" {
     destination = "/root/deploy_vcva.py"
   }
 
+  provisioner "file" {
+    source      = "templates/extend_datastore.sh"
+    destination = "/root/extend_datastore.sh"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "python3 /root/deploy_vcva.py",
       "sleep 60",
+    ]
+  }
+}
+
+
+resource "null_resource" "vsan_claim" {
+  depends_on = [null_resource.deploy_vcva]
+  count      = var.esxi_host_count == 1 ? 0 : 1
+  connection {
+    type        = "ssh"
+    user        = "root"
+    private_key = file("~/.ssh/id_rsa")
+    host        = packet_device.router.access_public_ipv4
+  }
+
+  provisioner "remote-exec" {
+    inline = [
       "python3 /root/vsan_claim.py",
       "sleep 90"
     ]
   }
 }
-

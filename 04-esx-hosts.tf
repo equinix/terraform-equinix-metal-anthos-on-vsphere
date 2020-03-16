@@ -1,4 +1,5 @@
 resource "packet_device" "esxi_hosts" {
+  depends_on       = [packet_project_ssh_key.ssh_pub_key]
   count            = var.esxi_host_count
   hostname         = format("%s%02d", var.esxi_hostname, count.index + 1)
   plan             = var.esxi_size
@@ -7,6 +8,7 @@ resource "packet_device" "esxi_hosts" {
   billing_cycle    = var.billing_cycle
   project_id       = packet_project.new_project.id
   network_type     = "hybrid"
+  tags = ["vmware", "hypervisor", "anthos"]
   ip_address {
     type            = "public_ipv4"
     cidr            = 29
