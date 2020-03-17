@@ -32,25 +32,16 @@ words = words_list()
 # Allow
 os.system("echo 'iptables-persistent iptables-persistent/autosave_v4 boolean true' | sudo debconf-set-selections")
 os.system("echo 'iptables-persistent iptables-persistent/autosave_v6 boolean true' | sudo debconf-set-selections")
+
+# Disable systemd-resolved
+os.system("systemctl stop systemd-resolved")
+os.system("systemctl disable systemd-resolved")
+
 # Install Apt Packages
 os.system("echo 'deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main' > /etc/apt/sources.list.d/google-cloud-sdk.list")
 os.system("curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -")
-apt_packages = ['dnsmasq', 'vlan', 'iptables-persistent', 'conntrack', 'python3-pip', 'expect', 'unzip', 'google-cloud-sdk']
-
-cache = apt.cache.Cache()
-cache.update()
-cache.open()
-for pkg_name in apt_packages:
-    pkg = cache[pkg_name]
-    if pkg.is_installed:
-        print("{pkg_name} already installed".format(pkg_name=pkg_name))
-    else:
-        pkg.mark_install()
-        try:
-            cache.commit()
-        except Exception as arg:
-            print("Sorry, package installation failed [{err}]".format(err=str(arg)))
-cache.close()
+os.system('DEBIAN_FRONTEND=noninteractive apt-get update -y')
+os.system('DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y dnsmasq vlan iptables-persistent conntrack python3-pip expect unzip google-cloud-sdk')
 
 # Build single subnet map with all vlans, cidrs, etc...
 subnets = json.loads(private_subnets)
@@ -180,3 +171,4 @@ os.system("iptables-save > /etc/iptables/rules.v4")
 
 # Install python modules
 os.system("pip3 install --upgrade pip pyvmomi packet-python")
+

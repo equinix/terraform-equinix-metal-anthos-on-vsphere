@@ -85,7 +85,7 @@ variable "facility" {
 }
 
 variable "router_os" {
-  default = "ubuntu_16_04"
+  default = "ubuntu_18_04"
 }
 
 variable "vmware_os" {
