@@ -227,7 +227,7 @@ You will need to ssh into the router/gateway and from there ssh into the admin w
 
 ```
 ssh root@VPN_Endpoint
-ssh -i /root/anthos/ssh-key ubuntu@172.16.0.3
+ssh -i /root/anthos/ssh_key ubuntu@172.16.0.3
 ```
 
 The kubeconfig files for the admin and user clusters are located under ~/cluster, you can for example check the nodes of the admin cluster with the following command
