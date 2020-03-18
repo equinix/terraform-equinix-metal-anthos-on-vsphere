@@ -34,6 +34,8 @@ To use these Terraform files, you need to have the following Prerequisites:
 ## Associated Packet Costs
 The default variables make use of 4 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers. These servers are $1 per hour list price (resulting in a total solution price of roughly $4 per hour).
 
+You can also deploy just 2 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers for $2 per hour instead.
+
 ## Tested GKE on-prem verions
 The Terrafrom has been succesfully tested with following versions of GKE on-prem:
 * 1.1.2-gke.0*
