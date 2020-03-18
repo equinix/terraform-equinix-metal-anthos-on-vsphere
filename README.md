@@ -20,6 +20,13 @@ To use these Terraform files, you need to have the following Prerequisites:
 * An [Anthos subscription](https://cloud.google.com/anthos/docs/getting-started)
 * A [white listed GCP project and service account](https://cloud.google.com/anthos/gke/docs/on-prem/how-to/gcp-project).
 * A Packet org-id and [API key](https://www.packet.com/developers/api/)
+* **If you are new to Packet**
+  * You will need to request an "Entitlement Increase" you will need to work with Packet Support via either:
+    * Use the ![Packet Website](https://img.shields.io/badge/Chat%20Now%20%28%3F%29-blue) at the bottom left of the Packet Web UI
+      * OR
+    * E-Mail support@packet.com
+  * Your message across one of these mediums should be:
+    * I am working with the Google Anthos Terrafom deployment (github.com/packet-labs/google-anthos). I need an entitlement increase to allow the creation of five or more vLans. Can you please assist?
 * A public SSH key within your Packet account and the associated private saved at `~/.ssh/id_rsa` on the device with Terraform Files. (See [Packet Documentation](https://support.packet.com/kb/articles/generate-ssh-keys) for more information on creating keys. Permissions should be set to `0400` for `~/.ssh/id_rsa`
 * [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) - VMware vCenter Server Appliance ISO obtained from VMware
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734) - Virtual SAN Management SDK for Python, also from VMware
