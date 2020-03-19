@@ -19,7 +19,7 @@ echo `kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig get secret $TOKEN_
 
 
 # create a ca cert used for the ingress gateway
-openssl \
+sudo openssl \
 req  \
 -nodes -new -x509 \
 -keyout ~/ingress-wildcard.key \
