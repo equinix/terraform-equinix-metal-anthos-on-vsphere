@@ -2,7 +2,7 @@
 # Automated Anthos Installation via Terraform for Packet
 These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Packet's Bare Metal Cloud offering](https://www.packet.com/cloud/). 
 
-Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can you an existing Packet Project, check this [section] (#use-an-existing-packet-project) about instructions
+Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can you an existing Packet Project, check this [section](#use-an-existing-packet-project) about instructions
 
 ![Environment Diagram](docs/images/google-anthos-vsphere-network-diagram-1.png)
 
