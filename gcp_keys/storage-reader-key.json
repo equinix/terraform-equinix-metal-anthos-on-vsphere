@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "abdelfettahlab",
+  "private_key_id": "a1025d8096dc77698184fcef018bfb42dd59e576",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCr8bH44fD26q2l\nlGaopwV/YVDuqJ+GOsUVv1PLmOi6DKKSnb3/ZAEVfKpQ3ID+xiSTx+4r/Ow4gzbR\njf4U+yIROgJSf1/Y27A53YxA4H+T4uIYXniZig2gyrGXLZGfUiLMs76LV8VdnXYf\nbbY8pO+l/u5xxVvN5HzXnOluVnCVcFpVwLE6LLAbtcaAMLJCMrRQn+xu8Jchi8du\nTfUNF7+kmVwGEXf6LNhRY2Qk4+HnsiVT4+l1Z2tiMW+fOUvCvGGFSFCTgrTo2e4y\nO2jcjbDs1G4QaCM9WegFN9Iz1cN59IFxtbVIpRoPPQd0A3uVIe5CJzOzq+xfwfs+\n67wqelrzAgMBAAECgf87n3Nnn58CnEhdzbqkXQmV1iszxoqGSMluIryongAEEv4Y\ntnvf5eV1/Jt6q2yJIB88ceW2QR6KGrCBp3fvWWt0msl4yUGTv0fPfzV33UK/a0Hh\ncni6blr0paLQ6fodxPvobDegHlgXdy32Cm4pH9ALav3b3dt8Di21tOEaWzFyQGOg\nMaDHMunk2c7KM99ebF4KunV0Hayxih/FUEEnfAvj8yCG3V8r5NasI1OeQVlcr8JQ\npWc2SfLjf7Mpxjkj+vK3f4j129WBtB+/XBEBxPNJDhb++PKv3oKyFCMFO1Id4HnJ\n9+qnW1Oju69BIzJ8v+LW/qMrGMGvgTIY/pOrPf0CgYEA78a5dPGgqkomTE/gOFNv\nX+X4MTJacdAw2SSaQNArEdJEKYgJsh6R6L2A8mRxAGo195YwaAAe0p1kdNt7vDtA\nzILBm6u9RpJ0evMLnyB1K/83KJN/fzHV7v4F3pGvu1R5q9SfeDHpQ67HcI3OkT9V\npic7N9F2nPiHnIvqkE1dyicCgYEAt5QE0TkWW3qZ2CSBNDi+FBhpCv6dApoH2bgz\nQJyZQGbJhqeyxdOna3bFlZ9wjkdY7iuVkuz4aZP5ykADwoKrAdTIzBIpcT4w2M9s\nvPiqTMGCuU3z348PnEpKzQCq0+SJhkt5es/anSBg2+C7chOsKsoN7B1V9RfUVjeT\nheQJZFUCgYEAgCiStdv0iTCK2d0Ttmd6LyLHDtygFRc3FMkInb3mV2cwwZYRwJ+w\nU1r+0hA3igY7BDPFecEeuGoh6Ifr0gdFskntW9xmlZLwKUtBGfOKTVLjU4/K5Nxp\nQY2K65So/hK/2cUS23ap/GAt/438LAxTJjTv5PzTTkFUkqsCW9DOYZ8CgYEAidPD\n2iF2O7BMmQ6vQrnnW8cH9o067J0gj8HQGQ55sPR7EXIOsqA57mD572AJbYj7p7Vp\nUyo/R2UmAUcWi473PSS4rR5lpvP+UIlLJoW7tm0C7IUuOAZ8vea5SjjaCMRozD8W\nMbKke5u3nN2ZXgiPFoEk+sT7qEv/y8tmIvwWYRECgYA6RIt4KTU7mczSRbKA8WzK\nDo03whOFmUxOJEA6ARhskOOXTjY2H4ZFtqPQqd94rQfDm2WPyECYj6bETbdyYN/a\n69w8aFQfYBnYgqhew2pKXTSCO8c537/bOXAj7YY5XWdHylBdPlYLB7ArpebcIyGF\nG5hP7nZaYMnTndomeqAUDQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "storage-reader-service-account@abdelfettahlab.iam.gserviceaccount.com",
+  "client_id": "105779945015420324225",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/storage-reader-service-account%40abdelfettahlab.iam.gserviceaccount.com"
+}

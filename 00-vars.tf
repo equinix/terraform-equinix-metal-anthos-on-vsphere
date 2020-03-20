@@ -15,7 +15,7 @@ variable "create_project" {
 }
 
 variable "project_id" {
-  description = "Project Id to use in case create_project is false"
+  description = "Packet Project ID to use in case create_project is false"
 }
 
 /*

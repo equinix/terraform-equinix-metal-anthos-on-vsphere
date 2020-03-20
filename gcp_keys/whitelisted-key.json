@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "abdelfettahlab",
+  "private_key_id": "39d491ec675e9e33b811456d19e972f2c8b17e63",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCXXZ60xb46U8M4\ny3JDCN/qY1QEOg0IXtEy3P/pIcHjO3WfT9KzO0e5LxFUPf1iM7MjKTT8fmyKwrnP\nxYVvINtXV2pT97HUxbTWLj8VKC6rNckjn1HmdMN+wqQUz+vqg5DumGYdJdgMAk7r\nmP9l+Qx6DEvnv4teXy1NDtL016PWxmqc11REk/H5JP40nZ+qF6D989RlWlShUfLE\ntBJjd3xrrvDhzgVngAWPFNnWBrJeopqMOIaT+PcA5GYTLMWyYs0M0DFsIRk173L0\nl/pZWLpPzGUnPkvIZz2T2IIhbzltCdEHxa/qHcD0nPWnlXzXhaztpcAWTXpXDYsu\nWEgJqUlXAgMBAAECggEALPcCOOhPOMt+QGZrdI9z2RCVukW2bmigU7BEE3DURJj6\nuY9AY7718QSS7MgXd+8sxYKtu14hB12OTjL6jwcfMYSF0RjRSohKzp9hXPsZVgH9\n1Oe0sDW6h3LxxD758aoQyVgbaYg+9F5RLHrAT/4aXz085UTI9Ylnjy8aquJOSPQm\nDkNtZ2x32+3vEWjeSLRLDKtwMbxH6WxmTaM6DqyUO21GPeWR0MR5TK1nypXxKAnl\nddxlFlovWGhRnkJ6T7/Y4SkfdL4mBFhD/slUf4CMYpLXrH4/gpiQIrtToRPRWrHj\nNqVugMty1iL944SIMsVnr8DIhT2E56A9R5l86jYI9QKBgQDVQtLb18nMr91nzNUX\nAJlN8SRV88bgNrBL0aM0A1tTHEvk5QzBT4PWJiBsDlfoWiyE2BZH3CoH3ynrIdyw\nnSQ5dBHCcJxj4dJLIpVYGAmHsNfsre8y7r5uQff7bwyTfV1yV+Mf8z7j2Jt5bymn\nbWtNmu7TjLLKAKUM4OfX36/G6wKBgQC1s08avmI1bbTR6/7K4Ar8vn/IpMluaT8l\ni5euSFqOhXUUPjBm/pVIh66vQFAOrXGxYGZmNYh/GpRdwaNjxdpB+lopL98dKcuV\nxnyyRfoQKUOxWO3y7DZaoLVfGueH47r+Rl2ItZ34Ltg6f9SQ70ra3C3j1r61trgq\nx4IyP0cERQKBgAq9BqkTQJIR+PAVHFXALfgCwHWjhMwddNscfz9LO/n/XsLz1aSW\nQGk0GkXWow6MG9nEl7qel282CYJRfi9WelB6S7qiuP0+jbxCzYpWC4TNntHIIFdM\nNkKPB9GdUeDLWz06t7EQKoaGja2br1lC5ThPKN92IjqRtb3kRUhVdyBpAoGABYRq\nVH+Pb9vi77Tgybw/2SjXrHoEe8vKVROGCY684TMAORsiUR5N3iPwk/W5+Jgfqakp\nstTRTjq6YpZspazuUa6Oak2/0pzgR639P1SMoUz/dzUiFIxDokDbAQZKHYA2v13X\nnT0WjOCvRCd5huUdOsQQyKhOpinkMbhZJblyKJkCgYEAu5glpIlAO07BiDZUDULW\n8fXYuWKLJXVFhw3jREx/Ap9kVPAk5M7sSTqe7haTrJMjhYAv3qbmEVphDH7U9vFk\nxfTc3OjjPH0Oe6zcj6nPkhVuPS1NZFZLyZO3lVMCJBvX2qbqcNFDRHAiq6pb3Sv2\nOAiFvIue9cRThkRJ6xUcXe8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "gke-onprem-lab-ovh@abdelfettahlab.iam.gserviceaccount.com",
+  "client_id": "101241889535720327878",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gke-onprem-lab-ovh%40abdelfettahlab.iam.gserviceaccount.com"
+}

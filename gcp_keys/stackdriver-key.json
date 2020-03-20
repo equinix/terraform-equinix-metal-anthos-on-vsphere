@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "abdelfettahlab",
+  "private_key_id": "cf9588a5362fe6921587fb1285fcba7800b5bfe7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCpCwsZK2qssPmH\nzvubqaAFVJPXFohaoWnOilV9eBLnnu1j4VmLy5DO4kS9RbDJuVrMt36JMx7cLVky\n8MG0RFbVnjtfDxe8iyVgqHtaLjgyVvsgolTIZ7cNUPrTOOi5Luhj1EGj/+lm9dak\nzLqtwoafKUHdhy0kAq1fSJKn8ACXe+urFO/ujCFHMekZ+YahKeOD5dHzG8IdBItl\nxnfviQ++rGVRjwwUuhMdVSkxnITstPqffFb3HXZCozkG1MDzHhafa8v8yJ/2mytb\nSlJsLAhLF8b/zVQ24vhJVeDEfBpcPZ3RhlkVqa4wuAbygj6aCgPbFWZXsAtwkSJN\ns1EPfScbAgMBAAECggEANDoNO8GGO8SR07vHUNifcAYphxKXHikwn3dt4k3uyVD4\n1xsQp3hFTSXrRu75J9n0i7tFhO4eYrhADtUDg8Z5bZZtkXkARGhZK/vh4ILXKfZl\nsDd3KlOg4qRaWlgCzvQHKJCzlw/B9OWPY2s9YeHv5czBZMgW0kFhf0bUyL4F8Mb/\n94CK7QF9CAdaIaiPxdZf4NFACTsFZqvwkqnvZqrqYun3o6lIBfc4HmkGK+9DtlUp\nDX+ON/6kiacg/7pW6K8SBvUjDI4mnEqmwv0s0CrHqxW2HxIBwR6yL2eV3OI3H6AO\niAAZ7gtmut9M0eTMNPZphZUmAj34U91BtPGDEpmfQQKBgQDWObsiHTMBN+82tCNM\nqJJ8HXXJj23lAEyJbMobaQ9rDOZ4XcMvl4GQZlhLDTClrXR0M1KaCOdQADb1n4wr\nwdhPRgyZOQA9gwscbFOcPLqPrY2S5NUeSkqo5zIenOFsiZdJ7T9yGqqz6+hb2+Qs\n7OlSN4y65AtwZo2ptk26vcvo3wKBgQDKAcfR5QQJLnWLv1EZuc2lnXJZLGo26IK2\novrrVeVZq/PqJnVvqnFHEZmV9m61ZzGQMzXUGTz4VeXOmDIlSXjSs86I0YX+L1/f\n1FAGoTzGuhiZ//ZHSCBPNIAjmk10P2RNhNAIFB0o6ziPdeBX80ouzomiwsozCb2c\nKrm9gv39RQKBgQCO7inLEwxKzdUO/JVoujgyEz3ZY5cA6XgnYKxgKXKeDBdhS73E\n7SMHAyH5wS0p/VbriKqeFz6uA9anfvH45/a4vZX+TSe54srxBd2rKmGXJ0aEMaV3\n9j1mAAtSnX1R+2MzcdWY/e3S6Z04XLgauV7a+jEtKKXxMptmFjo6VBPOpQKBgQCZ\nlvL75tnDtVxQTb13BuuSIX0AyiFT8EL6ZD7N0fhYzsHc5TLjHT+Vno8dE0qniHeJ\nwTYLNslBs+XPx65Q5WUFJwtAwbXURubpgz75W3yfSH1OEeyJ1BAkyLEo4LhFS7GS\nswmNKuXk57uQcDqMBIIBxq2lX99nIN/WrjGdIszE1QKBgQCb2UvK1E5LE5pszoZJ\nmDJFrh+yk1UKJEtoX+LCPbt2Ka8qhKpTnPB7l+97AawcDFSQOSfk1LbiL9f4CNhv\nEi0u7PC8XjntvFm88G1H6UDo6M1En8c7WFbvVKlfvehvN9jdlIBYNEb4PIcjMknX\nje19C+RkCZPzztPZOS9F3/aElg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "stackdriver-service-account@abdelfettahlab.iam.gserviceaccount.com",
+  "client_id": "105763170167999980187",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/stackdriver-service-account%40abdelfettahlab.iam.gserviceaccount.com"
+}

@@ -17,7 +17,7 @@ resource "tls_private_key" "ssh_key_pair" {
 
 resource "packet_project_ssh_key" "ssh_pub_key" {
   depends_on = [packet_project.new_project]
-  project_id = packet_project.new_project.id
+  project_id = var.create_project ? packet_project.new_project[0].id : var.project_id
   name       = var.project_name
   public_key = chomp(tls_private_key.ssh_key_pair.public_key_openssh)
 }
