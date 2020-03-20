@@ -27,6 +27,7 @@ req  \
 -subj "/C=US/ST=CA/L=Sunnyvale/O=On-Prem\
 /OU=GKE/CN=www.gkeonprem.com/emailAddress=dev@gkeonprem.com"
 
+sudo chown ubuntu:ubuntu ~/ingress-wildcard.*
 
 # apply the cert to the cluster
 kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig \
