@@ -48,7 +48,7 @@ To simplify setup, this is designed to used the EAP bundled Seesaw load balancer
 
 \*Due to a known bug in the EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
 
-\*\*1.3.0-gke.16 deploys as is currently. However it currently will only deploy a single LB and does not use the gkeadm process. We've opened two issues and are working to address this. ([18](https://github.com/packet-labs/google-anthos/issues/35),[Issue #35](https://github.com/packet-labs/google-anthos/issues/35) )
+\*\*1.3.0-gke.16 deploys as is currently. However it currently will only deploy a single LB and does not use the gkeadm process. We've opened two issues and are working to address this. ([Issue #18](https://github.com/packet-labs/google-anthos/issues/35), [Issue #35](https://github.com/packet-labs/google-anthos/issues/35) )
 
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
