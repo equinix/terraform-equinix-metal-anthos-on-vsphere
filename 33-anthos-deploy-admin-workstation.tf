@@ -89,8 +89,8 @@ resource "null_resource" "anthos_deploy_workstation" {
   }
 
   provisioner "file" {
-    content     = data.template_file.anthos_workstation_config_yaml
-    destination = "/root/anthos/admin_ws_config.yaml"
+    content     = data.template_file.anthos_workstation_config_yaml.rendered
+    destination = "/root/anthos/admin-ws-config.yaml"
   }
 
   provisioner "file" {
@@ -103,7 +103,7 @@ resource "null_resource" "anthos_deploy_workstation" {
       "cd /root/anthos/",
       "chmod +x /root/anthos/upload_ova.sh",
       "/root/anthos/upload_ova.sh",
-      "python3 /root/anthos/replace_tf_vars.py",
+      "python3 /root/anthos/replace_ws_vars.py",
       "chmod +x /root/anthos/deploy_admin_ws.sh",
       "/root/anthos/deploy_admin_ws.sh"
     ]

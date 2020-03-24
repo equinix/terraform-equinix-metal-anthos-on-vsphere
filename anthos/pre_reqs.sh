@@ -22,7 +22,6 @@ rm -f terraform_0.12.18_linux_amd64.zip
 # Download and admin workstation
 gcloud auth activate-service-account --key-file=$HOME/anthos/gcp_keys/${whitelisted_key_name}
 
-openssl s_client -showcerts -verify 5 -connect ${vcenter_fqdn}:443 < /dev/null | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; out="~/anthos/vspherecert.pem"; print >out}'
 
 # Download and admin workstation or gkeadm
 if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
@@ -30,4 +29,4 @@ if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
 else
   gsutil cp gs://gke-on-prem-release/gkeadm/$VERSION/linux/gkeadm /root/anthos/
   chmod +x /root/anthos/gkeadm
-end
+fi

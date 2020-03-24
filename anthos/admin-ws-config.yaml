@@ -2,7 +2,7 @@ gcp:
   # Path of the whitelisted service account's JSON key file
   whitelistedServiceAccountKeyPath: "/root/anthos/gcp_keys/${whitelisted_key_name}"
 # Specify which vCenter resources to use
-vCenter:i
+vCenter:
   # The credentials and address GKE On-Prem should use to connect to vCenter
   credentials:
     address: "${vcenter_fqdn}"
@@ -11,7 +11,7 @@ vCenter:i
   datacenter: "${vsphere_datacenter}"
   datastore: "${vsphere_datastore}"
   cluster: "${vsphere_cluster}"
-  network: "${vpshere_network}"
+  network: "${vsphere_network}"
   resourcepool: "${vsphere_resource_pool}"
   # Provide the path to vCenter CA certificate pub key for SSL verification
   caCertPath: "/root/anthos/vspherecert.pem"

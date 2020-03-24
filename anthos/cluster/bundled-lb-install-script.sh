@@ -18,11 +18,11 @@ if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
   export SYLLOGI_FEATURE_GATES="EnableBundledLB=true"
 else
   sed -i 's/#X//g/' /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml
+  if (( "$ESXICOUNT" > "1" )) ; then
+    sed -i 's/enabled: false/enabled: true/' bundled-lb-admin-uc1-config.yaml
+  fi
 fi
 
-if (( "$ESXICOUNT" > "1" )) ; then
-  sed -i 's/enabled: false/enabled: true/' bundled-lb-admin-uc1-config.yaml
-fi
 
 gkectl check-config --config /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml
 gkectl prepare --config /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml  --skip-validation-all

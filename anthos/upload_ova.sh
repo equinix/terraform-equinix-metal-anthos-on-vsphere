@@ -7,6 +7,10 @@ export GOVC_PASSWORD='${vmware_password}'
 export GOVC_DATASTORE='${vmware_datastore}'
 export GOVC_INSECURE=true
 
-govc import.ova ~/anthos/gke-on-prem-admin-appliance-vsphere-$VERSION.ova
-govc vm.markastemplate gke-on-prem-admin-appliance-vsphere-$VERSION
+
+if [ ! -f "/root/anthos/gkeadm" ] ; then
+  govc import.ova ~/anthos/gke-on-prem-admin-appliance-vsphere-$VERSION.ova
+  govc vm.markastemplate gke-on-prem-admin-appliance-vsphere-$VERSION
+fi
+
 govc pool.create '*/${vmware_resource_pool}'
