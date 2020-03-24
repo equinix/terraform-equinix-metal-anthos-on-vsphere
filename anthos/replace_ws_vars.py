@@ -16,6 +16,7 @@ for subnet in subnets:
         gateway_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[0].compressed
         prefix_length = int(subnet['cidr'].split('/')[1])
         netmask =  ipaddress.netmask('cidr')
+        print (netmask)
 
 os.system("sed -i 's/__IP_ADDRESS__/{}/g' /root/anthos/terraform.tfvars".format(workstation_ip))
 os.system("sed -i 's/__IP_PREFIX_LENGTH__/{}/g' /root/anthos/terraform.tfvars".format(prefix_length))

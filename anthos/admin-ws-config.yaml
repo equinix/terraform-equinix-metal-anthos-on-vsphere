@@ -6,13 +6,13 @@ vCenter:i
   # The credentials and address GKE On-Prem should use to connect to vCenter
   credentials:
     address: "${vcenter_fqdn}"
-    username: "${vcenter_user}"
-    password: "${vcenter_pass}"
-  datacenter: "${vcenter_datacenter}"
-  datastore: "${vcenter_datastore}"
-  cluster: "${vcenter_cluster}"
-  network: "${deploy_network}"
-  resourcepool: "${resource_pool}"
+    username: "${vcenter_username}"
+    password: "${vcenter_password}"
+  datacenter: "${vsphere_datacenter}"
+  datastore: "${vsphere_datastore}"
+  cluster: "${vsphere_cluster}"
+  network: "${vpshere_network}"
+  resourcepool: "${vsphere_resource_pool}"
   # Provide the path to vCenter CA certificate pub key for SSL verification
   caCertPath: "/root/anthos/vspherecert.pem"
 # The URL of the proxy for the jump host

@@ -46,7 +46,15 @@ data "template_file" "anthos_workstation_config_yaml"{
     vsphere_cluster       = var.vcenter_cluster_name
     vsphere_resource_pool = var.anthos_resource_pool_name
     vsphere_network       = format("%s Net", var.vcenter_portgroup_name)
-    whitelisted_key_name  = var.whitelisted-key.json
+    whitelisted_key_name  = var.whitelisted_key_name
+  }
+}
+
+
+data "template_file" "anthos_deploy_admin_ws_sh" {
+  template = file("anthos/deploy_admin_ws.sh")
+  vars = {
+    vcenter_fqdn = format("vcva.%s", var.domain_name)
   }
 }
 
@@ -76,7 +84,7 @@ resource "null_resource" "anthos_deploy_workstation" {
   }
 
   provisioner "file" {
-    content     = data.template_file.anthos_replace_tf_vars.rendered
+    content     = data.template_file.anthos_replace_ws_vars.rendered
     destination = "/root/anthos/replace_ws_vars.py"
   }
 
@@ -86,7 +94,7 @@ resource "null_resource" "anthos_deploy_workstation" {
   }
 
   provisioner "file" {
-    content     = file("anthos/deploy_admin_ws.sh")
+    content     = data.template_file.anthos_deploy_admin_ws_sh.rendered
     destination = "/root/anthos/deploy_admin_ws.sh"
   }
 
