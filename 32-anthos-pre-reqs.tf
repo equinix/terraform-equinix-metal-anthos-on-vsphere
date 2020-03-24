@@ -3,6 +3,7 @@ data "template_file" "anthos_pre_reqs_script" {
   vars = {
     anthos_version       = var.anthos_version
     whitelisted_key_name = var.whitelisted_key_name
+    vcenter_fqdn         = format("vcva.%s", var.domain_name) 
   }
 }
 

@@ -1,0 +1,46 @@
+gcp:
+  # Path of the whitelisted service account's JSON key file
+  whitelistedServiceAccountKeyPath: "/root/anthos/gcp_keys/${whitelisted_key_name}"
+# Specify which vCenter resources to use
+vCenter:i
+  # The credentials and address GKE On-Prem should use to connect to vCenter
+  credentials:
+    address: "${vcenter_fqdn}"
+    username: "${vcenter_user}"
+    password: "${vcenter_pass}"
+  datacenter: "${vcenter_datacenter}"
+  datastore: "${vcenter_datastore}"
+  cluster: "${vcenter_cluster}"
+  network: "${deploy_network}"
+  resourcepool: "${resource_pool}"
+  # Provide the path to vCenter CA certificate pub key for SSL verification
+  caCertPath: "/root/anthos/vspherecert.pem"
+# The URL of the proxy for the jump host
+proxyUrl: ""
+adminWorkstation:
+  name: admin-workstation
+  cpus: 4
+  memoryMB: 8192
+  # The disk size of the admin workstation in GB. It is recommended to use a disk
+  # with at least 50 GB to host images decompressed from the bundle.
+  diskGB: 50
+  network:
+    # The IP allocation mode: 'dhcp' or 'static'
+    ipAllocationMode: "static"
+    # # The host config in static IP mode. Do not include if using DHCP
+    hostConfig:
+       # The IPv4 static IP address for the admin workstation
+      ip: "__IP_ADDRESS__"
+       # The IP address of the default gateway of the subnet in which the admin workstation
+       # is to be created
+      gateway: "__GATEWAY__"
+       # The subnet mask of the network where you want to create your admin workstation
+      netmask: "__NETMASK__"
+       # The list of DNS nameservers to be used by the admin workstation
+      dns:
+       - "__GATEWAY__"
+       - "8.8.8.8"
+       - "8.8.4.4"
+  # The URL of the proxy for the admin workstation
+  proxyUrl: ""
+  ntpServer: ntp.ubuntu.com

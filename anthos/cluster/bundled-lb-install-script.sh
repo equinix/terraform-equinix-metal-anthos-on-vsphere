@@ -5,6 +5,7 @@ export GOVC_USERNAME='${vcenter_user}'
 export GOVC_PASSWORD='${vcenter_pass}'
 export GOVC_INSECURE=true
 VERSION=$(gkectl version | awk '{print $2}')
+ESXICOUNT='${esxi_host_count}
 
 govc datastore.mkdir -dc="${vcenter_datacenter}" -ds="${vcenter_datastore}" gke-on-prem/
 
@@ -13,7 +14,15 @@ gcloud auth configure-docker --quiet
 
 openssl s_client -showcerts -verify 5 -connect ${vcenter_fqdn}:443 < /dev/null | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; out="vspherecert.pem"; print >out}'
 
-export SYLLOGI_FEATURE_GATES="EnableBundledLB=true"
+if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
+  export SYLLOGI_FEATURE_GATES="EnableBundledLB=true"
+else
+  sed -i 's/#X//g/' /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml
+fi
+
+if (( "$ESXICOUNT" > "1" )) ; then
+  sed -i 's/enabled: false/enabled: true/' bundled-lb-admin-uc1-config.yaml
+fi
 
 gkectl check-config --config /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml
 gkectl prepare --config /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml  --skip-validation-all
@@ -27,9 +36,5 @@ if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
 	govc vm.destroy $VM2
 fi
 
-
-
 gkectl create cluster --config /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml --skip-validation-all
-
-	
 

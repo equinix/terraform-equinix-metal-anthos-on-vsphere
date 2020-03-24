@@ -26,12 +26,27 @@ data "template_file" "anthos_upload_ova_template" {
   }
 }
 
-data "template_file" "anthos_replace_tf_vars" {
-  template = file("anthos/replace_tf_vars.py")
+data "template_file" "anthos_replace_ws_vars" {
+  template = file("anthos/replace_ws_vars.py")
   vars = {
     private_subnets = jsonencode(var.private_subnets)
     vsphere_network = var.vcenter_portgroup_name
     domain_name     = var.domain_name
+  }
+}
+
+data "template_file" "anthos_workstation_config_yaml"{
+  template = file("anthos/admin-ws-config.yaml")
+  vars = {
+    vcenter_username      = "Administrator@vsphere.local"
+    vcenter_password      = random_string.sso_password.result
+    vcenter_fqdn          = format("vcva.%s", var.domain_name)
+    vsphere_datastore     = var.anthos_datastore
+    vsphere_datacenter    = var.vcenter_datacenter_name
+    vsphere_cluster       = var.vcenter_cluster_name
+    vsphere_resource_pool = var.anthos_resource_pool_name
+    vsphere_network       = format("%s Net", var.vcenter_portgroup_name)
+    whitelisted_key_name  = var.whitelisted-key.json
   }
 }
 
@@ -62,7 +77,17 @@ resource "null_resource" "anthos_deploy_workstation" {
 
   provisioner "file" {
     content     = data.template_file.anthos_replace_tf_vars.rendered
-    destination = "/root/anthos/replace_tf_vars.py"
+    destination = "/root/anthos/replace_ws_vars.py"
+  }
+
+  provisioner "file" {
+    content     = data.template_file.anthos_workstation_config_yaml
+    destination = "/root/anthos/admin_ws_config.yaml"
+  }
+
+  provisioner "file" {
+    content     = file("anthos/deploy_admin_ws.sh")
+    destination = "/root/anthos/deploy_admin_ws.sh"
   }
 
   provisioner "remote-exec" {
@@ -71,8 +96,8 @@ resource "null_resource" "anthos_deploy_workstation" {
       "chmod +x /root/anthos/upload_ova.sh",
       "/root/anthos/upload_ova.sh",
       "python3 /root/anthos/replace_tf_vars.py",
-      "terraform init",
-      "terraform apply --auto-approve"
+      "chmod +x /root/anthos/deploy_admin_ws.sh",
+      "/root/anthos/deploy_admin_ws.sh"
     ]
   }
 }

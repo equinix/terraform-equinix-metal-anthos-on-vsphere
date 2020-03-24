@@ -4,6 +4,7 @@ export VERSION='${anthos_version}'
 
 cd /root/anthos
 
+
 # Install GoVC
 wget https://github.com/vmware/govmomi/releases/download/v0.21.0/govc_linux_amd64.gz
 gzip -d govc_linux_amd64.gz
@@ -18,7 +19,15 @@ chmod +x terraform
 mv terraform /usr/local/bin
 rm -f terraform_0.12.18_linux_amd64.zip
 
-# Download and deploy admin workstation
+# Download and admin workstation
 gcloud auth activate-service-account --key-file=$HOME/anthos/gcp_keys/${whitelisted_key_name}
-gsutil cp gs://gke-on-prem-release/admin-appliance/$VERSION/gke-on-prem-admin-appliance-vsphere-$VERSION.ova ~/anthos/
 
+openssl s_client -showcerts -verify 5 -connect ${vcenter_fqdn}:443 < /dev/null | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; out="~/anthos/vspherecert.pem"; print >out}'
+
+# Download and admin workstation or gkeadm
+if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
+  gsutil cp gs://gke-on-prem-release/admin-appliance/$VERSION/gke-on-prem-admin-appliance-vsphere-$VERSION.ova ~/anthos/
+else
+  gsutil cp gs://gke-on-prem-release/gkeadm/$VERSION/linux/gkeadm /root/anthos/
+  chmod +x /root/anthos/gkeadm
+end

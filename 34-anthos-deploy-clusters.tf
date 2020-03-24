@@ -62,6 +62,7 @@ data "template_file" "anthos_cluster_creation_script" {
     vcenter_datacenter       = var.vcenter_datacenter_name
     whitelisted_key_name     = var.whitelisted_key_name
     anthos_user_cluster_name = var.anthos_user_cluster_name
+    esxi_host_count          = var.esxi_host_count
   }
 }
 
