@@ -7,7 +7,6 @@ data "template_file" "user_data" {
     public_vlans        = jsonencode(packet_vlan.public_vlans.*.vxlan)
     public_cidrs        = jsonencode(packet_reserved_ip_block.ip_blocks.*.cidr_notation)
     domain_name         = var.domain_name
-    reserved_ip_count = var.reserved_ip_count
   }
 }
 

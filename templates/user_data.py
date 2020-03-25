@@ -13,7 +13,6 @@ public_subnets = '${public_subnets}'
 public_vlans = '${public_vlans}'
 public_cidrs = '${public_cidrs}'
 domain_name = '${domain_name}'
-reserved_ip_count = '${reserved_ip_count}'
 
 def words_list():
     word_site = "https://raw.githubusercontent.com/taikuukaits/SimpleWordlists/master/Wordlist-Nouns-Common-Audited-Len-3-6.txt"
@@ -112,7 +111,11 @@ for subnet in subnets:
         # Gather network facts about this subnet
         router_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[0].compressed
         low_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[1].compressed
-        high_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[-reserved_ip_count].compressed
+        if 'reserved_ip_count' in subnet:
+          high_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[-subnet['reserved_ip_count']].compressed
+        else:
+          high_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[-1].compressed
+
         netmask = ipaddress.ip_network(subnet['cidr']).netmask.compressed
 
         # Setup vLan interface for this subnet
