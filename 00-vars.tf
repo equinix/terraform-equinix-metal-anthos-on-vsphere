@@ -1,3 +1,9 @@
+terraform {
+  required_providers {
+    packet = "2.7.5"
+  }
+}
+
 variable "auth_token" {
 }
 
