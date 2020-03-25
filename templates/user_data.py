@@ -112,7 +112,7 @@ for subnet in subnets:
         # Gather network facts about this subnet
         router_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[0].compressed
         low_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[1].compressed
-        high_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[-1].compressed
+        high_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[-100].compressed
         netmask = ipaddress.ip_network(subnet['cidr']).netmask.compressed
 
         # Setup vLan interface for this subnet
