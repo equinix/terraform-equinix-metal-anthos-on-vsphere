@@ -81,7 +81,7 @@ variable "esxi_size" {
 }
 
 variable "facility" {
-  default = "sjc1"
+  default = "dfw2"
 }
 
 variable "router_os" {
