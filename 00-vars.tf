@@ -70,8 +70,8 @@ variable "public_subnets" {
   ]
 }
 
-variable "reserved_ip_space" {
-  default = 10
+variable "reserved_ip_count" {
+  default = 100
 }
 
 variable "router_hostname" {
