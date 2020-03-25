@@ -5,7 +5,7 @@ export GOVC_USERNAME='${vcenter_user}'
 export GOVC_PASSWORD='${vcenter_pass}'
 export GOVC_INSECURE=true
 VERSION=$(gkectl version | awk '{print $2}')
-ESXICOUNT='${esxi_host_count}
+ESXICOUNT='${esxi_host_count}'
 
 govc datastore.mkdir -dc="${vcenter_datacenter}" -ds="${vcenter_datastore}" gke-on-prem/
 
