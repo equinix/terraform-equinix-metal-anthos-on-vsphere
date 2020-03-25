@@ -89,7 +89,7 @@ variable "router_os" {
 }
 
 variable "vmware_os" {
-  default = "vmware_esxi_6_5"
+  default = "ubuntu_16_04"
 }
 
 variable "billing_cycle" {
