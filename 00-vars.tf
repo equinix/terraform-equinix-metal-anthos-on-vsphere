@@ -1,3 +1,9 @@
+terraform {
+  required_providers {
+    packet = "2.7.5"
+  }
+}
+
 variable "auth_token" {
 }
 
@@ -62,6 +68,10 @@ variable "public_subnets" {
       "ip_count" : 4
     }
   ]
+}
+
+variable "reserved_ip_space" {
+  default = 10
 }
 
 variable "router_hostname" {
