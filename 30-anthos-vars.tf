@@ -4,7 +4,6 @@ variable "anthos_gcp_project_id" {
 
 variable "anthos_version" {
   description = "Version of Google Anthos to install"
-  default     = "1.1.2-gke.0"
 }
 
 # Must be True or False (Case matters)
