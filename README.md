@@ -42,12 +42,13 @@ The Terrafrom has been succesfully tested with following versions of GKE on-prem
 * 1.2.0-gke.6*
 * 1.2.1-gke.4*
 * 1.2.2-gke.2*
-* 1.3.0-gke.16
+* 1.3.0-gke.16**
 
 To simplify setup, this is designed to used the EAP bundled Seesaw load balancer scheduled to go GA later this year. No other load balancer support is planned at this time.
 
 \*Due to a known bug in the EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
 
+\*\*This release appears to take 15-20 minutes longer to deploy. Some of that is due to the introduction of gkeadm to deploy the admin worksation. We are studying if there are any other possible optimizations that can be made to speed up the deployment.
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
 
