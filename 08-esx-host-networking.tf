@@ -45,7 +45,8 @@ resource "null_resource" "apply_esx_network_config" {
     packet_port_vlan_attachment.esxi_priv_vlan_attach,
     packet_port_vlan_attachment.esxi_pub_vlan_attach,
     null_resource.esx_network_prereqs,
-    null_resource.copy_update_uplinks
+    null_resource.copy_update_uplinks,
+    null_resource.install_vpn_server
   ]
 
   connection {

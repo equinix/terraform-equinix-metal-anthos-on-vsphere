@@ -1,12 +1,12 @@
 data "template_file" "user_data" {
   template = file("templates/user_data.py")
   vars = {
-    private_subnets     = jsonencode(var.private_subnets)
-    private_vlans       = jsonencode(packet_vlan.private_vlans.*.vxlan)
-    public_subnets      = jsonencode(var.public_subnets)
-    public_vlans        = jsonencode(packet_vlan.public_vlans.*.vxlan)
-    public_cidrs        = jsonencode(packet_reserved_ip_block.ip_blocks.*.cidr_notation)
-    domain_name         = var.domain_name
+    private_subnets = jsonencode(var.private_subnets)
+    private_vlans   = jsonencode(packet_vlan.private_vlans.*.vxlan)
+    public_subnets  = jsonencode(var.public_subnets)
+    public_vlans    = jsonencode(packet_vlan.public_vlans.*.vxlan)
+    public_cidrs    = jsonencode(packet_reserved_ip_block.ip_blocks.*.cidr_notation)
+    domain_name     = var.domain_name
   }
 }
 

@@ -1,9 +1,9 @@
 data "template_file" "anthos_workstation_tf_vars" {
   template = file("anthos/static-ip.tfvars")
   vars = {
-    vcenter_username      = "Administrator@vsphere.local"
-    vcenter_password      = random_string.sso_password.result
-    vcenter_fqdn          = format("vcva.%s", var.domain_name)
+    vcenter_username = "Administrator@vsphere.local"
+    vcenter_password = random_string.sso_password.result
+    vcenter_fqdn     = format("vcva.%s", var.domain_name)
 
     vsphere_datastore     = var.anthos_datastore
     vsphere_datacenter    = var.vcenter_datacenter_name
@@ -35,7 +35,7 @@ data "template_file" "anthos_replace_ws_vars" {
   }
 }
 
-data "template_file" "anthos_workstation_config_yaml"{
+data "template_file" "anthos_workstation_config_yaml" {
   template = file("anthos/admin-ws-config.yaml")
   vars = {
     vcenter_username      = "Administrator@vsphere.local"

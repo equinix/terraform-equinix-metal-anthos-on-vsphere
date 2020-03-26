@@ -42,13 +42,11 @@ The Terrafrom has been succesfully tested with following versions of GKE on-prem
 * 1.2.0-gke.6*
 * 1.2.1-gke.4*
 * 1.2.2-gke.2*
-* 1.3.0-gke.16**
+* 1.3.0-gke.16
 
 To simplify setup, this is designed to used the EAP bundled Seesaw load balancer scheduled to go GA later this year. No other load balancer support is planned at this time.
 
 \*Due to a known bug in the EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
-
-\*\*1.3.0-gke.16 deploys as is currently. However it currently will only deploy a single LB and does not use the gkeadm process. We've opened two issues and are working to address this. ([Issue #18](https://github.com/packet-labs/google-anthos/issues/18), [Issue #35](https://github.com/packet-labs/google-anthos/issues/35) )
 
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
@@ -137,7 +135,7 @@ project_name = "anthos-packet-project-1"
 anthos_gcp_project_id = "my-anthos-project" 
 gcs_bucket_name = "bucket_name/folder" 
 vcenter_iso_name = "VMware-VCSA-all-6.7.0-XXXXXXX.iso" 
-anthos_version = "1.2.2-gke.2"
+anthos_version = "1.3.0-gke.16"
 anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ``` 
@@ -181,7 +179,7 @@ s3_bucket_name = "vmware"
 s3_access_key = "4fa85962-975f-4650-b603-17f1cb9dee10" 
 s3_secret_key = "becf3868-3f07-4dbb-a6d5-eacfd7512b09" 
 vcenter_iso_name = "VMware-VCSA-all-6.7.0-XXXXXXX.iso" 
-anthos_version = "1.2.2-gke.2"
+anthos_version = "1.3.0-gke.16"
 anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ```  
@@ -239,7 +237,7 @@ You will need to ssh into the router/gateway and from there ssh into the admin w
 
 ```
 ssh root@VPN_Endpoint
-ssh -i /root/anthos/ssh_key ubuntu@172.16.0.3
+ssh -i /root/anthos/ssh_key ubuntu@admin_workstation
 ```
 
 The kubeconfig files for the admin and user clusters are located under ~/cluster, you can for example check the nodes of the admin cluster with the following command
@@ -247,6 +245,17 @@ The kubeconfig files for the admin and user clusters are located under ~/cluster
 ```
 kubectl --kubeconfig ~/cluster/kubeconfig get nodes
 ```
+
+## Exposing k8s services
+Currently services can be exposed on the bundled Seesaw load balancer(s) on VIPs
+within the VM Private Network (172.16.3.0/24 by default). By default we exclude
+the last 98 usable IPs of the 172.16.3.0/24 subnet from the DHCP range--
+172.16.3.156-172.16.3.54. You can
+change this number by adjusting the `reserved_ip_count` field in the VM Private
+Network json in `00-vars.tf`. 
+
+At this point services are not exposed to the public internet. One could adjust
+iptables on the edge-gateway to forward ports/IPs to VIP.
 
 ## Cleaning the environement
 To clean up a created environment (or a failed one), run `terraform destroy --auto-approve`.

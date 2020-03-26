@@ -54,7 +54,7 @@ usercluster:
     vip: __USER_LB_VIP__
     cpus: 4
     memorymb: 8192
-    #Xenable: true
+    #Xenableha: true
     antiaffinitygroups:
       enabled: false
   vips:
