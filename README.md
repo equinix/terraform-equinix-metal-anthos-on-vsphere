@@ -214,8 +214,9 @@ When a single ESXi server is deployed, the datastore is extended to use all avai
 To do a single ESXi server deployment, set the following variables in your `terraform.tfvars` file:
 
 ```bash
-esxi_host_count          = 1
-anthos_datastore         = "datastore1"
+esxi_host_count             = 1
+anthos_datastore            = "datastore1"
+anthos_user_master_replicas = 1
 ```
 This has been tested with the c2.medium.x86. It may work with other systems as well, but it has not been fully tested.
 We have not tested the maximum vSAN cluster size. Cluster size of 2 is not supported.
