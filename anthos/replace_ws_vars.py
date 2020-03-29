@@ -15,10 +15,17 @@ for subnet in subnets:
         workstation_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[2].compressed
         gateway_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[0].compressed
         prefix_length = int(subnet['cidr'].split('/')[1])
+        network = ipaddress.IPv4Network(subnet['cidr'], strict=True)
+        netmask =  network.netmask
 
 os.system("sed -i 's/__IP_ADDRESS__/{}/g' /root/anthos/terraform.tfvars".format(workstation_ip))
 os.system("sed -i 's/__IP_PREFIX_LENGTH__/{}/g' /root/anthos/terraform.tfvars".format(prefix_length))
 os.system("sed -i 's/__GATEWAY__/{}/g' /root/anthos/terraform.tfvars".format(gateway_ip))
+
+os.system("sed -i 's/__IP_ADDRESS__/{}/g' /root/anthos/admin-ws-config.yaml".format(workstation_ip))
+os.system("sed -i 's/__NETMASK__/{}/g' /root/anthos/admin-ws-config.yaml".format(netmask))
+os.system("sed -i 's/__GATEWAY__/{}/g' /root/anthos/admin-ws-config.yaml".format(gateway_ip))
+os.system("sed -i 's/__IP_ADDRESS__/{}/g' /root/anthos/deploy_admin_ws.sh".format(workstation_ip))
 
 # Reserve IP in dnsmasq
 dnsmasq_conf = open('/etc/dnsmasq.d/dhcp.conf', 'a+')

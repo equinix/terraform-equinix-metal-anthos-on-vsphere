@@ -54,6 +54,7 @@ variable "private_subnets" {
       "vsphere_service_type" : null,
       "routable" : true,
       "cidr" : "172.16.3.0/24"
+      "reserved_ip_count" : 100
     }
   ]
 }

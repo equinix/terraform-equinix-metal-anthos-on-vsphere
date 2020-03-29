@@ -28,6 +28,7 @@ admincluster:
     vip: __ADMIN_LB_VIP__
     cpus: 4
     memorymb: 8192
+    #Xenableha: true
     antiaffinitygroups:
       enabled: false
   vips:
@@ -53,8 +54,9 @@ usercluster:
     vip: __USER_LB_VIP__
     cpus: 4
     memorymb: 8192
+    #Xenableha: true
     antiaffinitygroups:
-      enabled: false  
+      enabled: false
   vips:
     # Used to connect to the Kubernetes API
     controlplanevip: "__USER_K8S_API_VIP__"
