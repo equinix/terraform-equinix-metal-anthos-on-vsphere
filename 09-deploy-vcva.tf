@@ -27,7 +27,7 @@ resource "null_resource" "deploy_vcva" {
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/id_rsa")
+    private_key = file("~/.ssh/${var.project_name}-${local.timestamp_sanitized}-key")
     host        = packet_device.router.access_public_ipv4
   }
 
@@ -61,7 +61,7 @@ resource "null_resource" "vsan_claim" {
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/id_rsa")
+    private_key = file("~/.ssh/${var.project_name}-${local.timestamp_sanitized}-key")
     host        = packet_device.router.access_public_ipv4
   }
 

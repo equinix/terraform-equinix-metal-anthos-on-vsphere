@@ -13,7 +13,7 @@ resource "null_resource" "anthos_pre_reqs" {
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/id_rsa")
+    private_key = file("~/.ssh/${var.project_name}-${local.timestamp_sanitized}-key")
     host        = packet_device.router.access_public_ipv4
   }
 
