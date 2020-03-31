@@ -2,8 +2,7 @@
 # Automated Anthos Installation via Terraform for Packet
 These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Packet's Bare Metal Cloud offering](https://www.packet.com/cloud/). 
 
-Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud.
-
+Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can you an existing Packet Project, check this [section](#use-an-existing-packet-project) for instructions.
 
 ![Environment Diagram](docs/images/google-anthos-vsphere-network-diagram-1.png)
 
@@ -14,6 +13,17 @@ The build (with default settings) typically takes 70-75 minutes.
 
 ## Join us on Slack
 We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Packet Community Slack group by going to [slack.packet.com](https://slack.packet.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
+
+## Latest Updates
+### 3-31-2020
+* The terraform is fully upgraded to work with Anthos GKE on-prem version
+1.3.0-gke.16
+* There is now an option to use an existing Packet project rather than create a
+  new one (default behavior is to create a new project)
+* We no longer require a private .ssh key for the environment be saved at
+  ~/.ssh/id_rsa. The terraform will generate a ssh key pair and save it to
+  ~/.ssh/<project_name>-<timestamp>. A .bak of the same file name is also
+  created so that the key will be available after a `terraform destroy` command.
 
 ## Prerequisites
 To use these Terraform files, you need to have the following Prerequisites:
@@ -236,7 +246,7 @@ Some corporate networks block outbound L2TP traffic. If you are experiening issu
 You will need to ssh into the router/gateway and from there ssh into the admin workstation where the kubeconfig files of your clusters are located.
 
 ```
-ssh root@VPN_Endpoint
+ssh -i ~/.ssh/<private-ssh-key-created-by-project> root@VPN_Endpoint
 ssh -i /root/anthos/ssh_key ubuntu@admin_workstation
 ```
 
@@ -270,6 +280,18 @@ To create just the vSphere environment and skip all Anthos related steps, add `a
 > Note that `anthos_deploy_clusters` uses a string of either `"True"` or `"False"` while  `anthos_deploy_workstation_prereqs` usses a boolean of `true` or `flase`. This is because the `anthos_deploy_clusters` variable is used within a bash script while `anthos_deploy_workstation_prereqs` is used by Terraform which supports booleans.
 
 See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample) to see what the Anthos parameters are when the default settings are used to create the environment.
+
+## Use an existing Packet project
+If you have an existing Packet project you can use it assuming the project has at least 5 available vlans, Packet project has a limit of 12 Vlans and this setup uses 5 of them.
+
+Get your Project ID, navigate to the Project from the packet.com console and click on PROJECT SETTINGS, copy the PROJECT ID.
+
+add the following variables to your terraform.tfvars
+
+```
+create_project                    = false
+project_id                        = "YOUR-PROJECT-ID"
+```
 
 ## Changing default Anthos GKE on-prem cluster defaults
 Check the `30-anthos-vars.tf` file for additional values (including number of user worker nodes and vCPU/RAM settings for the worker nodes) which can be set via the terraform.tfvars file.

@@ -9,11 +9,17 @@ provider "packet" {
 }
 
 resource "packet_project" "new_project" {
+  count           = var.create_project ? 1 : 0
   name            = var.project_name
   organization_id = var.organization_id
 
 }
 
+locals {
+  depends_on = [packet_project.new_project]
+  count      = var.create_project ? 1 : 0
+  project_id = var.create_project ? packet_project.new_project[0].id : var.project_id
+}
 
 resource "tls_private_key" "ssh_key_pair" {
   algorithm = "RSA"
@@ -22,8 +28,8 @@ resource "tls_private_key" "ssh_key_pair" {
 
 resource "packet_project_ssh_key" "ssh_pub_key" {
   depends_on = [packet_project.new_project]
-  project_id = packet_project.new_project.id
-  name       = var.project_name
+  project_id = local.project_id
+  name       = "${var.project_name}-${local.timestamp_sanitized}-key"
   public_key = chomp(tls_private_key.ssh_key_pair.public_key_openssh)
 }
 
@@ -36,5 +42,3 @@ resource "local_file" "project_private_key_pem" {
     command = "cp ~/.ssh/${var.project_name}-${local.timestamp_sanitized}-key ~/.ssh/${var.project_name}-${local.timestamp_sanitized}-key.bak"
   }
 }
-
-

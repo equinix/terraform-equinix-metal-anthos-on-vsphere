@@ -14,6 +14,18 @@ variable "project_name" {
   default = "anthos-on-packet-1"
 }
 
+
+variable "create_project" {
+  description = "if true create the packet project, if not skip and use the provided project"
+  default     = true
+  type        = bool
+}
+
+variable "project_id" {
+  description = "Packet Project ID to use in case create_project is false"
+  default     = "null"
+}
+
 /*
 Valid vsphere_service_types are:
   faultToleranceLogging
