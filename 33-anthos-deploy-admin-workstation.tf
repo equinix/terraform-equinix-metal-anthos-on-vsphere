@@ -64,7 +64,7 @@ resource "null_resource" "anthos_deploy_workstation" {
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/${var.project_name}-${local.timestamp_sanitized}-key")
+    private_key = file("~/.ssh/${local.ssh_key_name}")
     host        = packet_device.router.access_public_ipv4
   }
 

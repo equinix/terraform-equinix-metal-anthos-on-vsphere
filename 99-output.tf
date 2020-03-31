@@ -35,5 +35,5 @@ output "KSA_Token_Location" {
 }
 
 output "SSH_Key_Location" {
-  value = "An SSH Key was created for this environment, it is saved at ~/.ssh/${var.project_name}-${local.timestamp_sanitized}-key"
+  value = "An SSH Key was created for this environment, it is saved at ~/.ssh/${local.ssh_key_name}"
 }

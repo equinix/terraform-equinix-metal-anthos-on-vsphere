@@ -205,17 +205,18 @@ This should end with output similar to this:
 Apply complete! Resources: 50 added, 0 changed, 0 destroyed. 
  
 Outputs: 
- 
-VPN_Endpoint = 139.178.85.49 
-VPN_PSK = @U69neoBD2vlGdHbe@o1 
-VPN_Pasword = 0!kfeooo?FaAvyZ2 
-VPN_User = vm_admin 
-vCenter_Appliance_Root_Password = n4$REf6p*oMo2eYr 
-vCenter_FQDN = vcva.packet.local 
-vCenter_Password = bzN4UE7m3g$DOf@P 
-vCenter_Username = Administrator@vsphere.local 
-``` 
- 
+
+KSA_Token_Location = The user cluster KSA Token (for logging in from GCP) is located at ./ksa_token.txt
+SSH_Key_Location = An SSH Key was created for this environment, it is saved at ~/.ssh/project_2-20200331215342-key
+VPN_Endpoint = 139.178.85.91
+VPN_PSK = @1!64v7$PLuIIir9TPIJ
+VPN_Pasword = n3$xi@S*ZFgUbB5k
+VPN_User = vm_admin
+vCenter_Appliance_Root_Password = *XjryDXx*P8Y3c1$
+vCenter_FQDN = vcva.packet.local
+vCenter_Password = 3@Uj7sor7v3I!4eo
+```
+
 ## Size of the vSphere Cluster
 The code supports deploying a single ESXi server or a 3+ node vSAN cluster. Default settings are for 3 ESXi nodes with vSAN.
 
