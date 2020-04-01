@@ -17,7 +17,7 @@ resource "packet_device" "router" {
   facilities       = [var.facility]
   operating_system = var.router_os
   billing_cycle    = var.billing_cycle
-  project_id       = packet_project.new_project.id
+  project_id       = local.project_id
   user_data        = data.template_file.user_data.rendered
   network_type     = "hybrid"
 }

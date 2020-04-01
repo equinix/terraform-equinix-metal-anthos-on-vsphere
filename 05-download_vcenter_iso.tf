@@ -17,7 +17,7 @@ resource "null_resource" "download_vcenter_iso" {
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/id_rsa")
+    private_key = file("~/.ssh/${local.ssh_key_name}")
     host        = packet_device.router.access_public_ipv4
   }
 

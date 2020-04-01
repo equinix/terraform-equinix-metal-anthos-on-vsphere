@@ -33,3 +33,7 @@ output "vCenter_Appliance_Root_Password" {
 output "KSA_Token_Location" {
   value = "The user cluster KSA Token (for logging in from GCP) is located at ./ksa_token.txt"
 }
+
+output "SSH_Key_Location" {
+  value = "An SSH Key was created for this environment, it is saved at ~/.ssh/${local.ssh_key_name}"
+}
