@@ -242,7 +242,7 @@ There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every pl
 
 Make sure to enable all traffic to use the VPN (aka do not enable split tunneling) on your L2TP client.
 
-Some corporate networks block outbound L2TP traffic. If you are experiening issues connecting, you may try a guest network or personal hotspot.
+Some corporate networks block outbound L2TP traffic. If you are experiencing issues connecting, you may try a guest network or personal hotspot.
 
 ## Connect to the clusters
 You will need to ssh into the router/gateway and from there ssh into the admin workstation where the kubeconfig files of your clusters are located.
