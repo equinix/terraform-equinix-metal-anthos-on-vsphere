@@ -275,7 +275,7 @@ Network json in `00-vars.tf`.
 At this point services are not exposed to the public internet--you must connect via VPN to access the VIPs and services. One could adjust
 iptables on the edge-gateway to forward ports/IPs to VIP.
 
-## Cleaning the environement
+## Cleaning the environment
 To clean up a created environment (or a failed one), run `terraform destroy --auto-approve`.
 
 If this does not work for some reason, you can manually delete each of the resources created in Packet (including the project) and then delete your terraform state file, `rm -f terraform.tfstate`.
