@@ -233,7 +233,9 @@ This has been tested with the c2.medium.x86. It may work with other systems as w
 We have not tested the maximum vSAN cluster size. Cluster size of 2 is not supported.
 
 
-## Connect to the Environment 
+## Connect to the Environment via VPN
+By connecting via VPN, you will be able to access vCenter plus the admin workstation, cluster VMs, and any services exposed via the seesaw load balancers.
+
 There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every platform. You'll need to reference your operating system's documentation on how to connect to an L2TP IPsec VPN. 
 
 [MAC how to configure L2TP IPsec VPN](https://support.apple.com/guide/mac-help/set-up-a-vpn-connection-on-mac-mchlp2963/mac)
@@ -245,7 +247,7 @@ Make sure to enable all traffic to use the VPN (aka do not enable split tunnelin
 Some corporate networks block outbound L2TP traffic. If you are experiencing issues connecting, you may try a guest network or personal hotspot.
 
 ## Connect to the clusters
-You will need to ssh into the router/gateway and from there ssh into the admin workstation where the kubeconfig files of your clusters are located.
+You will need to ssh into the router/gateway and from there ssh into the admin workstation where the kubeconfig files of your clusters are located. NOTE- This can be done with or without establishing the VPN first.
 
 ```
 ssh -i ~/.ssh/<private-ssh-key-created-by-project> root@VPN_Endpoint
@@ -258,15 +260,19 @@ The kubeconfig files for the admin and user clusters are located under ~/cluster
 kubectl --kubeconfig ~/cluster/kubeconfig get nodes
 ```
 
+## Connect to the vCenter
+Connecting to the vCenter requires that the VPN be established. Once the VPN is connected, launch a browser to https://vcva.packet.local/ui. You’ll need to accept the self-signed certificate and then enter the  vCenter username and password provided in the output. NOTE- use the `vCenter_Password` and not the `vCenter_Appliance_Root_Password`
+
+
 ## Exposing k8s services
-Currently services can be exposed on the bundled Seesaw load balancer(s) on VIPs
+Currently services can be exposed on the bundled seesaw load balancer(s) on VIPs
 within the VM Private Network (172.16.3.0/24 by default). By default we exclude
 the last 98 usable IPs of the 172.16.3.0/24 subnet from the DHCP range--
-172.16.3.156-172.16.3.54. You can
+172.16.3.156-172.16.3.254. You can
 change this number by adjusting the `reserved_ip_count` field in the VM Private
 Network json in `00-vars.tf`. 
 
-At this point services are not exposed to the public internet. One could adjust
+At this point services are not exposed to the public internet--you must connect via VPN to access the VIPs and services. One could adjust
 iptables on the edge-gateway to forward ports/IPs to VIP.
 
 ## Cleaning the environement
