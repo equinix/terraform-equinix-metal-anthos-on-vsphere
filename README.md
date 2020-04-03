@@ -246,6 +246,8 @@ Make sure to enable all traffic to use the VPN (aka do not enable split tunnelin
 
 Some corporate networks block outbound L2TP traffic. If you are experiencing issues connecting, you may try a guest network or personal hotspot.
 
+Windows 10 is known to be very finicky with L2TP Ipsec VPN. If you are on a Windows 10 client and experience issues getting VPN to work, consider using OpenVPN instead. These [instructions](https://www.cyberciti.biz/faq/ubuntu-18-04-lts-set-up-openvpn-server-in-5-minutes/) may help setting up OpenVPN on the edge-gateway. 
+
 ## Connect to the clusters
 You will need to ssh into the router/gateway and from there ssh into the admin workstation where the kubeconfig files of your clusters are located. NOTE- This can be done with or without establishing the VPN first.
 
