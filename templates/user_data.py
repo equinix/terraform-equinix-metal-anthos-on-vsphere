@@ -108,6 +108,9 @@ for subnet in subnets:
         # Find vCenter IP
         if subnet['vsphere_service_type'] == 'management':
             vcenter_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[1].compressed
+            management_gateway = list(ipaddress.ip_network(subnet['cidr']).hosts())[0].compressed
+            sed_cmd = "sed -i '1i nameserver " + management_gateway + "' /etc/resolv.conf"
+            os.system(sed_cmd)
         # Gather network facts about this subnet
         router_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[0].compressed
         low_ip = list(ipaddress.ip_network(subnet['cidr']).hosts())[1].compressed
