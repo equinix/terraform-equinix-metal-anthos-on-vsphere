@@ -4,6 +4,7 @@ import os
 import sys
 import subprocess
 import socket
+from time import sleep
 from pyVmomi import vim, vmodl
 from pyVim import connect
 
