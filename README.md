@@ -2,7 +2,7 @@
 # Automated Anthos Installation via Terraform for Packet
 These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Packet's Bare Metal Cloud offering](https://www.packet.com/cloud/). 
 
-Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can you an existing Packet Project, check this [section](#use-an-existing-packet-project) for instructions.
+Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can use an existing Packet Project, check this [section](#use-an-existing-packet-project) for instructions.
 
 ![Environment Diagram](docs/images/google-anthos-vsphere-network-diagram-1.png)
 
@@ -31,7 +31,7 @@ To use these Terraform files, you need to have the following Prerequisites:
 * A [white listed GCP project and service account](https://cloud.google.com/anthos/gke/docs/on-prem/how-to/gcp-project).
 * A Packet org-id and [API key](https://www.packet.com/developers/api/)
 * **If you are new to Packet**
-  * You will need to request an "Entitlement Increase" you will need to work with Packet Support via either:
+  * You will need to request an "Entitlement Increase".  You will need to work with Packet Support via either:
     * Use the ![Packet Website](https://img.shields.io/badge/Chat%20Now%20%28%3F%29-blue) at the bottom left of the Packet Web UI
       * OR
     * E-Mail support@packet.com
@@ -46,7 +46,7 @@ The default variables make use of 4 [c2.medium.x86](https://www.packet.com/cloud
 You can also deploy just 2 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers for $2 per hour instead.
 
 ## Tested GKE on-prem verions
-The Terrafrom has been succesfully tested with following versions of GKE on-prem:
+The Terraform has been succesfully tested with following versions of GKE on-prem:
 * 1.1.2-gke.0*
 * 1.2.0-gke.6*
 * 1.2.1-gke.4*
@@ -94,7 +94,7 @@ The Terraform files expect the keys to use the following naming convention, matc
 * stackdriver-key.json
 * whitelisted-key.json
 
-If doing so manually, you must create each of these keys an place it in a folder named `gcp_keys` within the `anthos` folder. 
+If doing so manually, you must create each of these keys and place it in a folder named `gcp_keys` within the `anthos` folder. 
 The service accounts also need to have IAM roles assigned to each of them. To do this manually, you'll need to follow the [instructions from Google](https://cloud.google.com/gke-on-prem/docs/how-to/service-accounts#assign_roles)
 
 
@@ -132,9 +132,9 @@ Terraform uses modules to deploy infrastructure. In order to initialize the modu
 ## Modify your variables 
 There are many variables which can be set to customize your install within `00-vars.tf` and `30-anthos-vars.tf`. The default variables to bring up a 3 node vSphere cluster and linux router using Packet's [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/). Change each default variable at your own risk. 
 
-There are some variables you must set with a terraform.tfvars files. You need to set `auth_token` & `organization_id` to connect to Packet and the `project_name` which will be created in Packet. You will need to set `anthos_gcp_project_id` for your GCP Project ID. We will need a GCS bucket to download "Closed Source" packages such as vCenter. The GCS related variables is `gcs_bucket_name`. You need to provide the vCenter ISO file name as `vcenter_iso_name`. 
+There are some variables you must set with a terraform.tfvars files. You need to set `auth_token` & `organization_id` to connect to Packet and the `project_name` which will be created in Packet. You will need to set `anthos_gcp_project_id` for your GCP Project ID. You will need a GCS bucket to download "Closed Source" packages such as vCenter. The GCS related variable is `gcs_bucket_name`. You need to provide the vCenter ISO file name as `vcenter_iso_name`. 
 
-The Anthos variables include `anthos_version`  and the `anthos_user_cluster_name`.
+The Anthos variables include `anthos_version` and `anthos_user_cluster_name`.
  
 Here is a quick command plus sample values to start file for you (make sure you adjust the variables to match your environment, pay specail attention that the `vcenter_iso_name` matches whats in your bucket): 
 ```bash 
@@ -150,10 +150,10 @@ anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ``` 
 
-## Using a S3 compatible object store (optional)
+## Using an S3 compatible object store (optional)
 
 
-You have the option to use an S3 compatible object store in place of GCS in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. [Minio](http://minio.io) works great for this, which is an open source object store is a workable option.
+You have the option to use an S3 compatible object store in place of GCS in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. [Minio](http://minio.io) an open source object store, works great for this.
 
 You will need to layout the S3 structure to look like this:
 ``` 
@@ -283,11 +283,11 @@ To clean up a created environment (or a failed one), run `terraform destroy --au
 If this does not work for some reason, you can manually delete each of the resources created in Packet (including the project) and then delete your terraform state file, `rm -f terraform.tfstate`.
 
 ## Skipping the Anthos GKE on-prem cluster creation steps
-If you wish to create the environment (including deploy the admin workstation and Anthos pre-res) but skip the cluster creation (so that you can practice creating a cluster on your own) add `anthos_deploy_clusters = "False"` to your terraform.tfvars file. This will still run the pre-requisits for the GKE on-prem install including setting up the admin workstation.
+If you wish to create the environment (including deploy the admin workstation and Anthos pre-res) but skip the cluster creation (so that you can practice creating a cluster on your own) add `anthos_deploy_clusters = "False"` to your terraform.tfvars file. This will still run the pre-requisites for the GKE on-prem install including setting up the admin workstation.
 
 To create just the vSphere environment and skip all Anthos related steps, add `anthos_deploy_workstation_prereqs = false`.
 
-> Note that `anthos_deploy_clusters` uses a string of either `"True"` or `"False"` while  `anthos_deploy_workstation_prereqs` usses a boolean of `true` or `flase`. This is because the `anthos_deploy_clusters` variable is used within a bash script while `anthos_deploy_workstation_prereqs` is used by Terraform which supports booleans.
+> Note that `anthos_deploy_clusters` uses a string of either `"True"` or `"False"` while  `anthos_deploy_workstation_prereqs` usses a boolean of `true` or `false`. This is because the `anthos_deploy_clusters` variable is used within a bash script while `anthos_deploy_workstation_prereqs` is used by Terraform which supports booleans.
 
 See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample) to see what the Anthos parameters are when the default settings are used to create the environment.
 
@@ -330,9 +330,9 @@ If this happens, you can issue `terraform apply --auto-approve` again and the pr
 
 ### null_resource.download_vcenter_iso (remote-exec): E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)
 
-Occasionally the Ubuntu automatic unattended upgrades will run at an unfortunte time and lock apt while the script is attempting to run. 
+Occasionally the Ubuntu automatic unattended upgrades will run at an unfortunate time and lock apt while the script is attempting to run. 
 
-Should this happen, best resolution is to clean up your deployment and try again. 
+Should this happen, the best resolution is to clean up your deployment and try again. 
 
 ### SSH_AUTH_SOCK: dial unix /tmp/ssh-vPixj98asT/agent.11502: connect: no such file or directory
 
