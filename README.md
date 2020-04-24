@@ -217,6 +217,11 @@ vCenter_FQDN = vcva.packet.local
 vCenter_Password = 3@Uj7sor7v3I!4eo
 ```
 
+The above Outputs will be used later for setting up the VPN.
+You can copy/paste them to a file now,
+or get the values later from the file `terraform.tfstate`
+which should have been automatically generated as a side-effect of the "terraform apply" command.
+
 ## Size of the vSphere Cluster
 The code supports deploying a single ESXi server or a 3+ node vSAN cluster. Default settings are for 3 ESXi nodes with vSAN.
 
@@ -240,9 +245,16 @@ There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every pl
 
 [MAC how to configure L2TP IPsec VPN](https://support.apple.com/guide/mac-help/set-up-a-vpn-connection-on-mac-mchlp2963/mac)
 
+NOTE- On a mac, for manual VPN setup use the values from Outputs (or from the generated file `terraform.tfstate`):
+* "Server Address" = `VPN_Endpoint`
+* "Account Name" = `VPN_User`
+* "User Authentication: Password" = `VPN_Password`
+* "Machine Authentication: Shared Secret" = `VPN_PSK`
+
 [Chromebook how to configure LT2P IPsec VPN](https://support.google.com/chromebook/answer/1282338?hl=en)
 
 Make sure to enable all traffic to use the VPN (aka do not enable split tunneling) on your L2TP client.
+NOTE- On a mac, this option is under the "Advanced..." dialog when your VPN is selected (under System Preferences > Network Settings).
 
 Some corporate networks block outbound L2TP traffic. If you are experiencing issues connecting, you may try a guest network or personal hotspot.
 
@@ -263,8 +275,14 @@ kubectl --kubeconfig ~/cluster/kubeconfig get nodes
 ```
 
 ## Connect to the vCenter
-Connecting to the vCenter requires that the VPN be established. Once the VPN is connected, launch a browser to https://vcva.packet.local/ui. You’ll need to accept the self-signed certificate and then enter the  vCenter username and password provided in the output. NOTE- use the `vCenter_Password` and not the `vCenter_Appliance_Root_Password`
-
+Connecting to the vCenter requires that the VPN be established. Once the VPN is connected, launch a browser to https://vcva.packet.local/ui.
+You’ll need to accept the self-signed certificate, and then enter the
+`vCenter_Username` and `vCenter_Password`
+provided in the Outputs of the run of "terraform apply"
+(or alternatively from the generated file `terraform.tfstate`).
+NOTE- use the `vCenter_Password` and not the `vCenter_Appliance_Root_Password`.
+NOTE- on a mac, you may find that the chrome browser will not allow the connection.
+If so, try using firefox.
 
 ## Exposing k8s services
 Currently services can be exposed on the bundled seesaw load balancer(s) on VIPs
