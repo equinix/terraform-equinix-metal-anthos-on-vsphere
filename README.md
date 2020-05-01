@@ -86,7 +86,7 @@ You will need to find the two individual Python files in the vSAN SDK zip file a
  
  
 ## Download/Create your GCP Keys for your service accounts and activate APIs for your project
-The GKE on-prem install requires several servicea accounts and keys to be created. See the [Google documenation](https://cloud.google.com/gke-on-prem/docs/how-to/service-accounts) for more detials. You can create these keys manually, or use a provided helper scrip to make the keys for you.
+The GKE on-prem install requires several service accounts and keys to be created. See the [Google documenation](https://cloud.google.com/gke-on-prem/docs/how-to/service-accounts) for more details. You can create these keys manually, or use a provided helper script to make the keys for you.
 
 The Terraform files expect the keys to use the following naming convention, matching that of the Google documentation:
 * register-key.json
@@ -104,7 +104,8 @@ Much easier (and recommended) is to use the helper script located in the `anthos
 
  
 You can run this script as follows: 
-#`anthos/create_service_accounts.sh`
+
+`anthos/create_service_accounts.sh`
 
 Prompts will guide you through the setup. 
  
