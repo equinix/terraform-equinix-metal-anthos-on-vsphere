@@ -15,6 +15,8 @@ The build (with default settings) typically takes 70-75 minutes.
 We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Packet Community Slack group by going to [slack.packet.com](https://slack.packet.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
 
 ## Latest Updates
+### 5-04-2020
+* 1.3.1-gke.0 patch release has been successfully tested
 ### 3-31-2020
 * The terraform is fully upgraded to work with Anthos GKE on-prem version
 1.3.0-gke.16
@@ -52,6 +54,7 @@ The Terraform has been succesfully tested with following versions of GKE on-prem
 * 1.2.1-gke.4*
 * 1.2.2-gke.2*
 * 1.3.0-gke.16**
+* 1.3.1-gke.0**
 
 To simplify setup, this is designed to used the EAP bundled Seesaw load balancer scheduled to go GA later this year. No other load balancer support is planned at this time.
 
