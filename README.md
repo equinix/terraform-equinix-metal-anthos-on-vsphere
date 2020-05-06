@@ -377,3 +377,21 @@ Error: Error connecting to SSH_AUTH_SOCK: dial unix /tmp/ssh-vPixj98asT/agent.11
 
 This could be because you are using a terminal emulation such as `screen`or `tmux` and the SSH agent is not running. May be corrected by running the command `ssh-agents bash` prior to running the `terraform apply --auto-approve` command.
 
+### Error: You are not authorized to view this ssh key
+
+```bash
+packet_vlan.private_vlans[2]: Refreshing state... [id=...]
+packet_vlan.public_vlans[0]: Refreshing state... [id=...]
+packet_vlan.private_vlans[0]: Refreshing state... [id=...]
+data.template_file.user_data: Refreshing state..
+data.template_file.esx_host_networking: Refreshing state...
+
+Error: You are not authorized to view this ssh key
+```
+
+This error could appear if you already ran `terraform apply` once successfully,
+then tried running it again
+(perhaps with different parameters in `terraform.tfvars` intending to create a second environment).
+The second run could be trying to use info from the `terraform.tfstate` created by the first run.
+If that is the case, try removing the file `terraform.tfstate`.
+
