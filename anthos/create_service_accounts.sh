@@ -2,14 +2,15 @@
 
 
 #start the interactive portion to capture user details
-echo "This script will help you perform the setps outlined at https://cloud.google.com/gke-on-prem/docs/how-to/service-accounts \nYou will be provided the option to create a storage reader service account as well. \n\n"
-echo "Enter the name of the email of your whitelisted service account \n (example: whitelisted@my-anthos-project.iam.gserviceaccount.com):"
-read WL_SA_EMAIL
-echo "Create storage reader account? (y/n)"
-read STORAGE_OPTION
+echo "This script will help you perform the steps outlined at
+https://cloud.google.com/gke-on-prem/docs/how-to/service-accounts
+You will be provided the option to create a storage reader service account as well.
+
+Enter the name of the email of your whitelisted service account"
+read -p "(example: whitelisted@my-anthos-project.iam.gserviceaccount.com):" WL_SA_EMAIL
+read -p "Create storage reader account? (y/n)" STORAGE_OPTION
 if [ $STORAGE_OPTION = "y" ]; then
-    echo "Provide Project where GCS Bucket Lives"
-    read STORAGE_PROJECT
+    read -p "Provide Project where GCS Bucket Lives:" STORAGE_PROJECT
 fi
 
 
