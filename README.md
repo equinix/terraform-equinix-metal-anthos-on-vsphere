@@ -15,6 +15,9 @@ The build (with default settings) typically takes 70-75 minutes.
 We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Packet Community Slack group by going to [slack.packet.com](https://slack.packet.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
 
 ## Latest Updates
+### 6-03-2020
+* 1.3.2-gke.1 patch release has been successfully tested
+* Option to use Packet gen 3 (c3.medium.x86 for esxi and c3.small.x86 for router) along with ESXi 6.7
 ### 5-04-2020
 * 1.3.1-gke.0 patch release has been successfully tested
 ### 3-31-2020
@@ -55,10 +58,11 @@ The Terraform has been succesfully tested with following versions of GKE on-prem
 * 1.2.2-gke.2*
 * 1.3.0-gke.16**
 * 1.3.1-gke.0**
+* 1.3.2-gke.1**
 
-To simplify setup, this is designed to used the EAP bundled Seesaw load balancer scheduled to go GA later this year. No other load balancer support is planned at this time.
+To simplify setup, this is designed to used the bundled Seesaw load balancer. No other load balancer support is planned at this time.
 
-\*Due to a known bug in the EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
+\*Due to a known bug in the BundledLb EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
 
 \*\*This release appears to take 15-20 minutes longer to deploy. Some of that is due to the introduction of gkeadm to deploy the admin worksation. We are studying if there are any other possible optimizations that can be made to speed up the deployment.
 ## Setup your GCS object store 
@@ -241,6 +245,27 @@ anthos_user_master_replicas = 1
 This has been tested with the c2.medium.x86. It may work with other systems as well, but it has not been fully tested.
 We have not tested the maximum vSAN cluster size. Cluster size of 2 is not supported.
 
+## Using Packet Gen 3 Hardware and ESXi 6.7
+Packet is actively rolling out new hardware in mulitple locations which supports ESXi 6.7. Until the gen 3 hardware is more widely available, we'll not make gen 3 hardware the default but provide the option to use it.
+
+### Costs
+The gen3 [c3.medium.x86](https://www.packet.com/cloud/servers/c3-medium/) is $0.10 more than the [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) but benefits from higher clock speed and the storage is better utlized to create a larger vSAN data store.
+
+The [c3.small.x86](https://www.packet.com/cloud/servers/c3-small/) is $0.50 less expensive than the [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/). Therefore in a standard build, with 3 ESXi servers and 1 router, the net costs should be $0.20 lower than when using gen 2 devices.
+
+### Known Issues
+ESXi 6.7 deployed on [c3.medium.x86](https://www.packet.com/cloud/servers/c3-medium/) may result in an alarm in vCenter which states `Host TPM attestation alarm`. The Packet team is looking into this but its thought to be a cosemetic issue.
+
+Upon using `terraform destroy --auto-approve` to clean up an install, the VLANs may not get cleaned up properly.
+
+### Instructions to use gen 3
+Using gen 3 requires modifying the `terraform.tfvars` file to include a few new variables:
+```bash
+esxi_size      = "c3.medium.x86"
+vmware_os      = "vmware_esxi_6_7"
+router_size    = "c3.small.x86"
+```
+These simple additions will cause the script to use the gen 3 hardware.
 
 ## Connect to the Environment via VPN
 By connecting via VPN, you will be able to access vCenter plus the admin workstation, cluster VMs, and any services exposed via the seesaw load balancers.
