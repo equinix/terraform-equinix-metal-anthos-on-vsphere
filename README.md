@@ -151,7 +151,7 @@ gcs_bucket_name = "bucket_name/folder"
 vcenter_iso_name = "VMware-VCSA-all-6.7.0-XXXXXXX.iso" 
 anthos_version = "1.3.0-gke.16"
 anthos_user_cluster_name = "packet-cluster-1"
-EOF 
+EOF
 ``` 
 
 ## Using an S3 compatible object store (optional)
