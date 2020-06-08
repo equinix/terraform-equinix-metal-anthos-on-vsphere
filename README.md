@@ -277,7 +277,7 @@ There is an L2TP IPsec VPN setup. There is an L2TP IPsec VPN client for every pl
 NOTE- On a mac, for manual VPN setup use the values from Outputs (or from the generated file `terraform.tfstate`):
 * "Server Address" = `VPN_Endpoint`
 * "Account Name" = `VPN_User`
-* "User Authentication: Password" = `VPN_Pasword`
+* "User Authentication: Password" = `VPN_Password`
 * "Machine Authentication: Shared Secret" = `VPN_PSK`
 
 [Chromebook how to configure LT2P IPsec VPN](https://support.google.com/chromebook/answer/1282338?hl=en)
