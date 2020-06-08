@@ -50,8 +50,8 @@ The default variables make use of 4 [c2.medium.x86](https://www.packet.com/cloud
 
 You can also deploy just 2 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers for $2 per hour instead.
 
-## Tested GKE on-prem verions
-The Terraform has been succesfully tested with following versions of GKE on-prem:
+## Tested GKE on-prem versions
+The Terraform has been successfully tested with following versions of GKE on-prem:
 * 1.1.2-gke.0*
 * 1.2.0-gke.6*
 * 1.2.1-gke.4*
@@ -64,7 +64,7 @@ To simplify setup, this is designed to used the bundled Seesaw load balancer. No
 
 \*Due to a known bug in the BundledLb EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
 
-\*\*This release appears to take 15-20 minutes longer to deploy. Some of that is due to the introduction of gkeadm to deploy the admin worksation. We are studying if there are any other possible optimizations that can be made to speed up the deployment.
+\*\*This release appears to take 15-20 minutes longer to deploy. Some of that is due to the introduction of gkeadm to deploy the admin workstation. We are studying if there are any other possible optimizations that can be made to speed up the deployment.
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
 
@@ -86,14 +86,14 @@ https://storage.googleapis.com:
 Your VMware ISO name may vary depending on which build you download.
 These files can be downloaded from [My VMware](http://my.vmware.com).
 Once logged in to "My VMware" the download links are as follows:
-* [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) - VVMware vCenter Server Appliance ISO
+* [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) - VMware vCenter Server Appliance ISO
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734) - Virtual SAN Management SDK for Python
 
 You will need to find the two individual Python files in the vSAN SDK zip file and place them in the GCS bucket as shown above.
  
  
 ## Download/Create your GCP Keys for your service accounts and activate APIs for your project
-The GKE on-prem install requires several service accounts and keys to be created. See the [Google documenation](https://cloud.google.com/gke-on-prem/docs/how-to/service-accounts) for more details. You can create these keys manually, or use a provided helper script to make the keys for you.
+The GKE on-prem install requires several service accounts and keys to be created. See the [Google documentation](https://cloud.google.com/gke-on-prem/docs/how-to/service-accounts) for more details. You can create these keys manually, or use a provided helper script to make the keys for you.
 
 The Terraform files expect the keys to use the following naming convention, matching that of the Google documentation:
 * register-key.json
@@ -144,7 +144,7 @@ There are some variables you must set with a terraform.tfvars files. You need to
 
 The Anthos variables include `anthos_version` and `anthos_user_cluster_name`.
  
-Here is a quick command plus sample values to start file for you (make sure you adjust the variables to match your environment, pay specail attention that the `vcenter_iso_name` matches whats in your bucket): 
+Here is a quick command plus sample values to start file for you (make sure you adjust the variables to match your environment, pay special attention that the `vcenter_iso_name` matches whats in your bucket): 
 ```bash 
 cat <<EOF >terraform.tfvars 
 auth_token = "cefa5c94-e8ee-4577-bff8-1d1edca93ed8" 
@@ -177,7 +177,7 @@ https://s3.example.com:
 ``` 
 These files can be downloaded from [My VMware](http://my.vmware.com).
 Once logged in to "My VMware" the download links are as follows:
-* [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) - VVMware vCenter Server Appliance ISO
+* [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) - VMware vCenter Server Appliance ISO
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734) - Virtual SAN Management SDK for Python
  
 You will need to find the two individual Python files in the vSAN SDK zip file and place them in the S3 bucket as shown above.
@@ -334,7 +334,7 @@ If you wish to create the environment (including deploy the admin workstation an
 
 To create just the vSphere environment and skip all Anthos related steps, add `anthos_deploy_workstation_prereqs = false`.
 
-> Note that `anthos_deploy_clusters` uses a string of either `"True"` or `"False"` while  `anthos_deploy_workstation_prereqs` usses a boolean of `true` or `false`. This is because the `anthos_deploy_clusters` variable is used within a bash script while `anthos_deploy_workstation_prereqs` is used by Terraform which supports booleans.
+> Note that `anthos_deploy_clusters` uses a string of either `"True"` or `"False"` while  `anthos_deploy_workstation_prereqs` uses a boolean of `true` or `false`. This is because the `anthos_deploy_clusters` variable is used within a bash script while `anthos_deploy_workstation_prereqs` is used by Terraform which supports booleans.
 
 See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample) to see what the Anthos parameters are when the default settings are used to create the environment.
 
