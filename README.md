@@ -46,7 +46,7 @@ To use these Terraform files, you need to have the following Prerequisites:
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734) - Virtual SAN Management SDK for Python, also from VMware
  
 ## Associated Packet Costs
-The default variables make use of 4 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers. These servers are $1 per hour list price (resulting in a total solution price of roughly $4 per hour).
+The default variables make use of 4 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers. These servers are $1 per hour list price (resulting in a total solution price of roughly $4 per hour). Additionally, if you would like to use Intel Processors for ESXi hosts, the [m2.xlarge.x86](https://www.packet.com/cloud/servers/m2-xlarge/) is a great option. This would increase the useable RAM from 192GB to a whopping 1.15TB. These servers are $2 per hour list price (resulting in a total solution price of roughly $7 per hour.)
 
 You can also deploy just 2 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers for $2 per hour instead.
 
