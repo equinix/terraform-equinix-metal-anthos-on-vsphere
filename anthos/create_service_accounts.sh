@@ -21,8 +21,10 @@ gcloud init
 PROJECT=$(gcloud config list --format 'value(core.project)')
 
 #create the folder for the keys and set the variable
-FOLDER='gcp_keys'
-mkdir -p ./$FOLDER
+FOLDER=$(dirname "$0")/gcp_keys
+mkdir -p -m 700 "$FOLDER"
+echo ""
+echo "The service account key files will live in $FOLDER/"
 
 #create the needed service accounts
 gcloud iam service-accounts create register-service-account --project $PROJECT
@@ -30,10 +32,10 @@ gcloud iam service-accounts create connect-service-account --project $PROJECT
 gcloud iam service-accounts create stackdriver-service-account --project $PROJECT
 
 #create the needed keys
-gcloud iam service-accounts keys create ./$FOLDER/register-key.json --iam-account  register-service-account@$PROJECT.iam.gserviceaccount.com 
-gcloud iam service-accounts keys create ./$FOLDER/connect-key.json --iam-account  connect-service-account@$PROJECT.iam.gserviceaccount.com 
-gcloud iam service-accounts keys create ./$FOLDER/stackdriver-key.json --iam-account  stackdriver-service-account@$PROJECT.iam.gserviceaccount.com 
-gcloud iam service-accounts keys create ./$FOLDER/whitelisted-key.json --iam-account  $WL_SA_EMAIL
+gcloud iam service-accounts keys create "$FOLDER"/register-key.json --iam-account  register-service-account@$PROJECT.iam.gserviceaccount.com
+gcloud iam service-accounts keys create "$FOLDER"/connect-key.json --iam-account  connect-service-account@$PROJECT.iam.gserviceaccount.com
+gcloud iam service-accounts keys create "$FOLDER"/stackdriver-key.json --iam-account  stackdriver-service-account@$PROJECT.iam.gserviceaccount.com
+gcloud iam service-accounts keys create "$FOLDER"/whitelisted-key.json --iam-account  $WL_SA_EMAIL
 
 #assign the needed IAM roles
 gcloud projects add-iam-policy-binding $PROJECT --member="serviceAccount:connect-service-account@$PROJECT.iam.gserviceaccount.com" --role='roles/gkehub.connect'
@@ -66,6 +68,6 @@ gcloud services enable --project $PROJECT \
 #if selected, create the storage reader service account, key, and role binding
 if [ $STORAGE_OPTION = "y" ]; then
    gcloud iam service-accounts create storage-reader-service-account --project $STORAGE_PROJECT
-   gcloud iam service-accounts keys create ./$FOLDER/storage-reader-key.json --iam-account  storage-reader-service-account@$STORAGE_PROJECT.iam.gserviceaccount.com
+   gcloud iam service-accounts keys create "$FOLDER"/storage-reader-key.json --iam-account  storage-reader-service-account@$STORAGE_PROJECT.iam.gserviceaccount.com
    gcloud projects add-iam-policy-binding $STORAGE_PROJECT --member="serviceAccount:storage-reader-service-account@$STORAGE_PROJECT.iam.gserviceaccount.com" --role='roles/storage.objectAdmin'
 fi
