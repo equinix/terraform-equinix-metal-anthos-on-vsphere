@@ -10,7 +10,7 @@ output "VPN_User" {
   value = var.vpn_user
 }
 
-output "VPN_Pasword" {
+output "VPN_Password" {
   value = random_string.vpn_pass.result
 }
 
