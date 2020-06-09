@@ -1,5 +1,3 @@
-#import packet
-import os
 import subprocess
 import requests
 import json
