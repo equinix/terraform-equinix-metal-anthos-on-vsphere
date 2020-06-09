@@ -246,18 +246,18 @@ python3 check_capacity.py
 
 The output will confirm which values it checked capacity for and display the results:
 ```
-Using the default value for facility
-dfw2
-Using the default value for router size
-c2.medium.x86
-Using the default value for esxi size
-c2.medium.x86
-Using the default for esxi host count
-3
+Using the default value for facility: dfw2
+Using the default value for router_size: c2.medium.x86
+Using the user variable for esxi_size: c3.medium.x86
+Using the user variable for esxi_host_count: 3
+
+
+
 Is there 1 c2.medium.x86 instance available for the router in dfw2?
 Yes
-Is there 3 c2.medium.x86 instance(s) available for ESXi in dfw2?
-No, select another facility, ESXi size, or number of ESXi hosts.
+
+Are there 3 c3.medium.x86 instances available for ESXi in dfw2?
+Yes
 ```
 
 ## Size of the vSphere Cluster
