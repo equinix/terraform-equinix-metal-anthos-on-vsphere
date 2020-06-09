@@ -15,6 +15,8 @@ The build (with default settings) typically takes 70-75 minutes.
 We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Packet Community Slack group by going to [slack.packet.com](https://slack.packet.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
 
 ## Latest Updates
+### 6-8-2020
+* Added a `check_capacity.py` to manually perform a capacity check with Packet before building
 ### 6-03-2020
 * 1.3.2-gke.1 patch release has been successfully tested
 * Option to use Packet gen 3 (c3.medium.x86 for esxi and c3.small.x86 for router) along with ESXi 6.7
@@ -229,6 +231,34 @@ The above Outputs will be used later for setting up the VPN.
 You can copy/paste them to a file now,
 or get the values later from the file `terraform.tfstate`
 which should have been automatically generated as a side-effect of the "terraform apply" command.
+
+## Checking Capacity in a Packet Facility (optional)
+Before attempting to create the cluster, it is a good idea to do a quick capacity check to be sure there are enough devices at your chosen Packet facility.
+
+We've included a `check_capacity.py` file to be run prior to a build. The file will read your `terraform.tfvars` file to use your selected host sizes and quantities or use the defaults if you've not set any.
+
+Running the `check_capacity.py` file requires that you have python3 installed on your system.
+
+Running the test is done with a simple command:
+```bash
+python3 check_capacity.py
+```
+
+The output will confirm which values it checked capacity for and display the results:
+```
+Using the default value for facility
+dfw2
+Using the default value for router size
+c2.medium.x86
+Using the default value for esxi size
+c2.medium.x86
+Using the default for esxi host count
+3
+Is there 1 c2.medium.x86 instance available for the router in dfw2?
+Yes
+Is there 3 c2.medium.x86 instance(s) available for ESXi in dfw2?
+No, select another facility, ESXi size, or number of ESXi hosts.
+```
 
 ## Size of the vSphere Cluster
 The code supports deploying a single ESXi server or a 3+ node vSAN cluster. Default settings are for 3 ESXi nodes with vSAN.
