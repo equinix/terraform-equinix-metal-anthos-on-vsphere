@@ -63,7 +63,7 @@ def main():
 ##Print the results
 # TDOO: color code the outputs
   if same_size :
-    print ("Are there " + str(router_host_count + esxi_host_count) +" instances available for all servers in " + facility + "?")
+    print ("Are there " + str(router_host_count + esxi_host_count) + " " + router_size + " instances available for all servers in " + facility + "?")
     if (r.json()['servers'][0]['available']):
       print ("Yes")
     else:
