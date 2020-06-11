@@ -18,7 +18,7 @@ if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
   export SYLLOGI_FEATURE_GATES="EnableBundledLB=true"
 else
   if (( "$ESXICOUNT" > "1" )) ; then
-    sed -i 's/enabled: false/enabled: true/' bundled-lb-admin-uc1-config.yaml
+    sed -i 's/enabled: false/enabled: true/' /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml
     sed -i 's/#X//g' /home/ubuntu/cluster/bundled-lb-admin-uc1-config.yaml
   fi
 fi
