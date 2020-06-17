@@ -28,7 +28,7 @@ admincluster:
     vip: __ADMIN_LB_VIP__
     cpus: 4
     memorymb: 8192
-    #Xenableha: true
+    enableha: false
     antiaffinitygroups:
       enabled: false
   vips:

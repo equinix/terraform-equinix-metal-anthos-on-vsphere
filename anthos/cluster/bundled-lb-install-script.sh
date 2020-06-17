@@ -1,9 +1,11 @@
 #!/bin/bash
-FILEPATH=/home/ubuntu/cluster
+FILEPATH=/home/ubuntu/cluster/
 CONFIG=bundled-lb-admin-uc1-config.yaml
 ADCONFIG=admin-cluster-config.yaml
-USERCONFIG=user-cluster-config.yamli
+USERCONFIG=user-cluster-config.yaml
 ADKUBECONFIG=kubeconfig
+
+
 cd $FILEPATH
 export GOVC_URL='https://${vcenter_fqdn}/sdk'
 export GOVC_USERNAME='${vcenter_user}'
@@ -32,7 +34,7 @@ else
 fi
 
 
-if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] || [["$VERSION" == 1.3* ]]; then
+if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] || [[ "$VERSION" == 1.3* ]]; then
   gkectl check-config --config $FILEPATH$CONFIG --fast
   gkectl prepare --config $FILEPATH$CONFIG  --skip-validation-all
   gkectl create loadbalancer --config $FILEPATH$CONFIG --skip-validation-all

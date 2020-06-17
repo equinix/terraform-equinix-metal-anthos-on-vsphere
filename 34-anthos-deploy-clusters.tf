@@ -76,6 +76,7 @@ data "template_file" "anthos_admin_cluster_config" {
 data "template_file" "anthos_user_cluster_config" {
   template = file("anthos/cluster/user-cluster1-config.yaml")
   vars = {
+    anthos_version              = var.anthos_version
     user_cluster_name           = var.anthos_user_cluster_name
     user_service_cidr           = var.anthos_user_service_cidr
     user_pod_cidr               = var.anthos_user_pod_cidr
@@ -135,7 +136,7 @@ resource "null_resource" "anthos_deploy_cluster" {
 
   provisioner "file" {
     content     = data.template_file.anthos_admin_cluster_config.rendered
-    destination = "/root/anthos/cluster/admin-cluster1-config.yaml"
+    destination = "/root/anthos/cluster/admin-cluster-config.yaml"
   }
 
   provisioner "file" {

@@ -57,6 +57,8 @@ def main():
   header= {"X-Auth-Token": packet_token}
   r = requests.post(url, headers=header, json=servers_json)
 
+# Uncomment the print response below for troubleshooting purposes
+  #print (r.json())
 
 ##Print the results
 # TDOO: color code the outputs
