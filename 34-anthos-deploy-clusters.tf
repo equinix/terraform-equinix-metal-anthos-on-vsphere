@@ -52,6 +52,48 @@ data "template_file" "anthos_cluster_config" {
   }
 }
 
+data "template_file" "anthos_admin_cluster_config" {
+  template = file("anthos/cluster/admin-cluster-config.yaml")
+  vars = {
+    vcenter_user                = "Administrator@vsphere.local"
+    vcenter_pass                = random_string.sso_password.result
+    vcenter_fqdn                = format("vcva.%s", var.domain_name)
+    vcenter_datastore           = var.anthos_datastore
+    vcenter_datacenter          = var.vcenter_datacenter_name
+    vcenter_cluster             = var.vcenter_cluster_name
+    resource_pool               = var.anthos_resource_pool_name
+    deploy_network              = var.anthos_deploy_network
+    anthos_version              = var.anthos_version
+    admin_service_cidr          = var.anthos_admin_service_cidr
+    admin_pod_cidr              = var.anthos_admin_pod_cidr
+    gcp_project_id              = var.anthos_gcp_project_id
+    gcp_region                  = var.anthos_gcp_region
+    whitelisted_key_name        = var.whitelisted_key_name
+    stackdriver_key_name        = var.stackdriver_key_name
+  }
+}
+
+data "template_file" "anthos_user_cluster_config" {
+  template = file("anthos/cluster/user-cluster1-config.yaml")
+  vars = {
+    user_cluster_name           = var.anthos_user_cluster_name
+    user_service_cidr           = var.anthos_user_service_cidr
+    user_pod_cidr               = var.anthos_user_pod_cidr
+    gcp_project_id              = var.anthos_gcp_project_id
+    gcp_region                  = var.anthos_gcp_region
+    anthos_user_master_replicas = var.anthos_user_master_replicas
+    anthos_user_worker_replicas = var.anthos_user_worker_replicas
+    anthos_user_vcpu            = var.anthos_user_vcpu
+    anthos_user_memory_mb       = var.anthos_user_memory_mb
+    whitelisted_key_name        = var.whitelisted_key_name
+    connect_key_name            = var.connect_key_name
+    register_key_name           = var.register_key_name
+    stackdriver_key_name        = var.stackdriver_key_name
+  }
+}
+
+
+
 data "template_file" "anthos_cluster_creation_script" {
   template = file("anthos/cluster/bundled-lb-install-script.sh")
   vars = {
@@ -89,6 +131,16 @@ resource "null_resource" "anthos_deploy_cluster" {
   provisioner "file" {
     content     = data.template_file.anthos_cluster_config.rendered
     destination = "/root/anthos/cluster/bundled-lb-admin-uc1-config.yaml"
+  }
+
+  provisioner "file" {
+    content     = data.template_file.anthos_admin_cluster_config.rendered
+    destination = "/root/anthos/cluster/admin-cluster1-config.yaml"
+  }
+
+  provisioner "file" {
+    content     = data.template_file.anthos_user_cluster_config.rendered
+    destination = "/root/anthos/cluster/user-cluster1-config.yaml"
   }
 
   provisioner "file" {

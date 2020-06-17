@@ -54,7 +54,7 @@ usercluster:
     vip: __USER_LB_VIP__
     cpus: 4
     memorymb: 8192
-    #Xenableha: true
+    enableha: false
     antiaffinitygroups:
       enabled: false
   antiaffinitygroups:
@@ -134,4 +134,5 @@ stackdriver:
 # The absolute or relative path to the GCP service account key that will be used to
 # pull GKE images
 gcrkeypath: "/home/ubuntu/cluster/${whitelisted_key_name}"
-
+cloudrun:
+  enabled: True

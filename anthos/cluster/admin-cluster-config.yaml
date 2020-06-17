@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: AdminCluster
+# (Required) Absolute path to a GKE bundle on disk
+bundlePath: /var/lib/gke/bundles/gke-onprem-vsphere-${anthos_version}.tgz
+# (Required) vCenter configuration
+vCenter:
+  address: ${vcenter_fqdn}
+  datacenter: ${vcenter_datacenter}
+  cluster: ${vcenter_cluster}
+  resourcePool: ${resource_pool}
+  datastore: ${vcenter_datastore}
+  # Provide the path to vCenter CA certificate pub key for SSL verification
+  caCertPath: /home/ubuntu/cluster/vspherecert.pem
+  # The credentials and address to connect to vCenter
+  credentials:
+    username: ${vcenter_user}
+    password: ${vcenter_pass}
+  # Provide the name for the persistent disk to be used by the deployment (ending
+  # in .vmdk). Any directory in the supplied path must be created before deployment
+  dataDisk: gke-on-prem/gke-on-prem-data-disk.vmdk
+# (Required) Network configuration
+network:
+  ipMode:
+    # (Required) Define what IP mode to use ("dhcp" or "static")
+    type: dhcp
+  # (Required) The Kubernetes service CIDR range for the cluster. Must not overlap
+  # with the pod CIDR range
+  serviceCIDR: ${admin_service_cidr}
+  # (Required) The Kubernetes pod CIDR range for the cluster. Must not overlap with
+  # the service CIDR range
+  podCIDR: ${admin_pod_cidr}
+  vCenter:
+    # vSphere network name
+    networkName: ${deploy_network}
+# (Required) Load balancer configuration
+loadBalancer:
+  # (Required) The VIPs to use for load balancing
+  vips:
+    # Used to connect to the Kubernetes API
+    controlPlaneVIP: __ADMIN_K8S_API_VIP__
+    # (Optional) Used for admin cluster addons (needed for multi cluster features).
+    # Must be the same across clusters
+    addonsVIP: __ADMIN_K8S_ADDON_VIP__
+  # (Required) Which load balancer to use "F5BigIP" "Seesaw" or "ManualLB". Uncomment
+  # the corresponding field below to provide the detailed spec
+  kind: Seesaw
+  # (Required when using "Seesaw" kind) Specify the Seesaw configs
+  seesaw:
+    # (Required) The absolute or relative path to the yaml file to use for IP allocation
+    # for LB VMs. Must contain one or two IPs.
+    ipBlockFilePath: admin-lb-ipblock.yaml
+    # (Required) The Virtual Router IDentifier of VRRP for the Seesaw group. Must
+    # be between 1-255 and unique in a VLAN.
+    vrid: 4
+    # (Required) The IP announced by the master of Seesaw group
+    masterIP: __ADMIN_LB_VIP__
+    # (Required) The number CPUs per machine
+    cpus: 4
+    # (Required) Memory size in MB per machine
+    memoryMB: 8192
+    # (Optional) Run two LB VMs to achieve high availability (default: false)
+    enableHA: false
+    antiAffinityGroups:
+      # Set to false to disable DRS rule creation
+      enabled: false
+# (Required): The absolute or relative path to the GCP service account key for pulling
+# GKE images
+gcrKeyPath: /home/ubuntu/cluster/${whitelisted_key_name}
+# (Optional) Specify which GCP project to connect your logs and metrics to
+stackdriver:
+  projectID: ${gcp_project_id}
+  # A GCP region where you would like to store logs and metrics for this cluster.
+  clusterLocation: ${gcp_region}
+  enableVPC: false
+  # The absolute or relative path to the key file for a GCP service account used to
+  # send logs and metrics from the cluster
+  serviceAccountKeyPath: /home/ubuntu/cluster/${stackdriver_key_name}
