@@ -54,7 +54,6 @@ else
   gkectl create loadbalancer --config $FILEPATH$ADCONFIG --skip-validation-all
   gkectl create admin --config $FILEPATH$ADCONFIG --skip-validation-all
   gkectl check-config --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG
-  gkectl prepare --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG --skip-validation-all
   gkectl create loadbalancer --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG --skip-validation-all
   gkectl create cluster --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG --skip-validation-all
 fi
