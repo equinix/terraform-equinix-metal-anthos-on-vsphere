@@ -14,7 +14,7 @@ vCenter:
   # The credentials and address to connect to vCenter
   credentials:
     username: ${vcenter_user}
-    password: ${vcenter_pass}
+    password: "${vcenter_pass}"
   # Provide the name for the persistent disk to be used by the deployment (ending
   # in .vmdk). Any directory in the supplied path must be created before deployment
   dataDisk: gke-on-prem/gke-on-prem-data-disk.vmdk

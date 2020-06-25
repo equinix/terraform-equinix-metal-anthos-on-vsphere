@@ -50,7 +50,7 @@ if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] || [[ "$VERSION" == 1.3*
 
   gkectl create cluster --config $FILEPATH$CONFIG --skip-validation-all
 else
-  gkectl check-config --config $FILEPATH$ADCONFIG
+  gkectl check-config --config $FILEPATH$ADCONFIG --fast
   gkectl prepare --config $FILEPATH$ADCONFIG --skip-validation-all
   gkectl create loadbalancer --config $FILEPATH$ADCONFIG --skip-validation-all
   gkectl create admin --config $FILEPATH$ADCONFIG --skip-validation-all
