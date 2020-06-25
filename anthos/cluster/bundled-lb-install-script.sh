@@ -29,7 +29,8 @@ else
     sed -i 's/enbableha: false/enableha: true/g' $FILEPATH$CONFIG
     sed -i 's/enabled: false/enabled: true/' $FILEPATH$ADCONFIG
     sed -i 's/enabled: false/enabled: true/' $FILEPATH$USERCONFIG
-    sed -i 's/enbableHA: false/enableHA: true/g' $FILEPATH$USERCONFIG
+    sed -i 's/enableHA: false/enableHA: true/g' $FILEPATH$ADCONFIG
+    sed -i 's/enableHA: false/enableHA: true/g' $FILEPATH$USERCONFIG
   fi
 fi
 
