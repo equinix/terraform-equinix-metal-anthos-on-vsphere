@@ -2,7 +2,7 @@
 FILEPATH=/home/ubuntu/cluster/
 CONFIG=bundled-lb-admin-uc1-config.yaml
 ADCONFIG=admin-cluster-config.yaml
-USERCONFIG=user-cluster-config.yaml
+USERCONFIG=user-cluster1-config.yaml
 ADKUBECONFIG=kubeconfig
 
 
@@ -50,12 +50,12 @@ if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] || [[ "$VERSION" == 1.3*
   gkectl create cluster --config $FILEPATH$CONFIG --skip-validation-all
 else
   gkectl check-config --config $FILEPATH$ADCONFIG
-  gkectl prepare --config $FILEPATH$ADCONFIG --skip-valdiation-all
+  gkectl prepare --config $FILEPATH$ADCONFIG --skip-validation-all
   gkectl create loadbalancer --config $FILEPATH$ADCONFIG --skip-validation-all
-  gkectl create admin --config $FILEPATH$ADCONFIG --skip-valdiation-all
+  gkectl create admin --config $FILEPATH$ADCONFIG --skip-validation-all
   gkectl check-config --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG
-  gkectl prepare --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG --skip-valdiation-all
+  gkectl prepare --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG --skip-validation-all
   gkectl create loadbalancer --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG --skip-validation-all
-  gkectl create cluster --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG --skip-valdiation-all
+  gkectl create cluster --config $FILEPATH$USERCONFIG  --kubeconfig $FILEPATH$ADKUBECONFIG --skip-validation-all
 fi
 
