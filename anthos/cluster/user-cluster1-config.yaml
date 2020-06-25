@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: UserCluster
+# (Required) A unique name for this cluster
+name: ${user_cluster_name}
+# (Required) GKE on-prem version (example: 1.3.0-gke.16)
+gkeOnPremVersion: ${anthos_version}
+# (Required) Network configuration; vCenter section is optional and inherits from
+# the admin cluster if not specified
+network:
+  ipMode:
+    # (Required) Define what IP mode to use ("dhcp" or "static")
+    type: dhcp
+  # (Required) The Kubernetes service CIDR range for the cluster. Must not overlap
+  # with the pod CIDR range
+  serviceCIDR: ${user_service_cidr}
+  # (Required) The Kubernetes pod CIDR range for the cluster. Must not overlap with
+  # the service CIDR range
+  podCIDR: ${user_pod_cidr}
+# (Required) Load balancer configuration
+loadBalancer:
+  # (Required) The VIPs to use for load balancing
+  vips:
+    # Used to connect to the Kubernetes API
+    controlPlaneVIP: __USER_K8S_API_VIP__
+    # Shared by all services for ingress traffic
+    ingressVIP: __USER_K8S_INGRESS_VIP__
+  # (Required) Which load balancer to use "F5BigIP" "Seesaw" or "ManualLB". Uncomment
+  # the corresponding field below to provide the detailed spec
+  kind: Seesaw
+  # (Required when using "Seesaw" kind) Specify the Seesaw configs
+  seesaw:
+    # (Required) The absolute or relative path to the yaml file to use for IP allocation
+    # for LB VMs. Must contain one or two IPs.
+    ipBlockFilePath: usercluster-1-lb-ipblock.yaml
+    # (Required) The Virtual Router IDentifier of VRRP for the Seesaw group. Must
+    # be between 1-255 and unique in a VLAN.
+    vrid: 7
+    # (Required) The IP announced by the master of Seesaw group
+    masterIP: __USER_LB_VIP__
+    # (Required) The number CPUs per machine
+    cpus: 4
+    # (Required) Memory size in MB per machine
+    memoryMB: 8192
+    enableHA: false
+    antiAffinityGroups:
+      # Set to false to disable DRS rule creation
+      enabled: false
+# (Optional) User cluster master nodes must have either 1 or 3 replicas (default:
+# 4 CPUs; 16384 MB memory; 1 replica)
+masterNode:
+  cpus: 4
+  memoryMB: 8192
+  # How many machines of this type to deploy
+  replicas: ${anthos_user_master_replicas}
+# (Required) List of node pools. The total un-tainted replicas across all node pools
+# must be greater than or equal to 3
+nodePools:
+- name: ${user_cluster_name}
+  cpus: ${anthos_user_vcpu}
+  memoryMB: ${anthos_user_memory_mb}
+  # How many machines of this type to deploy
+  replicas: ${anthos_user_worker_replicas}
+antiAffinityGroups:
+  # Set to false to disable DRS rule creation
+  enabled: false
+# (Optional) Specify which GCP project to connect your logs and metrics to
+stackdriver:
+  projectID: ${gcp_project_id}
+  # A GCP region where you would like to store logs and metrics for this cluster.
+  clusterLocation: ${gcp_region}
+  enableVPC: false
+  # The absolute or relative path to the key file for a GCP service account used to
+  # send logs and metrics from the cluster
+  serviceAccountKeyPath: /home/ubuntu/cluster/${stackdriver_key_name}
+# (Optional) Specify which GCP project to connect your GKE clusters to
+gkeConnect:
+  projectID: ${gcp_project_id}
+  # The absolute or relative path to the key file for a GCP service account used to
+  # register the cluster
+  registerServiceAccountKeyPath: /home/ubuntu/cluster/${register_key_name}
+  # The absolute or relative path to the key file for a GCP service account used by
+  # the GKE connect agent
+  agentServiceAccountKeyPath: /home/ubuntu/cluster/${connect_key_name}
+# (Optional) Specify Cloud Run configuration
+cloudRun:
+  enabled: true

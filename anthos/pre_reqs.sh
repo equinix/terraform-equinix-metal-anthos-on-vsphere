@@ -27,6 +27,6 @@ gcloud auth activate-service-account --key-file=$HOME/anthos/gcp_keys/${whitelis
 if [[ "$VERSION" == 1.1* ]] || [[ "$VERSION" == 1.2* ]] ; then
   gsutil cp gs://gke-on-prem-release/admin-appliance/$VERSION/gke-on-prem-admin-appliance-vsphere-$VERSION.ova ~/anthos/
 else
-  gsutil cp gs://gke-on-prem-release/gkeadm/$VERSION/linux/gkeadm /root/anthos/
+  gsutil cp gs://gke-on-prem-release-public/gkeadm/$VERSION/linux/gkeadm /root/anthos/
   chmod +x /root/anthos/gkeadm
 fi
