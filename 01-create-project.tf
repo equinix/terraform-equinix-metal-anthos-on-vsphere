@@ -13,7 +13,6 @@ resource "packet_project" "new_project" {
   count           = var.create_project ? 1 : 0
   name            = var.project_name
   organization_id = var.organization_id
-
 }
 
 locals {
