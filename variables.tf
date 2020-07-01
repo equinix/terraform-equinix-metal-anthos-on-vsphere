@@ -1,5 +1,5 @@
 variable "auth_token" {
-  description = "This is your Packet API Auth token. This can also be specified with the PACKET_AUTH_TOKEN shell environment variable."
+  description = "This is your Packet API Auth token. This can also be specified with the TF_VAR_PACKET_AUTH_TOKEN shell environment variable."
   type    = string
 }
 
