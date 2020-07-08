@@ -1,25 +1,43 @@
 #!/bin/bash
 
+# print a message to stderr, prefixed by HOSTNAME
+function note() {
+  echo 1>&2 "$HOSTNAME: $*"
+}
+
+# print the given command to stderr, run it, and exit verbosely if it fails.
+function xrun() {
+  note "+ $@"
+  "$@" && return 0
+  local xstat=$?
+  note "Cmd $1 failed, exit $xstat"
+  exit "$xstat"
+}
+
+# ----- start of mainline code
+
+HOSTNAME=$(hostname)
+
 # export variables used to create the KSA and ingress gateway
 export CLUSTER_NAME="${anthos_user_cluster_name}"
 export KSA_NAME=gke-connect-admin
 
-# create the KSA
-kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig create serviceaccount $KSA_NAME
+note "# create the KSA"
+xrun kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig create serviceaccount $KSA_NAME
 
-# role bind cluster admin to the KSA
+note "# role bind cluster admin to the KSA"
 kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig create clusterrolebinding $KSA_NAME --clusterrole cluster-admin --serviceaccount=default:$KSA_NAME
 
-# capture the token for the KSA
+note "# capture the token for the KSA"
 TOKEN_SECRET=`kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig get serviceaccounts $KSA_NAME -o yaml | \
 grep $KSA_NAME-token | awk -F": " '{print $2}'`
 
-# save the KSA to a file
+note "# save the KSA to a file"
 echo `kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig get secret $TOKEN_SECRET -o yaml | grep "token:" | awk -F": " '{print $2}' | base64 -d` > ${ksa_token_path}
 
 
-# create a ca cert used for the ingress gateway
-openssl \
+note "# create a ca cert used for the ingress gateway"
+xrun openssl \
 req  \
 -nodes -new -x509 \
 -keyout ~/ingress-wildcard.key \
@@ -28,8 +46,8 @@ req  \
 /OU=GKE/CN=www.gkeonprem.com/emailAddress=dev@gkeonprem.com"
 
 
-# apply the cert to the cluster
-kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig \
+note "# apply the cert to the cluster"
+xrun kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig \
     create secret tls \
     --namespace gke-system \
     ingressgateway-wildcard-cacerts \
@@ -37,7 +55,7 @@ kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig \
     --key ~/ingress-wildcard.key
 
 
-# create the yaml for the cluster ingress gateway
+note "# create the yaml for the cluster ingress gateway"
 cat <<EOF > ingress-gateway.yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -66,7 +84,6 @@ spec:
 EOF
 
 
-# apply the ingress gateway yaml file
-kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig \
+note "# apply the ingress gateway yaml file"
+xrun kubectl --kubeconfig ~/cluster/$CLUSTER_NAME-kubeconfig \
 	 apply -f ingress-gateway.yaml
-
