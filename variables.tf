@@ -147,7 +147,7 @@ variable "gcs_bucket_name" {
 }
 
 variable "s3_url" {
-  default = "https=//s3.example.com"
+  default = "https://s3.example.com"
 }
 
 variable "s3_bucket_name" {
