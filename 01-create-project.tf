@@ -9,6 +9,12 @@ provider "packet" {
   auth_token = var.auth_token
 }
 
+terraform {
+  required_providers {
+    packet = ">= 2.7.5"
+  }
+}
+
 resource "packet_project" "new_project" {
   count           = var.create_project ? 1 : 0
   name            = var.project_name
