@@ -1,4 +1,23 @@
 #!/bin/bash
+
+# print a message to stderr, prefixed by HOSTNAME
+function note() {
+  echo 1>&2 "$HOSTNAME: $*"
+}
+
+# print the given command to stderr, run it, and exit verbosely if it fails.
+function xrun() {
+  note "+ $@"
+  "$@" && return 0
+  local xstat=$?
+  note "Cmd $1 failed, exit $xstat"
+  exit "$xstat"
+}
+
+# ----- start of mainline code
+
+HOSTNAME=$(hostname)
+
 # TF vars
 export VERSION='${anthos_version}'
 export GOVC_URL='https://${vmware_fqdn}'
@@ -9,8 +28,10 @@ export GOVC_INSECURE=true
 
 
 if [ ! -f "/root/anthos/gkeadm" ] ; then
-  govc import.ova ~/anthos/gke-on-prem-admin-appliance-vsphere-$VERSION.ova
-  govc vm.markastemplate gke-on-prem-admin-appliance-vsphere-$VERSION
+  xrun govc import.ova ~/anthos/gke-on-prem-admin-appliance-vsphere-$VERSION.ova
+  xrun govc vm.markastemplate gke-on-prem-admin-appliance-vsphere-$VERSION
 fi
 
-govc pool.create '*/${vmware_resource_pool}'
+xrun govc pool.create '*/${vmware_resource_pool}'
+
+note "# succeeded"
