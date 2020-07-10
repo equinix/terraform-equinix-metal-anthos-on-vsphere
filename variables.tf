@@ -6,12 +6,12 @@ terraform {
 
 variable "auth_token" {
   description = "This is your Packet API Auth token. This can also be specified with the TF_VAR_PACKET_AUTH_TOKEN shell environment variable."
-  type    = string
+  type        = string
 }
 
 variable "organization_id" {
   description = "your org ID"
-  type = string
+  type        = string
 }
 
 variable "project_name" {
@@ -43,33 +43,33 @@ Valid vsphere_service_types are=
 variable "private_subnets" {
   default = [
     {
-      "name" = "Management",
-      "nat" = true,
+      "name"                 = "Management",
+      "nat"                  = true,
       "vsphere_service_type" = "management",
-      "routable" = true,
-      "cidr" = "172.16.0.0/24"
+      "routable"             = true,
+      "cidr"                 = "172.16.0.0/24"
     },
     {
-      "name" = "vMotion",
-      "nat" = false,
+      "name"                 = "vMotion",
+      "nat"                  = false,
       "vsphere_service_type" = "vmotion",
-      "routable" = false,
-      "cidr" = "172.16.1.0/24"
+      "routable"             = false,
+      "cidr"                 = "172.16.1.0/24"
     },
     {
-      "name" = "vSAN",
-      "nat" = false,
+      "name"                 = "vSAN",
+      "nat"                  = false,
       "vsphere_service_type" = "vsan",
-      "routable" = false,
-      "cidr" = "172.16.2.0/24"
+      "routable"             = false,
+      "cidr"                 = "172.16.2.0/24"
     },
     {
-      "name" = "VM Private Net",
-      "nat" = true,
+      "name"                 = "VM Private Net",
+      "nat"                  = true,
       "vsphere_service_type" = "null",
-      "routable" = true,
-      "cidr" = "172.16.3.0/24",
-      "reserved_ip_count" = 100
+      "routable"             = true,
+      "cidr"                 = "172.16.3.0/24",
+      "reserved_ip_count"    = 100
     }
   ]
 }
@@ -77,11 +77,11 @@ variable "private_subnets" {
 variable "public_subnets" {
   default = [
     {
-      "name" = "VM Public Net",
-      "nat" = false,
+      "name"                 = "VM Public Net",
+      "nat"                  = false,
       "vsphere_service_type" = "null",
-      "routable" = true,
-      "ip_count" = 4
+      "routable"             = true,
+      "ip_count"             = 4
     }
   ]
 }
