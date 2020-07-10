@@ -1,8 +1,8 @@
 locals {
-  timestamp           = "${timestamp()}"
-  timestamp_sanitized = "${replace("${local.timestamp}", "/[-| |T|Z|:]/", "")}"
-  project_name_sanitized = "${replace("${var.project_name}", "/[ ]/","_")}"
-  ssh_key_name = "${local.project_name_sanitized}-${local.timestamp_sanitized}-key"
+  timestamp              = "${timestamp()}"
+  timestamp_sanitized    = "${replace("${local.timestamp}", "/[-| |T|Z|:]/", "")}"
+  project_name_sanitized = "${replace("${var.project_name}", "/[ ]/", "_")}"
+  ssh_key_name           = "${local.project_name_sanitized}-${local.timestamp_sanitized}-key"
 }
 
 provider "packet" {
