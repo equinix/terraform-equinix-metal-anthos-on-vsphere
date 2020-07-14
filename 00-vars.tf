@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    packet = "2.7.5"
+    packet = "2.10.1"
   }
 }
 
@@ -185,4 +185,3 @@ variable "register_key_name" {
 variable "stackdriver_key_name" {
   default = "stackdriver-key.json"
 }
-
