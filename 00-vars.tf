@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    packet = "2.7.5"
+    packet = "~> 2.10.1"
   }
 }
 
