@@ -92,15 +92,15 @@ variable "esxi_hostname" {
 }
 
 variable "router_size" {
-  default = "c2.medium.x86"
+  default = "c3.medium.x86"
 }
 
 variable "esxi_size" {
-  default = "c2.medium.x86"
+  default = "c3.medium.x86"
 }
 
 variable "facility" {
-  default = "dfw2"
+  default = "ny5"
 }
 
 variable "router_os" {
@@ -108,7 +108,7 @@ variable "router_os" {
 }
 
 variable "vmware_os" {
-  default = "vmware_esxi_6_5"
+  default = "vmware_esxi_6_7"
 }
 
 variable "billing_cycle" {
