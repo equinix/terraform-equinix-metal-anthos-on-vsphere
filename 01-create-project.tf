@@ -5,10 +5,6 @@ locals {
   ssh_key_name           = "${local.project_name_sanitized}-${local.timestamp_sanitized}-key"
 }
 
-provider "packet" {
-  auth_token = var.auth_token
-}
-
 resource "packet_project" "new_project" {
   count           = var.create_project ? 1 : 0
   name            = var.project_name

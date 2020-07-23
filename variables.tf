@@ -1,9 +1,3 @@
-terraform {
-  required_providers {
-    packet = "~> 2.10.1"
-  }
-}
-
 variable "auth_token" {
   description = "This is your Packet API Auth token. This can also be specified with the TF_VAR_PACKET_AUTH_TOKEN shell environment variable."
   type        = string
@@ -30,7 +24,7 @@ variable "project_id" {
 }
 
 /*
-Valid vsphere_service_types are=
+Valid vsphere_service_types are:
   faultToleranceLogging
   vmotion
   vSphereReplication
