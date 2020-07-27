@@ -11,6 +11,8 @@ Users are responsible for providing their own VMware software, Packet account, a
 
 The build (with default settings) typically takes 70-75 minutes.
 
+**This repo is by no means meant for production purposes**, a production cluster is possible, but needs some modifications. If your desire is to create a production deployment, please consult with Packet Support via a support ticket.
+
 ## Join us on Slack
 We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Packet Community Slack group by going to [slack.packet.com](https://slack.packet.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
 
@@ -386,6 +388,8 @@ project_id                        = "YOUR-PROJECT-ID"
 ## Changing default Anthos GKE on-prem cluster defaults
 Check the `30-anthos-vars.tf` file for additional values (including number of user worker nodes and vCPU/RAM settings for the worker nodes) which can be set via the terraform.tfvars file.
 
+## Google Anthos Documentation
+Once Anthos is deployed on Packet, all of the documentation for using Google Anthos is located on the [Anthos Documentation Page](https://cloud.google.com/anthos/docs).
 
 ## Troubleshooting
 Some common issues and fixes.
