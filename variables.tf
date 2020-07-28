@@ -60,7 +60,7 @@ variable "private_subnets" {
     {
       "name"                 = "VM Private Net",
       "nat"                  = true,
-      "vsphere_service_type" = "null",
+      "vsphere_service_type" = null,
       "routable"             = true,
       "cidr"                 = "172.16.3.0/24",
       "reserved_ip_count"    = 100
@@ -73,7 +73,7 @@ variable "public_subnets" {
     {
       "name"                 = "VM Public Net",
       "nat"                  = false,
-      "vsphere_service_type" = "null",
+      "vsphere_service_type" = null,
       "routable"             = true,
       "ip_count"             = 4
     }
@@ -97,7 +97,7 @@ variable "esxi_size" {
 }
 
 variable "facility" {
-  default = "ny5"
+  default = "sjc1"
 }
 
 variable "router_os" {
