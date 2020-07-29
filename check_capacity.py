@@ -3,7 +3,7 @@ import requests
 import json
 
 
-default_file = "00-vars.tf"
+default_file = "variables.tf"
 variable_file = "terraform.tfvars"
 router_host_count = 1
 url = "https://api.packet.net/capacity"
