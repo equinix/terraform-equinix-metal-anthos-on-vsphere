@@ -7,11 +7,43 @@ function note() {
 
 # print the given command to stderr, run it, and exit verbosely if it fails.
 function xrun() {
-  note "+ $@"
-  "$@" && return 0
+  vrun "$@" && return 0
+
   local xstat=$?
   note "Cmd $1 failed, exit $xstat"
   exit "$xstat"
+}
+
+# print the given command to stderr, run it.  return the status
+function vrun() {
+  note "+ $@"
+  "$@"
+}
+
+# fetch the vcenter pem from the givem host:port, and print it to stdout.
+function fetch_pem() {
+djfong@djfong-macbookair2$ cat !$
+cat deploy_admin_ws.sh
+#!/bin/bash
+
+# print a message to stderr, prefixed by HOSTNAME
+function note() {
+  echo 1>&2 "$HOSTNAME: $*"
+}
+
+# print the given command to stderr, run it, and exit verbosely if it fails.
+function xrun() {
+  vrun "$@" && return 0
+
+  local xstat=$?
+  note "Cmd $1 failed, exit $xstat"
+  exit "$xstat"
+}
+
+# print the given command to stderr, run it.  return the status
+function vrun() {
+  note "+ $@"
+  "$@"
 }
 
 # fetch the vcenter pem from the givem host:port, and print it to stdout.
@@ -35,7 +67,7 @@ if [ -f "/root/anthos/gkeadm" ] ; then
   echo "** IAM roles are expected and can safely be ignored                      **"
   echo "***********************#***************************************************"
   fetch_pem ${vcenter_fqdn}:443 > /root/anthos/vspherecert.pem || exit 1
-  xrun /root/anthos/gkeadm create admin-workstation --config /root/anthos/admin-ws-config.yaml --ssh-key-path /root/anthos/ssh_key --skip-validation
+  vrun /root/anthos/gkeadm create admin-workstation --config /root/anthos/admin-ws-config.yaml --ssh-key-path /root/anthos/ssh_key --skip-validation
   echo "*************************************************************************"
   echo "** Errors in the above section related to enabling APIs and creating   **"
   echo "** IAM roles are expected and can safely be ignored                    **"
