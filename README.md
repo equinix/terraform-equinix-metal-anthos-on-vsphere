@@ -127,13 +127,13 @@ You can run this script as follows:
 
 Prompts will guide you through the setup. 
  
-## Install Terraform 
-Terraform is just a single binary.  Visit their [download page](https://www.terraform.io/downloads.html), choose your operating system, make the binary executable, and move it into your path. 
+## Install Terraform
+Terraform 0.13 is required. Terraform can be installed with just a single binary.  Visit their [download page](https://www.terraform.io/downloads.html), choose your operating system, make the binary executable, and move it into your path.
  
 Here is an example for **macOS**: 
 ```bash 
-curl -LO https://releases.hashicorp.com/terraform/0.12.18/terraform_0.12.18_darwin_amd64.zip 
-unzip terraform_0.12.18_darwin_amd64.zip 
+curl -LO https://releases.hashicorp.com/terraform/0.13.2/terraform_0.13.2_darwin_amd64.zip
+unzip terraform_0.13.2_darwin_amd64.zip
 chmod +x terraform 
 sudo mv terraform /usr/local/bin/ 
 ``` 

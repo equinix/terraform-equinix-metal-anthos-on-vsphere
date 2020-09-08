@@ -6,7 +6,7 @@ resource "null_resource" "anthos_deploy_cluster" {
     type        = "ssh"
     user        = "ubuntu"
     private_key = file("/root/anthos/ssh_key")
-    host        = "${var.admin_workstation_ip}"
+    host        = var.admin_workstation_ip
   }
 
   provisioner "file" {

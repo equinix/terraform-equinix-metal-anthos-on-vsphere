@@ -19,25 +19,33 @@ resource "packet_device" "router" {
   billing_cycle    = var.billing_cycle
   project_id       = local.project_id
   user_data        = data.template_file.user_data.rendered
-  network_type     = "hybrid"
+}
+
+resource "packet_device_network_type" "router_network_type" {
+  device_id = packet_device.router.id
+  type      = "hybrid"
+
 }
 
 resource "packet_port_vlan_attachment" "router_priv_vlan_attach" {
-  count     = length(packet_vlan.private_vlans)
-  device_id = packet_device.router.id
-  port_name = "eth1"
-  vlan_vnid = jsonencode(element(packet_vlan.private_vlans.*.vxlan, count.index))
+  count      = length(packet_vlan.private_vlans)
+  depends_on = [packet_device_network_type.router_network_type]
+  device_id  = packet_device.router.id
+  port_name  = "eth1"
+  vlan_vnid  = jsonencode(element(packet_vlan.private_vlans.*.vxlan, count.index))
 }
 
 resource "packet_port_vlan_attachment" "router_pub_vlan_attach" {
-  count     = length(packet_vlan.public_vlans)
-  device_id = packet_device.router.id
-  port_name = "eth1"
-  vlan_vnid = jsonencode(element(packet_vlan.public_vlans.*.vxlan, count.index))
+  count      = length(packet_vlan.public_vlans)
+  depends_on = [packet_device_network_type.router_network_type]
+  device_id  = packet_device.router.id
+  port_name  = "eth1"
+  vlan_vnid  = jsonencode(element(packet_vlan.public_vlans.*.vxlan, count.index))
 }
 
 resource "packet_ip_attachment" "block_assignment" {
   count         = length(packet_reserved_ip_block.ip_blocks)
+  depends_on    = [packet_device_network_type.router_network_type]
   device_id     = packet_device.router.id
   cidr_notation = substr(jsonencode(element(packet_reserved_ip_block.ip_blocks.*.cidr_notation, count.index)), 1, length(jsonencode(element(packet_reserved_ip_block.ip_blocks.*.cidr_notation, count.index))) - 2)
 }

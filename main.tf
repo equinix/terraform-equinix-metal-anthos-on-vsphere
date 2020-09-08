@@ -1,6 +1,24 @@
 terraform {
   required_providers {
-    packet = "~> 2.10.1"
+    packet = {
+      source  = "packethost/packet"
+      version = "~> 3.0.1"
+    }
+    local = {
+      source = "hashicorp/local"
+    }
+    null = {
+      source = "hashicorp/null"
+    }
+    random = {
+      source = "hashicorp/random"
+    }
+    template = {
+      source = "hashicorp/template"
+    }
+    tls = {
+      source = "hashicorp/tls"
+    }
   }
 }
 
