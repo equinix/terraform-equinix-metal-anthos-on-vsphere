@@ -1,11 +1,11 @@
-[![Packet Website](https://img.shields.io/badge/Website%3A-Packet.com-blue)](http://packet.com) [![Slack Status](https://slack.packet.com/badge.svg)](https://slack.packet.com) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Packet Website](https://img.shields.io/badge/Website%3A-Packet.com-blue)](http://packet.com) [![Slack Status](https://slack.packet.com/badge.svg)](https://slack.packet.com) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![](https://img.shields.io/badge/Stability-Experimental-red.svg)
+
 # Automated Anthos Installation via Terraform for Packet
 These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Packet's Bare Metal Cloud offering](https://www.packet.com/cloud/). 
 
 Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can use an existing Packet Project, check this [section](#use-an-existing-packet-project) for instructions.
 
 ![Environment Diagram](docs/images/google-anthos-vsphere-network-diagram-1.png)
-
 
 Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
 
