@@ -17,6 +17,8 @@ The build (with default settings) typically takes 70-75 minutes.
 We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Packet Community Slack group by going to [slack.packet.com](https://slack.packet.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
 
 ## Latest Updates
+### 9-25-2020
+* GKE on-prem 1.5.0-gke.27 has been released and has been successfully tested
 ### 7-29-2020
 * Several terraform formating and normailziaion with packet-labs github has been performed
 * GKE on-prem 1.4.1-gke.1 patch release has been successfully tested
@@ -65,17 +67,19 @@ The Terraform has been successfully tested with following versions of GKE on-pre
 * 1.2.0-gke.6*
 * 1.2.1-gke.4*
 * 1.2.2-gke.2*
-* 1.3.0-gke.16**
-* 1.3.1-gke.0**
-* 1.3.2-gke.1**
-* 1.4.0-gke.13**
-* 1.4.1-gke.1**
+* 1.3.0-gke.16
+* 1.3.1-gke.0
+* 1.3.2-gke.1
+* 1.4.0-gke.13
+* 1.4.1-gke.1
+* 1.5.0-gke.27
 
 To simplify setup, this is designed to used the bundled Seesaw load balancer. No other load balancer support is planned at this time.
 
+Select the version of Anthos you wish to install by setting the `anthos_version` variable in your terraform.tfvars file. 
+
 \*Due to a known bug in the BundledLb EAP version, the script will automatically detect when using the EAP version and automatically delete the secondary LB in each group (admin and user cluster) to prevent the bug from occurring.
 
-\*\*This release appears to take 15-20 minutes longer to deploy. Some of that is due to the introduction of gkeadm to deploy the admin workstation. We are studying if there are any other possible optimizations that can be made to speed up the deployment.
 ## Setup your GCS object store 
 You will need a GCS  object store in order to download *closed source* packages such as *vCenter* and the *vSan SDK*. (See below for an S3 compatible object store option)
 
@@ -208,7 +212,7 @@ s3_bucket_name = "vmware"
 s3_access_key = "4fa85962-975f-4650-b603-17f1cb9dee10" 
 s3_secret_key = "becf3868-3f07-4dbb-a6d5-eacfd7512b09" 
 vcenter_iso_name = "VMware-VCSA-all-6.7.0-XXXXXXX.iso" 
-anthos_version = "1.3.0-gke.16"
+anthos_version = "1.5.0-gke.27"
 anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ```  
