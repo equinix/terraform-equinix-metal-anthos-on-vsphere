@@ -1,20 +1,20 @@
-[![Packet Website](https://img.shields.io/badge/Website%3A-Packet.com-blue)](http://packet.com) [![Slack Status](https://slack.packet.com/badge.svg)](https://slack.packet.com) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![](https://img.shields.io/badge/Stability-Experimental-red.svg)
+[![Equinix Metal Website](https://img.shields.io/badge/Website%3A-metal.equinixmetal.com-blue)](http://metal.equinixmetal.com) [![Slack Status](https://slack.equinixmetal.com/badge.svg)](https://slack.equinixmetal.com/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![](https://img.shields.io/badge/Stability-Experimental-red.svg)
 
-# Automated Anthos Installation via Terraform for Packet
-These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Packet's Bare Metal Cloud offering](https://www.packet.com/cloud/). 
+# Automated Anthos Installation via Terraform for Equinix Metal
+These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Equinix Metal's Bare Metal Cloud offering](http://metal.equinixmetal.com). 
 
-Terraform will create a Packet project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can use an existing Packet Project, check this [section](#use-an-existing-packet-project) for instructions.
+Terraform will create a Equinix Metal project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can use an existing Equinix Metal Project, check this [section](#use-an-existing-equinix-metal-project) for instructions.
 
 ![Environment Diagram](docs/images/google-anthos-vsphere-network-diagram-1.png)
 
-Users are responsible for providing their own VMware software, Packet account, and Anthos subscription as described in this readme.
+Users are responsible for providing their own VMware software, Equinix Metal account, and Anthos subscription as described in this readme.
 
 The build (with default settings) typically takes 70-75 minutes.
 
-**This repo is by no means meant for production purposes**, a production cluster is possible, but needs some modifications. If your desire is to create a production deployment, please consult with Packet Support via a support ticket.
+**This repo is by no means meant for production purposes**, a production cluster is possible, but needs some modifications. If your desire is to create a production deployment, please consult with Equinix Metal Support via a support ticket.
 
 ## Join us on Slack
-We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Packet Community Slack group by going to [slack.packet.com](https://slack.packet.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
+We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Equinix Metal Community Slack group by going to [slack.equinixmetal.com](https://slack.equinixmetal.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
 
 ## Latest Updates
 ### 9-25-2020
@@ -25,16 +25,16 @@ We use [Slack](https://slack.com/) as our primary communication tool for collabo
 ### 6-25-2020
 * Support for GKE on-prem 1.4 added
 ### 6-8-2020
-* Added a `check_capacity.py` to manually perform a capacity check with Packet before building
+* Added a `check_capacity.py` to manually perform a capacity check with Equinix Metal before building
 ### 6-03-2020
 * 1.3.2-gke.1 patch release has been successfully tested
-* Option to use Packet gen 3 (c3.medium.x86 for esxi and c3.small.x86 for router) along with ESXi 6.7
+* Option to use Equinix Metal gen 3 (c3.medium.x86 for esxi and c3.small.x86 for router) along with ESXi 6.7
 ### 5-04-2020
 * 1.3.1-gke.0 patch release has been successfully tested
 ### 3-31-2020
 * The terraform is fully upgraded to work with Anthos GKE on-prem version
 1.3.0-gke.16
-* There is now an option to use an existing Packet project rather than create a
+* There is now an option to use an existing Equinix Metal project rather than create a
   new one (default behavior is to create a new project)
 * We no longer require a private .ssh key for the environment be saved at
   ~/.ssh/id_rsa. The terraform will generate a ssh key pair and save it to
@@ -45,21 +45,21 @@ We use [Slack](https://slack.com/) as our primary communication tool for collabo
 To use these Terraform files, you need to have the following Prerequisites:
 * An [Anthos subscription](https://cloud.google.com/anthos/docs/getting-started)
 * A [white listed GCP project and service account](https://cloud.google.com/anthos/gke/docs/on-prem/how-to/gcp-project).
-* A Packet org-id and [API key](https://www.packet.com/developers/api/)
-* **If you are new to Packet**
-  * You will need to request an "Entitlement Increase".  You will need to work with Packet Support via either:
-    * Use the ![Packet Website](https://img.shields.io/badge/Chat%20Now%20%28%3F%29-blue) at the bottom left of the Packet Web UI
+* A Equinix Metal org-id and [API key](https://www.packet.com/developers/api/)
+* **If you are new to Equinix Metal**
+  * You will need to request an "Entitlement Increase".  You will need to work with Equinix Metal Support via either:
+    * Use the ![Equinix Metal Website](https://img.shields.io/badge/Chat%20Now%20%28%3F%29-blue) at the bottom left of the Equinix Metal Web UI
       * OR
-    * E-Mail support@packet.com
+    * E-Mail support@equinixmetal.com
   * Your message across one of these mediums should be:
     * I am working with the Google Anthos Terrafom deployment (github.com/packet-labs/google-anthos). I need an entitlement increase to allow the creation of five or more vLans. Can you please assist?
 * [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) - VMware vCenter Server Appliance ISO obtained from VMware
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734) - Virtual SAN Management SDK for Python, also from VMware
  
-## Associated Packet Costs
-The default variables make use of 4 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers. These servers are $1 per hour list price (resulting in a total solution price of roughly $4 per hour). Additionally, if you would like to use Intel Processors for ESXi hosts, the [m2.xlarge.x86](https://www.packet.com/cloud/servers/m2-xlarge/) is a validated configuration. This would increase the useable RAM from 192GB to a whopping 1.15TB. These servers are $2 per hour list price (resulting in a total solution price of roughly $7 per hour.)
+## Associated Equinix Metal Costs
+The default variables make use of 4 [c2.medium.x86](https://metal.equinix.com/product/servers/) servers. These servers are $1 per hour list price (resulting in a total solution price of roughly $4 per hour). Additionally, if you would like to use Intel Processors for ESXi hosts, the [m2.xlarge.x86](https://metal.equinix.com/product/servers/) is a validated configuration. This would increase the useable RAM from 192GB to a whopping 1.15TB. These servers are $2 per hour list price (resulting in a total solution price of roughly $7 per hour.)
 
-You can also deploy just 2 [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) servers for $2 per hour instead.
+You can also deploy just 2 [c2.medium.x86](https://metal.equinix.com/product/servers/) servers for $2 per hour instead.
 
 ## Tested GKE on-prem versions
 The Terraform has been successfully tested with following versions of GKE on-prem:
@@ -153,9 +153,9 @@ git clone https://github.com/packet-labs/google-anthos.git
 Terraform uses modules to deploy infrastructure. In order to initialize the modules your simply run: `terraform init`. This should download five modules into a hidden directory `.terraform` 
  
 ## Modify your variables 
-There are many variables which can be set to customize your install within `00-vars.tf` and `30-anthos-vars.tf`. The default variables to bring up a 3 node vSphere cluster and linux router using Packet's [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/). Change each default variable at your own risk. 
+There are many variables which can be set to customize your install within `00-vars.tf` and `30-anthos-vars.tf`. The default variables to bring up a 3 node vSphere cluster and linux router using Equinix Metal's [c2.medium.x86](https://metal.equinix.com/product/servers/). Change each default variable at your own risk. 
 
-There are some variables you must set with a terraform.tfvars files. You need to set `auth_token` & `organization_id` to connect to Packet and the `project_name` which will be created in Packet. You will need to set `anthos_gcp_project_id` for your GCP Project ID. You will need a GCS bucket to download "Closed Source" packages such as vCenter. The GCS related variable is `gcs_bucket_name`. You need to provide the vCenter ISO file name as `vcenter_iso_name`. 
+There are some variables you must set with a terraform.tfvars files. You need to set `auth_token` & `organization_id` to connect to Equinix Metal and the `project_name` which will be created in Equinix Metal. You will need to set `anthos_gcp_project_id` for your GCP Project ID. You will need a GCS bucket to download "Closed Source" packages such as vCenter. The GCS related variable is `gcs_bucket_name`. You need to provide the vCenter ISO file name as `vcenter_iso_name`. 
 
 The Anthos variables include `anthos_version` and `anthos_user_cluster_name`.
  
@@ -217,7 +217,7 @@ anthos_user_cluster_name = "packet-cluster-1"
 EOF 
 ```  
  
-## Deploy the Packet vSphere cluster and Anthos GKE on-prem cluster 
+## Deploy the Equinix Metal vSphere cluster and Anthos GKE on-prem cluster 
  
 All there is left to do now is to deploy the cluster: 
 ```bash 
@@ -245,8 +245,8 @@ You can copy/paste them to a file now,
 or get the values later from the file `terraform.tfstate`
 which should have been automatically generated as a side-effect of the "terraform apply" command.
 
-## Checking Capacity in a Packet Facility (optional)
-Before attempting to create the cluster, it is a good idea to do a quick capacity check to be sure there are enough devices at your chosen Packet facility.
+## Checking Capacity in a Equinix Metal Facility (optional)
+Before attempting to create the cluster, it is a good idea to do a quick capacity check to be sure there are enough devices at your chosen Equinix Metal facility.
 
 We've included a `check_capacity.py` file to be run prior to a build. The file will read your `terraform.tfvars` file to use your selected host sizes and quantities or use the defaults if you've not set any.
 
@@ -288,16 +288,16 @@ anthos_user_master_replicas = 1
 This has been tested with the c2.medium.x86. It may work with other systems as well, but it has not been fully tested.
 We have not tested the maximum vSAN cluster size. Cluster size of 2 is not supported.
 
-## Using Packet Gen 3 Hardware and ESXi 6.7
-Packet is actively rolling out new hardware in mulitple locations which supports ESXi 6.7. Until the gen 3 hardware is more widely available, we'll not make gen 3 hardware the default but provide the option to use it.
+## Using Equinix Metal Gen 3 Hardware and ESXi 6.7
+Equinix Metal is actively rolling out new hardware in mulitple locations which supports ESXi 6.7. Until the gen 3 hardware is more widely available, we'll not make gen 3 hardware the default but provide the option to use it.
 
 ### Costs
-The gen3 [c3.medium.x86](https://www.packet.com/cloud/servers/c3-medium/) is $0.10 more than the [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/) but benefits from higher clock speed and the storage is better utlized to create a larger vSAN data store.
+The gen3 [c3.medium.x86](https://metal.equinix.com/product/servers/) is $0.10 more than the [c2.medium.x86](https://metal.equinix.com/product/servers/) but benefits from higher clock speed and the storage is better utlized to create a larger vSAN data store.
 
-The [c3.small.x86](https://www.packet.com/cloud/servers/c3-small/) is $0.50 less expensive than the [c2.medium.x86](https://www.packet.com/cloud/servers/c2-medium-epyc/). Therefore in a standard build, with 3 ESXi servers and 1 router, the net costs should be $0.20 lower than when using gen 2 devices.
+The [c3.small.x86](https://metal.equinix.com/product/servers/) is $0.50 less expensive than the [c2.medium.x86](https://metal.equinix.com/product/servers/). Therefore in a standard build, with 3 ESXi servers and 1 router, the net costs should be $0.20 lower than when using gen 2 devices.
 
 ### Known Issues
-ESXi 6.7 deployed on [c3.medium.x86](https://www.packet.com/cloud/servers/c3-medium/) may result in an alarm in vCenter which states `Host TPM attestation alarm`. The Packet team is looking into this but its thought to be a cosemetic issue.
+ESXi 6.7 deployed on [c3.medium.x86](https://metal.equinix.com/product/servers/) may result in an alarm in vCenter which states `Host TPM attestation alarm`. The Equinix Metal team is looking into this but its thought to be a cosemetic issue.
 
 Upon using `terraform destroy --auto-approve` to clean up an install, the VLANs may not get cleaned up properly.
 
@@ -370,7 +370,7 @@ iptables on the edge-gateway to forward ports/IPs to VIP.
 ## Cleaning the environment
 To clean up a created environment (or a failed one), run `terraform destroy --auto-approve`.
 
-If this does not work for some reason, you can manually delete each of the resources created in Packet (including the project) and then delete your terraform state file, `rm -f terraform.tfstate`.
+If this does not work for some reason, you can manually delete each of the resources created in Equinix Metal (including the project) and then delete your terraform state file, `rm -f terraform.tfstate`.
 
 ## Skipping the Anthos GKE on-prem cluster creation steps
 If you wish to create the environment (including deploy the admin workstation and Anthos pre-res) but skip the cluster creation (so that you can practice creating a cluster on your own) add `anthos_deploy_clusters = "False"` to your terraform.tfvars file. This will still run the pre-requisites for the GKE on-prem install including setting up the admin workstation.
@@ -381,10 +381,10 @@ To create just the vSphere environment and skip all Anthos related steps, add `a
 
 See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample) to see what the Anthos parameters are when the default settings are used to create the environment.
 
-## Use an existing Packet project
-If you have an existing Packet project you can use it assuming the project has at least 5 available vlans, Packet project has a limit of 12 Vlans and this setup uses 5 of them.
+## Use an existing Equinix Metal project
+If you have an existing Equinix Metal project you can use it assuming the project has at least 5 available vlans, Equinix Metal project has a limit of 12 Vlans and this setup uses 5 of them.
 
-Get your Project ID, navigate to the Project from the packet.com console and click on PROJECT SETTINGS, copy the PROJECT ID.
+Get your Project ID, navigate to the Project from the console.equinixmetal.com console and click on PROJECT SETTINGS, copy the PROJECT ID.
 
 add the following variables to your terraform.tfvars
 
@@ -397,7 +397,7 @@ project_id                        = "YOUR-PROJECT-ID"
 Check the `30-anthos-vars.tf` file for additional values (including number of user worker nodes and vCPU/RAM settings for the worker nodes) which can be set via the terraform.tfvars file.
 
 ## Google Anthos Documentation
-Once Anthos is deployed on Packet, all of the documentation for using Google Anthos is located on the [Anthos Documentation Page](https://cloud.google.com/anthos/docs).
+Once Anthos is deployed on Equinix Metal, all of the documentation for using Google Anthos is located on the [Anthos Documentation Page](https://cloud.google.com/anthos/docs).
 
 ## Troubleshooting
 Some common issues and fixes.
@@ -406,11 +406,11 @@ Some common issues and fixes.
 
 Should be resolved in https://github.com/packet-labs/google-anthos/commit/f6668b1359683eb5124d6ab66457f3680072651a
 
-Due to recent changes to the Packet API, new organizations may be unable to use the Terraform to build ESXi servers. Packet is aware of the issue and is planning some fixes. In the meantime, if you hit this issue, email help@packet.com and request that your organization be white listed to deploy ESXi servers with the API. You should reference this project (https://github.com/packet-labs/google-anthos) in your email.
+Due to recent changes to the Equinix Metal API, new organizations may be unable to use the Terraform to build ESXi servers. Equinix Metal is aware of the issue and is planning some fixes. In the meantime, if you hit this issue, email help@equinixmetal.com and request that your organization be white listed to deploy ESXi servers with the API. You should reference this project (https://github.com/packet-labs/google-anthos) in your email.
 
 ### Error: POST https://api.packet.net/ports/e2385919-fd4c-410d-b71c-568d7a517896/disbond:
 
-At times the Packet API fails to recognize the ESXi host can be enabled for Layer 2 networking (more accurately Mixed/hybrid mode). The terraform will exit and you'll see
+At times the Equinix Metal API fails to recognize the ESXi host can be enabled for Layer 2 networking (more accurately Mixed/hybrid mode). The terraform will exit and you'll see
 ```bash
 Error: POST https://api.packet.net/ports/e2385919-fd4c-410d-b71c-568d7a517896/disbond: 422 This device is not enabled for Layer 2. Please contact support for more details. 
 
