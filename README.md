@@ -1,7 +1,7 @@
-[![Equinix Metal Website](https://img.shields.io/badge/Website%3A-metal.equinixmetal.com-blue)](http://metal.equinixmetal.com) [![Slack Status](https://slack.equinixmetal.com/badge.svg)](https://slack.equinixmetal.com/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![](https://img.shields.io/badge/Stability-Experimental-red.svg)
+[![Equinix Metal Website](https://img.shields.io/badge/Website%3A-metal.equinix.com-blue)](http://metal.equinix.com) [![Slack Status](https://slack.equinixmetal.com/badge.svg)](https://slack.equinixmetal.com/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![](https://img.shields.io/badge/Stability-Experimental-red.svg)
 
 # Automated Anthos Installation via Terraform for Equinix Metal
-These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Equinix Metal's Bare Metal Cloud offering](http://metal.equinixmetal.com). 
+These files will allow you to use [Terraform](http://terraform.io) to deploy [Google Cloud's Anthos GKE on-prem](https://cloud.google.com/anthos) on VMware vSphere on [Equinix Metal's Bare Metal Cloud offering](http://metal.equinix.com). 
 
 Terraform will create a Equinix Metal project complete with a linux machine for routing, a vSphere cluster installed on minimum 3 ESXi hosts with vSAN storage, and an Anthos GKE on-prem admin and user cluster registered to Google Cloud. You can use an existing Equinix Metal Project, check this [section](#use-an-existing-equinix-metal-project) for instructions.
 
