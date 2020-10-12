@@ -22,32 +22,6 @@ function vrun() {
 
 # fetch the vcenter pem from the givem host:port, and print it to stdout.
 function fetch_pem() {
-djfong@djfong-macbookair2$ cat !$
-cat deploy_admin_ws.sh
-#!/bin/bash
-
-# print a message to stderr, prefixed by HOSTNAME
-function note() {
-  echo 1>&2 "$HOSTNAME: $*"
-}
-
-# print the given command to stderr, run it, and exit verbosely if it fails.
-function xrun() {
-  vrun "$@" && return 0
-
-  local xstat=$?
-  note "Cmd $1 failed, exit $xstat"
-  exit "$xstat"
-}
-
-# print the given command to stderr, run it.  return the status
-function vrun() {
-  note "+ $@"
-  "$@"
-}
-
-# fetch the vcenter pem from the givem host:port, and print it to stdout.
-function fetch_pem() {
   local addr=$1
   xrun openssl s_client -showcerts -verify 5 -connect "$addr" < /dev/null \
   | awk '/BEGIN/,/END/ {print}'
