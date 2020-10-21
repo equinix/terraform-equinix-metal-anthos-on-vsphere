@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# print a message to stderr, prefixed by HOSTNAME
+# print a message to stderr, prefixed by the hostname
 function note() {
-  echo 1>&2 "$HOSTNAME: $*"
+  echo 1>&2 "$(hostname): $*"
 }
 
 # print the given command to stderr, run it, and exit verbosely if it fails.
@@ -29,8 +29,6 @@ function fetch_pem() {
 }
 
 # ----- statt of mainline code
-
-HOSTNAME=$(hostname)
 
 export WORKSTATIONIP=__IP_ADDRESS__
 
