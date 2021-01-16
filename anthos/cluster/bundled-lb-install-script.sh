@@ -5,6 +5,12 @@ function note() {
   echo 1>&2 "$HOSTNAME: $*"
 }
 
+# print the given command to stderr, run it, and return the exit status.
+function vrun() {
+  note "+ $@"
+  "$@"
+}
+
 # print the given command to stderr, run it, and exit verbosely if it fails.
 function xrun() {
   note "+ $@"
@@ -44,7 +50,9 @@ export GOVC_INSECURE=true
 VERSION=$(gkectl version | awk '{print $2}')
 ESXICOUNT='${esxi_host_count}'
 
-xrun govc datastore.mkdir -dc="${vcenter_datacenter}" -ds="${vcenter_datastore}" gke-on-prem/
+
+# in some versions of anthos, this command may fail harmlessly
+vrun govc datastore.mkdir -dc="${vcenter_datacenter}" -ds="${vcenter_datastore}" gke-on-prem/
 
 xrun gcloud auth activate-service-account --key-file=/home/ubuntu/cluster/${whitelisted_key_name}
 xrun gcloud auth configure-docker --quiet
