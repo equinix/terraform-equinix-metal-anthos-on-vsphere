@@ -160,6 +160,11 @@ variable "s3_boolean" {
   default = "false"
 }
 
+variable "s3_version" {
+  description = "S3 API Version (S3v2, S3v4)"
+  default     = "S3v4"
+}
+
 variable "vcenter_iso_name" {
 }
 
