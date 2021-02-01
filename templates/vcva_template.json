@@ -26,7 +26,7 @@
     },
     "os": {
       "password": "${vcenter_password}",
-      "ntp_servers": "time.nist.gov",
+      "ntp_servers": "time.google.com",
       "ssh_enable": true
     },
     "sso": {
