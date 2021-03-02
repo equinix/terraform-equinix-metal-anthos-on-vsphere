@@ -26,7 +26,7 @@ data "template_file" "anthos_cluster_config" {
   template = file("anthos/cluster/bundled-lb-admin-uc1-config.yaml")
   vars = {
     vcenter_user                = "Administrator@vsphere.local"
-    vcenter_pass                = random_string.sso_password.result
+    vcenter_pass                = module.vsphere.vcenter_password
     vcenter_fqdn                = format("vcva.%s", var.domain_name)
     vcenter_datastore           = var.anthos_datastore
     vcenter_datacenter          = var.vcenter_datacenter_name
@@ -56,7 +56,7 @@ data "template_file" "anthos_admin_cluster_config" {
   template = file("anthos/cluster/admin-cluster-config.yaml")
   vars = {
     vcenter_user         = "Administrator@vsphere.local"
-    vcenter_pass         = random_string.sso_password.result
+    vcenter_pass         = module.vsphere.vcenter_password
     vcenter_fqdn         = format("vcva.%s", var.domain_name)
     vcenter_datastore    = var.anthos_datastore
     vcenter_datacenter   = var.vcenter_datacenter_name
@@ -99,7 +99,7 @@ data "template_file" "anthos_cluster_creation_script" {
   template = file("anthos/cluster/bundled-lb-install-script.sh")
   vars = {
     vcenter_user             = "Administrator@vsphere.local"
-    vcenter_pass             = random_string.sso_password.result
+    vcenter_pass             = module.vsphere.vcenter_password
     vcenter_fqdn             = format("vcva.%s", var.domain_name)
     vcenter_datastore        = var.anthos_datastore
     vcenter_datacenter       = var.vcenter_datacenter_name
@@ -115,8 +115,8 @@ resource "null_resource" "anthos_deploy_cluster" {
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/${local.ssh_key_name}")
-    host        = packet_device.router.access_public_ipv4
+    private_key = file(module.vsphere.ssh_key_path)
+    host        = module.vsphere.bastion_host
   }
 
   provisioner "file" {
