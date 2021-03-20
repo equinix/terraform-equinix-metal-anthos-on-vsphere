@@ -1,25 +1,25 @@
 variable "auth_token" {
-  description = "This is your Equinix MetalAPI Auth token. This can also be specified with the TF_VAR_PACKET_AUTH_TOKEN shell environment variable."
+  description = "This is your Equinix Metal API Auth token. This can also be specified with the TF_VAR_PACKET_AUTH_TOKEN shell environment variable."
   type        = string
 }
 
 variable "organization_id" {
-    description = "Your Equinix Metal Organization Id"
+  description = "Your Equinix Metal Organization Id"
   type        = string
 }
 
 variable "project_name" {
-  default = "anthos-on-packet-1"
+  default = "anthos-on-metal-1"
 }
 
 
 variable "create_project" {
-  description = "if true create the packet project, if not skip and use the provided project"
+  description = "if true create the Equinix Metal project, if not skip and use the provided project"
   default     = true
 }
 
 variable "project_id" {
-  description = "Equinix MetalProject ID to use in case create_project is false"
+  description = "Equinix Metal Project ID to use in case create_project is false"
   default     = "null"
 }
 
@@ -83,53 +83,53 @@ variable "public_subnets" {
 }
 
 variable "router_hostname" {
-    description = "This is the hostname for the router."
-  default = "edge-gateway01"
+  description = "This is the hostname for the router."
+  default     = "edge-gateway01"
 }
 
 variable "esxi_hostname" {
   description = "This is the hostname prefix for your esxi hosts. A number will be added to the end."
-  default = "esx"
+  default     = "esx"
 }
 
 variable "router_size" {
   description = "This is the size/plan/flavor of your router machine"
-  default = "c3.medium.x86"
+  default     = "c3.medium.x86"
 }
 
 variable "esxi_size" {
-    description = "This is the size/plan/flavor of your ESXi machine(s)"
-  default = "c3.medium.x86"
+  description = "This is the size/plan/flavor of your ESXi machine(s)"
+  default     = "c3.medium.x86"
 }
 
 variable "facility" {
-    description = "This is the Region/Location of your deployment."
-  default = "ny5"
+  description = "This is the Region/Location of your deployment."
+  default     = "ny5"
 }
 
 variable "router_os" {
-    description = "This is the operating System for you router machine (Only Ubuntu 18.04 has been tested)"
-  default = "ubuntu_18_04"
+  description = "This is the operating System for you router machine (Only Ubuntu 18.04 has been tested)"
+  default     = "ubuntu_18_04"
 }
 
 variable "vmware_os" {
-    description = "This is the version of vSphere that you want to deploy (ESXi 6.5, 6.7, & 7.0 have been tested)"
-  default = "vmware_esxi_6_7"
+  description = "This is the version of vSphere that you want to deploy (ESXi 6.5, 6.7, & 7.0 have been tested)"
+  default     = "vmware_esxi_6_7"
 }
 
 variable "billing_cycle" {
-    description = "This is billing cycle to use. The hasn't beend built to allow reserved isntances yet."
-  default = "hourly"
+  description = "This is billing cycle to use. The hasn't beend built to allow reserved isntances yet."
+  default     = "hourly"
 }
 
 variable "esxi_host_count" {
-    description = "This is the number of ESXi host you'd like in your cluster."
-  default = 3
+  description = "This is the number of ESXi host you'd like in your cluster."
+  default     = 3
 }
 
 variable "vcenter_portgroup_name" {
-    description = "This is the VM Portgroup you would like vCenter to be deployed to. See 'private_subnets' & 'public_subnets' above. By deploying on a public subnet, you will not need to use the VPN to access vCenter."
-  default = "Management"
+  description = "This is the VM Portgroup you would like vCenter to be deployed to. See 'private_subnets' & 'public_subnets' above. By deploying on a public subnet, you will not need to use the VPN to access vCenter."
+  default     = "Management"
 }
 
 variable "vcenter_domain" {
@@ -138,23 +138,23 @@ variable "vcenter_domain" {
 }
 
 variable "domain_name" {
-    description = "This is the domain to use for internal DNS"
-  default = "packet.local"
+  description = "This is the domain to use for internal DNS"
+  default     = "metal.local"
 }
 
 variable "vpn_user" {
   description = "This is the username for the L2TP VPN"
-  default = "vm_admin"
+  default     = "vm_admin"
 }
 
 variable "vcenter_datacenter_name" {
   description = "This will be the name of the vCenter Datacenter object."
-  default = "Packet"
+  default     = "Metal"
 }
 
 variable "vcenter_cluster_name" {
-    description = "This will be the name of the vCenter Cluster object."
-  default = "Packet-1"
+  description = "This will be the name of the vCenter Cluster object."
+  default     = "Metal-1"
 }
 
 variable "vcenter_user_name" {
