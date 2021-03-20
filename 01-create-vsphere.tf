@@ -1,6 +1,6 @@
 module "vsphere" {
   source  = "equinix/vsphere/metal"
-  version = "2.1.0"
+  version = "2.2.0"
 
   auth_token               = var.auth_token
   organization_id          = var.organization_id

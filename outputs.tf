@@ -15,7 +15,7 @@ output "VPN_User" {
 
 output "VPN_Password" {
   description = "L2TP VPN Password"
-  value       = module.vsphere.vpn_pasword
+  value       = module.vsphere.vpn_password
 }
 
 output "vCenter_FQDN" {
