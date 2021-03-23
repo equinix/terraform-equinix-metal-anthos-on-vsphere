@@ -150,8 +150,9 @@ git clone https://github.com/packet-labs/google-anthos.git
 ```
 
 ## Initialize Terraform 
-Terraform uses modules to deploy infrastructure. In order to initialize the modules your simply run: `terraform init`. This should download five modules into a hidden directory `.terraform` 
- 
+
+Terraform uses modules to deploy infrastructure. In order to initialize the modules your simply run: `terraform init -upgrade`. This should download five modules into a hidden directory `.terraform`.
+
 ## Modify your variables 
 There are many variables which can be set to customize your install within `00-vars.tf` and `30-anthos-vars.tf`. The default variables to bring up a 3 node vSphere cluster and linux router using Equinix Metal's [c2.medium.x86](https://metal.equinix.com/product/servers/). Change each default variable at your own risk. 
 

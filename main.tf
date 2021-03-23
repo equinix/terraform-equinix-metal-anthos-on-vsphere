@@ -2,7 +2,7 @@ terraform {
   required_providers {
     metal = {
       source  = "equinix/metal"
-      version = "~> 1.0"
+      version = "~> 1.1"
     }
     local = {
       source = "hashicorp/local"
