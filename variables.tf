@@ -1,6 +1,7 @@
 variable "auth_token" {
   description = "This is your Equinix Metal API Auth token. This can also be specified with the TF_VAR_PACKET_AUTH_TOKEN shell environment variable."
   type        = string
+  sensitive   = true
 }
 
 variable "organization_id" {
@@ -175,11 +176,13 @@ variable "s3_bucket_name" {
 }
 
 variable "s3_access_key" {
-  default = "S3_ACCESS_KEY"
+  default   = "S3_ACCESS_KEY"
+  sensitive = true
 }
 
 variable "s3_secret_key" {
-  default = "S3_SECRET_KEY"
+  default   = "S3_SECRET_KEY"
+  sensitive = true
 }
 
 variable "s3_boolean" {

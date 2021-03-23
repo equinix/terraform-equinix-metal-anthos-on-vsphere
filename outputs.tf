@@ -6,6 +6,7 @@ output "VPN_Endpoint" {
 output "VPN_PSK" {
   description = "L2TP VPN Pre-Shared Key"
   value       = module.vsphere.vpn_psk
+  sensitive   = true
 }
 
 output "VPN_User" {
@@ -16,6 +17,7 @@ output "VPN_User" {
 output "VPN_Password" {
   description = "L2TP VPN Password"
   value       = module.vsphere.vpn_password
+  sensitive   = true
 }
 
 output "vCenter_FQDN" {
@@ -31,11 +33,13 @@ output "vCenter_Username" {
 output "vCenter_Password" {
   description = "The SSO Password to login to vCenter"
   value       = module.vsphere.vcenter_password
+  sensitive   = true
 }
 
 output "vCenter_Appliance_Root_Password" {
   description = "The root password to ssh or login at the console of vCanter."
   value       = module.vsphere.vcenter_root_password
+  sensitive   = true
 }
 
 output "KSA_Token_Location" {
