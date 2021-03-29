@@ -52,7 +52,7 @@ To use these Terraform files, you need to have the following Prerequisites:
       * OR
     * E-Mail support@equinixmetal.com
   * Your message across one of these mediums should be:
-    * I am working with the Google Anthos Terrafom deployment (github.com/packet-labs/google-anthos). I need an entitlement increase to allow the creation of five or more vLans. Can you please assist?
+    * I am working with the Google Anthos Terrafom deployment (github.com/equinix/terraform-metal-anthos-on-vsphere). I need an entitlement increase to allow the creation of five or more vLans. Can you please assist?
 * [VMware vCenter Server 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VC67U3B&productId=742&rPId=40665) - VMware vCenter Server Appliance ISO obtained from VMware
 * [VMware vSAN Management SDK 6.7U3](https://my.vmware.com/group/vmware/details?downloadGroup=VSAN-MGMT-SDK67U3&productId=734) - Virtual SAN Management SDK for Python, also from VMware
  
@@ -146,7 +146,7 @@ sudo mv terraform /usr/local/bin/
 To download this project, run the following command:
 
 ```bash
-git clone https://github.com/packet-labs/google-anthos.git
+git clone https://github.com/equinix/terraform-metal-anthos-on-vsphere.git
 ```
 
 ## Initialize Terraform 
@@ -380,7 +380,7 @@ To create just the vSphere environment and skip all Anthos related steps, add `a
 
 > Note that `anthos_deploy_clusters` uses a string of either `"True"` or `"False"` while  `anthos_deploy_workstation_prereqs` uses a boolean of `true` or `false`. This is because the `anthos_deploy_clusters` variable is used within a bash script while `anthos_deploy_workstation_prereqs` is used by Terraform which supports booleans.
 
-See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/packet-labs/google-anthos/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample) to see what the Anthos parameters are when the default settings are used to create the environment.
+See [anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample](https://github.com/equinix/terraform-metal-anthos-on-vsphere/blob/master/anthos/cluster/bundled-lb-admin-uc1-config.yaml.sample) to see what the Anthos parameters are when the default settings are used to create the environment.
 
 ## Use an existing Equinix Metal project
 If you have an existing Equinix Metal project you can use it assuming the project has at least 5 available vlans, Equinix Metal project has a limit of 12 Vlans and this setup uses 5 of them.
@@ -405,9 +405,9 @@ Some common issues and fixes.
 
 ### Error: The specified project contains insufficient public IPv4 space to complete the request. Please e-mail help@packet.com.
 
-Should be resolved in https://github.com/packet-labs/google-anthos/commit/f6668b1359683eb5124d6ab66457f3680072651a
+Should be resolved in https://github.com/equinix/terraform-metal-anthos-on-vsphere/commit/f6668b1359683eb5124d6ab66457f3680072651a
 
-Due to recent changes to the Equinix Metal API, new organizations may be unable to use the Terraform to build ESXi servers. Equinix Metal is aware of the issue and is planning some fixes. In the meantime, if you hit this issue, email help@equinixmetal.com and request that your organization be white listed to deploy ESXi servers with the API. You should reference this project (https://github.com/packet-labs/google-anthos) in your email.
+Due to recent changes to the Equinix Metal API, new organizations may be unable to use the Terraform to build ESXi servers. Equinix Metal is aware of the issue and is planning some fixes. In the meantime, if you hit this issue, email help@equinixmetal.com and request that your organization be white listed to deploy ESXi servers with the API. You should reference this project (https://github.com/equinix/terraform-metal-anthos-on-vsphere) in your email.
 
 ### Error: POST https://api.packet.net/ports/e2385919-fd4c-410d-b71c-568d7a517896/disbond:
 
