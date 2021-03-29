@@ -58,6 +58,20 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: ${{ env.TF_VERSION }}
+    - name: GCP Keys
+      env:
+        GCP_CONNECT_KEY: ${{ secrets.GCP_CONNECT_KEY }}
+        GCP_REGISTER_KEY: ${{ secrets.GCP_REGISTER_KEY }}
+        GCP_STACKDRIVER_KEY: ${{ secrets.GCP_STACKDRIVER_KEY }}
+        GCP_STORAGE_READER_KEY: ${{ secrets.GCP_STORAGE_READER_KEY }}
+        GCP_WHITELISTED_KEY: ${{ secrets.GCP_WHITELISTED_KEY }}
+      run: |
+        mkdir -p anthos/gcp_keys
+        echo "${GCP_CONNECT_KEY}" > anthos/gcp_keys/connect-key.json
+        echo "${GCP_REGISTER_KEY}" > anthos/gcp_keys/register-key.json
+        echo "${GCP_STACKDRIVER_KEY}" > anthos/gcp_keys/stackdriver-key.json
+        echo "${GCP_STORAGE_READER_KEY}" > anthos/gcp_keys/storage-reader-key.json
+        echo "${GCP_WHITELISTED_KEY}" > anthos/gcp_keys/whitelisted-key.json
     - name: Initialize Terraform, Modules, and Plugins
       id: init
       run: terraform init -input=false
