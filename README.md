@@ -17,6 +17,12 @@ The build (with default settings) typically takes 70-75 minutes.
 We use [Slack](https://slack.com/) as our primary communication tool for collaboration. You can join the Equinix Metal Community Slack group by going to [slack.equinixmetal.com](https://slack.equinixmetal.com/) and submitting your email address. You will receive a message with an invite link. Once you enter the Slack group, join the **#google-anthos** channel! Feel free to introduce yourself there, but know it's not mandatory.
 
 ## Latest Updates
+
+Starting with version v0.2.0, this module is published in the Terraform registy at <https://registry.terraform.io/modules/equinix/anthos-on-vsphere/metal/latest>.
+
+For current releases, with Git tags, see <https://github.com/packet-labs/google-anthos/releases>.
+Historic changes are listed here by date.
+
 ### 9-25-2020
 * GKE on-prem 1.5.0-gke.27 has been released and has been successfully tested
 ### 7-29-2020
