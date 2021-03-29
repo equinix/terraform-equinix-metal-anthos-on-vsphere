@@ -212,10 +212,6 @@ variable "relative_path_to_gcs_key" {
 variable "vcenter_iso_name" {
 }
 
-variable "storage_reader_key_name" {
-  default = "storage-reader-key.json"
-}
-
 variable "whitelisted_key_name" {
   default = "whitelisted-key.json"
 }
