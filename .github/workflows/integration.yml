@@ -1,0 +1,113 @@
+name: 'integration'
+# This workflow intends to verify that the module provisions
+# successfully for all software and infrastructure defined.
+# https://learn.hashicorp.com/tutorials/terraform/automate-terraform
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - 'LICENSE'
+      - '**.md'
+
+jobs:
+  integrate:
+    name: Integration Tests
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        tf: [0.14.8]
+        vsphere:
+        #- vmware_os: vmware_esxi_6_7
+        #  vcenter_iso: VMware-VCSA-all-6.7.0-14367737.iso
+        - vmware_os: vmware_esxi_7_0
+          vcenter_iso: VMware-VCSA-all-7.0.0-16189094.iso
+    env:
+      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      TF_IN_AUTOMATION: 1
+      TF_VERSION: ${{ matrix.tf }}
+      TF_VAR_control_plane_node_count: 0
+      TF_VAR_vcenter_iso_name: ${{ matrix.vsphere.vcenter_iso }}
+      TF_VAR_vmware_os: ${{ matrix.vsphere.vmware_os }}
+      TF_VAR_esxi_host_count: 2
+      TF_VAR_esxi_size: "c3.medium.x86"
+      TF_VAR_router_size: "c2.medium.x86"
+      TF_VAR_facility: "sjc1"
+      TF_VAR_create_project : false
+      # TODO only provide this to terraform steps that need it
+      TF_VAR_auth_token: ${{ secrets.METAL_AUTH_TOKEN }}
+      TF_VAR_organization_id: ${{ secrets.METAL_ORGANIZATION_ID }}
+      TF_VAR_s3_url: ${{ secrets.S3_URL }}
+      TF_VAR_object_store_bucket_name: ${{ secrets.S3_BUCKET_NAME }}
+      TF_VAR_s3_access_key: ${{ secrets.S3_ACCESS_KEY }}
+      TF_VAR_s3_secret_key: ${{ secrets.S3_SECRET_KEY }}
+      TF_VAR_s3_boolean: true
+      TF_VAR_anthos_version: "1.4.0-gke.13"
+      TF_VAR_anthos_gcp_project_id: ${{ secrets.ANTHOS_GCP_PROJECT_ID }}
+      # TODO remove this secret and variable if the "Cluster Name" setting works below
+      TF_VAR_anthos_user_cluster_name: ${{ secrets.ANTHOS_USER_CLUSTER_NAME }}
+    steps:
+    - name: Checkout from Github
+      uses: actions/checkout@v2
+    - name: Add SHORT_SHA env property with commit short sha
+      run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ env.TF_VERSION }}
+    - name: GCP Keys
+      env:
+        GCP_CONNECT_KEY: ${{ secrets.GCP_CONNECT_KEY }}
+        GCP_REGISTER_KEY: ${{ secrets.GCP_REGISTER_KEY }}
+        GCP_STACKDRIVER_KEY: ${{ secrets.GCP_STACKDRIVER_KEY }}
+        GCP_STORAGE_READER_KEY: ${{ secrets.GCP_STORAGE_READER_KEY }}
+        GCP_WHITELISTED_KEY: ${{ secrets.GCP_WHITELISTED_KEY }}
+      run: |
+        mkdir -p anthos/gcp_keys
+        echo "${GCP_CONNECT_KEY}" > anthos/gcp_keys/connect-key.json
+        echo "${GCP_REGISTER_KEY}" > anthos/gcp_keys/register-key.json
+        echo "${GCP_STACKDRIVER_KEY}" > anthos/gcp_keys/stackdriver-key.json
+        echo "${GCP_STORAGE_READER_KEY}" > anthos/gcp_keys/storage-reader-key.json
+        echo "${GCP_WHITELISTED_KEY}" > anthos/gcp_keys/whitelisted-key.json
+    - name: Initialize Terraform, Modules, and Plugins
+      id: init
+      run: terraform init -input=false
+    - id: project
+      uses: displague/metal-project-action@v0.10.0
+      env:
+        METAL_AUTH_TOKEN: ${{ secrets.METAL_AUTH_TOKEN }}
+    # Configure an SSH Agent with a key that can access the project
+    - name: SSH Agent
+      run: |
+        ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+        ssh-add <(echo $METAL_SSH_PRIVATE_KEY_BASE64 | base64 -d)
+    - name: Terraform Vars - Cluster Name
+      # TODO can we use this as a the anthos user cluster name?
+      run: |
+        echo "TF_VAR_vcenter_cluster_name=tfacc-${SHORT_SHA}" >> $GITHUB_ENV
+        echo "TF_VAR_anthos_user_cluster_name=tfacc-${SHORT_SHA}" >> $GITHUB_ENV
+    - name: Terraform Vars - Project ID
+      run: echo "TF_VAR_project_id=${{ steps.project.outputs.projectID }}" >> $GITHUB_ENV
+    - name: Terraform Plan
+      id: plan
+      timeout-minutes: 120
+      run: terraform plan -out=tfplan -input=false
+    - name: Terraform Apply
+      id: apply
+      timeout-minutes: 120
+      run: terraform apply -input=false tfplan
+    - name: Terraform Destroy
+      id: destroy
+      if: ${{ always() }}
+      run: terraform destroy -input=false -auto-approve
+    - name: Project Delete
+      if: ${{ always() }}
+      uses: displague/metal-sweeper-action@v0.3.0
+      with:
+        keepProject: 'false'
+      env:
+        METAL_PROJECT_ID: ${{ steps.project.outputs.projectID }}
+        METAL_AUTH_TOKEN: ${{ secrets.METAL_AUTH_TOKEN }}

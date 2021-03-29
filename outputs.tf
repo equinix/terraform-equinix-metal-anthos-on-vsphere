@@ -1,39 +1,53 @@
 output "VPN_Endpoint" {
-  value = packet_device.router.access_public_ipv4
+  description = "L2TP VPN Endpoint"
+  value       = module.vsphere.bastion_host
 }
 
 output "VPN_PSK" {
-  value = random_string.ipsec_psk.result
+  description = "L2TP VPN Pre-Shared Key"
+  value       = module.vsphere.vpn_psk
+  sensitive   = true
 }
 
 output "VPN_User" {
-  value = var.vpn_user
+  description = "L2TP VPN username"
+  value       = module.vsphere.vpn_user
 }
 
 output "VPN_Password" {
-  value = random_string.vpn_pass.result
+  description = "L2TP VPN Password"
+  value       = module.vsphere.vpn_password
+  sensitive   = true
 }
 
 output "vCenter_FQDN" {
-  value = "vcva.packet.local"
+  description = "The FQDN of vCenter (Private DNS only)"
+  value       = module.vsphere.vcenter_fqdn
 }
 
 output "vCenter_Username" {
-  value = "Administrator@vsphere.local"
+  description = "The username to login to vCenter"
+  value       = module.vsphere.vcenter_username
 }
 
 output "vCenter_Password" {
-  value = random_string.sso_password.result
+  description = "The SSO Password to login to vCenter"
+  value       = module.vsphere.vcenter_password
+  sensitive   = true
 }
 
 output "vCenter_Appliance_Root_Password" {
-  value = random_string.vcenter_password.result
+  description = "The root password to ssh or login at the console of vCanter."
+  value       = module.vsphere.vcenter_root_password
+  sensitive   = true
 }
 
 output "KSA_Token_Location" {
-  value = "The user cluster KSA Token (for logging in from GCP) is located at ./ksa_token.txt"
+  description = "The user cluster KSA Token (for logging in from GCP)"
+  value       = "${path.module}/ksa_token.txt"
 }
 
 output "SSH_Key_Location" {
-  value = "An SSH Key was created for this environment, it is saved at ~/.ssh/${local.ssh_key_name}"
+  description = "An SSH Key was created for this environment"
+  value       = module.vsphere.ssh_key_path
 }

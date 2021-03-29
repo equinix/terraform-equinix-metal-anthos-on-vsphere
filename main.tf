@@ -1,10 +1,28 @@
 terraform {
   required_providers {
-    packet = "~> 2.10.1"
+    metal = {
+      source  = "equinix/metal"
+      version = "~> 1.1"
+    }
+    local = {
+      source = "hashicorp/local"
+    }
+    null = {
+      source = "hashicorp/null"
+    }
+    random = {
+      source = "hashicorp/random"
+    }
+    template = {
+      source = "hashicorp/template"
+    }
+    tls = {
+      source = "hashicorp/tls"
+    }
   }
 }
 
-provider "packet" {
+provider "metal" {
   auth_token = var.auth_token
 }
 

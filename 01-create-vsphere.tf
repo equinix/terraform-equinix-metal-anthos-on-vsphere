@@ -1,0 +1,36 @@
+module "vsphere" {
+  source  = "equinix/vsphere/metal"
+  version = "2.3.0"
+
+  auth_token               = var.auth_token
+  organization_id          = var.organization_id
+  project_name             = var.project_name
+  create_project           = var.create_project
+  project_id               = var.project_id
+  private_subnets          = var.private_subnets
+  public_subnets           = var.public_subnets
+  router_hostname          = var.router_hostname
+  esxi_hostname            = var.esxi_hostname
+  router_size              = var.router_size
+  esxi_size                = var.esxi_size
+  facility                 = var.facility
+  router_os                = var.router_os
+  vmware_os                = var.vmware_os
+  billing_cycle            = var.billing_cycle
+  esxi_host_count          = var.esxi_host_count
+  vcenter_portgroup_name   = var.vcenter_portgroup_name
+  domain_name              = var.domain_name
+  vpn_user                 = var.vpn_user
+  vcenter_datacenter_name  = var.vcenter_datacenter_name
+  vcenter_cluster_name     = var.vcenter_cluster_name
+  vcenter_domain           = var.vcenter_domain
+  vcenter_user_name        = var.vcenter_user_name
+  s3_url                   = var.s3_url
+  s3_access_key            = var.s3_access_key
+  s3_secret_key            = var.s3_secret_key
+  s3_version               = var.s3_version
+  object_store_tool        = var.object_store_tool
+  object_store_bucket_name = var.object_store_bucket_name
+  relative_path_to_gcs_key = var.relative_path_to_gcs_key
+  vcenter_iso_name         = var.vcenter_iso_name
+}

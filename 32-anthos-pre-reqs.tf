@@ -9,12 +9,12 @@ data "template_file" "anthos_pre_reqs_script" {
 
 resource "null_resource" "anthos_pre_reqs" {
   count      = var.anthos_deploy_workstation_prereqs ? 1 : 0
-  depends_on = [null_resource.install_vpn_server]
+  depends_on = [module.vsphere]
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/${local.ssh_key_name}")
-    host        = packet_device.router.access_public_ipv4
+    private_key = file(module.vsphere.ssh_key_path)
+    host        = module.vsphere.bastion_host
   }
 
 

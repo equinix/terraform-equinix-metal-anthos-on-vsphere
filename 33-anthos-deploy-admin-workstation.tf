@@ -2,7 +2,7 @@ data "template_file" "anthos_workstation_tf_vars" {
   template = file("anthos/static-ip.tfvars")
   vars = {
     vcenter_username = "Administrator@vsphere.local"
-    vcenter_password = random_string.sso_password.result
+    vcenter_password = module.vsphere.vcenter_password
     vcenter_fqdn     = format("vcva.%s", var.domain_name)
 
     vsphere_datastore     = var.anthos_datastore
@@ -20,7 +20,7 @@ data "template_file" "anthos_upload_ova_template" {
     anthos_version       = var.anthos_version
     vmware_fqdn          = format("vcva.%s", var.domain_name)
     vmware_username      = "Administrator@vsphere.local"
-    vmware_password      = random_string.sso_password.result
+    vmware_password      = module.vsphere.vcenter_password
     vmware_datastore     = var.anthos_datastore
     vmware_resource_pool = var.anthos_resource_pool_name
   }
@@ -39,7 +39,7 @@ data "template_file" "anthos_workstation_config_yaml" {
   template = file("anthos/admin-ws-config.yaml")
   vars = {
     vcenter_username      = "Administrator@vsphere.local"
-    vcenter_password      = random_string.sso_password.result
+    vcenter_password      = module.vsphere.vcenter_password
     vcenter_fqdn          = format("vcva.%s", var.domain_name)
     vsphere_datastore     = var.anthos_datastore
     vsphere_datacenter    = var.vcenter_datacenter_name
@@ -60,12 +60,12 @@ data "template_file" "anthos_deploy_admin_ws_sh" {
 
 resource "null_resource" "anthos_deploy_workstation" {
   count      = var.anthos_deploy_workstation_prereqs ? 1 : 0
-  depends_on = [null_resource.deploy_vcva, null_resource.vsan_claim]
+  depends_on = [module.vsphere]
   connection {
     type        = "ssh"
     user        = "root"
-    private_key = file("~/.ssh/${local.ssh_key_name}")
-    host        = packet_device.router.access_public_ipv4
+    private_key = file(module.vsphere.ssh_key_path)
+    host        = module.vsphere.bastion_host
   }
 
   provisioner "file" {
