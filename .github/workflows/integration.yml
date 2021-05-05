@@ -43,7 +43,6 @@ jobs:
       TF_VAR_object_store_bucket_name: ${{ secrets.S3_BUCKET_NAME }}
       TF_VAR_s3_access_key: ${{ secrets.S3_ACCESS_KEY }}
       TF_VAR_s3_secret_key: ${{ secrets.S3_SECRET_KEY }}
-      TF_VAR_s3_boolean: true
       TF_VAR_anthos_version: "1.4.0-gke.13"
       TF_VAR_anthos_gcp_project_id: ${{ secrets.ANTHOS_GCP_PROJECT_ID }}
       # TODO remove this secret and variable if the "Cluster Name" setting works below

@@ -162,7 +162,7 @@ Terraform uses modules to deploy infrastructure. In order to initialize the modu
 ## Modify your variables 
 There are many variables which can be set to customize your install within `00-vars.tf` and `30-anthos-vars.tf`. The default variables to bring up a 3 node vSphere cluster and linux router using Equinix Metal's [c2.medium.x86](https://metal.equinix.com/product/servers/). Change each default variable at your own risk. 
 
-There are some variables you must set with a terraform.tfvars files. You need to set `auth_token` & `organization_id` to connect to Equinix Metal and the `project_name` which will be created in Equinix Metal. You will need to set `anthos_gcp_project_id` for your GCP Project ID. You will need a GCS bucket to download "Closed Source" packages such as vCenter. The GCS related variable is `gcs_bucket_name`. You need to provide the vCenter ISO file name as `vcenter_iso_name`. 
+There are some variables you must set with a terraform.tfvars files. You need to set `auth_token` & `organization_id` to connect to Equinix Metal and the `project_name` which will be created in Equinix Metal. You will need to set `anthos_gcp_project_id` for your GCP Project ID. You will need a GCS bucket to download "Closed Source" packages such as vCenter. You need to provide the vCenter ISO file name as `vcenter_iso_name`.
 
 The Anthos variables include `anthos_version` and `anthos_user_cluster_name`.
  
@@ -173,7 +173,6 @@ auth_token = "cefa5c94-e8ee-4577-bff8-1d1edca93ed8"
 organization_id = "42259e34-d300-48b3-b3e1-d5165cd14169" 
 project_name = "anthos-packet-project-1"
 anthos_gcp_project_id = "my-anthos-project" 
-gcs_bucket_name = "bucket_name/folder" 
 vcenter_iso_name = "VMware-VCSA-all-6.7.0-XXXXXXX.iso" 
 anthos_version = "1.3.0-gke.16"
 anthos_user_cluster_name = "packet-cluster-1"
@@ -204,7 +203,7 @@ Once logged in to "My VMware" the download links are as follows:
  
 You will need to find the two individual Python files in the vSAN SDK zip file and place them in the S3 bucket as shown above.
 
-For the cluster build to use the S3 option you'll need to change your variable file by adding the `s3_boolean = "true"` and including the `s3_url`, `s3_bucket_name`, `s3_access_key`, `s3_secret_key` in place of the gcs variables.
+For the cluster build to use the S3 option you'll need to change your variable file by setting `object_storage_tool` to `mc` and including the `s3_url`, `object_store_bucket_name`, `s3_access_key`, `s3_secret_key` in place of the gcs variables.
 
 Here is the create variable file command again, modified for S3:
 ```bash 
@@ -213,9 +212,9 @@ auth_token = "cefa5c94-e8ee-4577-bff8-1d1edca93ed8"
 organization_id = "42259e34-d300-48b3-b3e1-d5165cd14169" 
 project_name = "anthos-packet-project-1"
 anthos_gcp_project_id = "my-anthos-project" 
-s3_boolean = "true"
+object_store_tool = "mc"
 s3_url = "https://s3.example.com" 
-s3_bucket_name = "vmware" 
+object_store_bucket_name = "vmware"
 s3_access_key = "4fa85962-975f-4650-b603-17f1cb9dee10" 
 s3_secret_key = "becf3868-3f07-4dbb-a6d5-eacfd7512b09" 
 vcenter_iso_name = "VMware-VCSA-all-6.7.0-XXXXXXX.iso" 
